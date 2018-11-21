@@ -6,6 +6,6 @@ target 'Beerio' do
   use_frameworks!
 
   # Pods for Beerio
-  pod 'HGPlaceholders'
+  pod "SkeletonView"
 
 end
