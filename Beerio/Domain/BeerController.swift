@@ -21,10 +21,9 @@ class BeerController {
         
         let stylesUrl = baseUrl.appendingPathComponent("categories")
         var components = URLComponents(url: stylesUrl, resolvingAgainstBaseURL: false)
-        
         components?.queryItems = [URLQueryItem(name: "key", value: API_KEY)]
+        
         if let url = components?.url {
-            
             let task = URLSession.shared.dataTask(with: url) {
                 (data,response,error) in
                 let jsonDecoder = JSONDecoder()
@@ -34,8 +33,39 @@ class BeerController {
                 } else {
                     completion(nil)
                 }
-                
-                
+            }
+            task.resume()
+        } else {
+            completion(nil)
+        }
+        
+        
+    }
+    
+    //Unfortunately with this api we can't get all styles based on a category
+    //  Instead we get all styles, cache these and filter
+    func fetchStyles(for categoryId: Int, completion: @escaping ([Style]?) -> Void) {
+        guard let API_KEY = SettingsBundleHelper().API_KEY else {
+            completion(nil)
+            return}
+        
+        
+        let beersUrl = baseUrl.appendingPathComponent("styles")
+        var components = URLComponents(url: beersUrl, resolvingAgainstBaseURL: false)
+        components?.queryItems = [URLQueryItem(name: "key", value: API_KEY)]
+        
+        if let url = components?.url {
+            let task = URLSession.shared.dataTask(with: url) {
+                (data,response,error) in
+                let jsonDecoder = JSONDecoder()
+                if let data = data, let styles = try? jsonDecoder.decode(Styles.self, from: data) {
+                    
+                    completion(styles.styles.filter { (style) -> Bool in
+                        return style.categoryId == categoryId
+                    })
+                } else {
+                    completion(nil)
+                }
             }
             task.resume()
         } else {

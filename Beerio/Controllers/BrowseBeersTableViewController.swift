@@ -63,7 +63,7 @@ class BrowseBeersTableViewController: UITableViewController, UISearchBarDelegate
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 60.0
+        return 90.0
     }
 
     
@@ -101,6 +101,19 @@ class BrowseBeersTableViewController: UITableViewController, UISearchBarDelegate
     }
     func dismissKeyboard() {
         self.searchBar.endEditing(true)
+    }
+    
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if(segue.identifier == "showStylesForCategory"), let stylesController =  segue.destination as? StylesTableViewController {
+            
+            let selectedRow = tableView.indexPathForSelectedRow?.row
+            if let selectedRow = selectedRow {
+                let selectedCategory = self.categories[selectedRow]
+                stylesController.categoryId = selectedCategory.id
+            }
+        }
+
     }
     
 
