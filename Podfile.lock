@@ -1,0 +1,16 @@
+PODS:
+  - HGPlaceholders (0.3.0)
+
+DEPENDENCIES:
+  - HGPlaceholders
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - HGPlaceholders
+
+SPEC CHECKSUMS:
+  HGPlaceholders: 2df01c51b04a30acd0b8c9c7161c7cdde4541109
+
+PODFILE CHECKSUM: ebbc4dd086a49089f62827b6119692a52ce6d181
+
+COCOAPODS: 1.5.3

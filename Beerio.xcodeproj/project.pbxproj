@@ -22,9 +22,12 @@
 		AFF0786821A60B2B00A23B06 /* Beer.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFF0786721A60B2B00A23B06 /* Beer.swift */; };
 		AFF0786A21A60D5D00A23B06 /* Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFF0786921A60D5D00A23B06 /* Style.swift */; };
 		AFF0786F21A6134A00A23B06 /* StylesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFF0786E21A6134A00A23B06 /* StylesTableViewController.swift */; };
+		EC5F500029D9DD5ADB8B0ED9 /* Pods_Beerio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BAFEBC978022720F7DF4FD9 /* Pods_Beerio.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1BAFEBC978022720F7DF4FD9 /* Pods_Beerio.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Beerio.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2BBE31B14A413F3BE19936AC /* Pods-Beerio.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Beerio.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Beerio/Pods-Beerio.debug.xcconfig"; sourceTree = "<group>"; };
 		AF63E06521A5AB5A00860A90 /* Beerio.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Beerio.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF63E06821A5AB5A00860A90 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AF63E06A21A5AB5A00860A90 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -42,6 +45,7 @@
 		AFF0786721A60B2B00A23B06 /* Beer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Beer.swift; sourceTree = "<group>"; };
 		AFF0786921A60D5D00A23B06 /* Style.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Style.swift; sourceTree = "<group>"; };
 		AFF0786E21A6134A00A23B06 /* StylesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StylesTableViewController.swift; sourceTree = "<group>"; };
+		F27B086CFE1F88C80BFED1C2 /* Pods-Beerio.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Beerio.release.xcconfig"; path = "Pods/Target Support Files/Pods-Beerio/Pods-Beerio.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -49,17 +53,37 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EC5F500029D9DD5ADB8B0ED9 /* Pods_Beerio.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		59499D58E1A6B5D0EBBABB8B /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				2BBE31B14A413F3BE19936AC /* Pods-Beerio.debug.xcconfig */,
+				F27B086CFE1F88C80BFED1C2 /* Pods-Beerio.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		5E985BC03A2C816184E75592 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1BAFEBC978022720F7DF4FD9 /* Pods_Beerio.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		AF63E05C21A5AB5A00860A90 = {
 			isa = PBXGroup;
 			children = (
 				AF63E06721A5AB5A00860A90 /* Beerio */,
 				AF63E06621A5AB5A00860A90 /* Products */,
+				59499D58E1A6B5D0EBBABB8B /* Pods */,
+				5E985BC03A2C816184E75592 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -117,9 +141,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = AF63E07721A5AB5C00860A90 /* Build configuration list for PBXNativeTarget "Beerio" */;
 			buildPhases = (
+				E717DB847EE8EB078B451732 /* [CP] Check Pods Manifest.lock */,
 				AF63E06121A5AB5A00860A90 /* Sources */,
 				AF63E06221A5AB5A00860A90 /* Frameworks */,
 				AF63E06321A5AB5A00860A90 /* Resources */,
+				2E7C8E32DBB5DB2F64D3F93A /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -176,6 +202,53 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		2E7C8E32DBB5DB2F64D3F93A /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-Beerio/Pods-Beerio-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/HGPlaceholders/HGPlaceholders.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/HGPlaceholders.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Beerio/Pods-Beerio-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E717DB847EE8EB078B451732 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Beerio-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		AF63E06121A5AB5A00860A90 /* Sources */ = {
@@ -336,6 +409,7 @@
 		};
 		AF63E07821A5AB5C00860A90 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2BBE31B14A413F3BE19936AC /* Pods-Beerio.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -354,6 +428,7 @@
 		};
 		AF63E07921A5AB5C00860A90 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F27B086CFE1F88C80BFED1C2 /* Pods-Beerio.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
