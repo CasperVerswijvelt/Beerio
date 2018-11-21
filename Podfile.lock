@@ -1,16 +1,16 @@
 PODS:
-  - HGPlaceholders (0.3.0)
+  - SkeletonView (1.4.1)
 
 DEPENDENCIES:
-  - HGPlaceholders
+  - SkeletonView
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
-    - HGPlaceholders
+    - SkeletonView
 
 SPEC CHECKSUMS:
-  HGPlaceholders: 2df01c51b04a30acd0b8c9c7161c7cdde4541109
+  SkeletonView: 60d6ce7edb0cb4c7758db33c74add50392b3c475
 
-PODFILE CHECKSUM: ebbc4dd086a49089f62827b6119692a52ce6d181
+PODFILE CHECKSUM: 2986d8a899d7ce831766025caa80a8a71f34374d
 
 COCOAPODS: 1.5.3
