@@ -71,6 +71,69 @@ class BeerController {
         } else {
             completion(nil)
         }
+
+    }
+    
+    func fetchBeers(for styleId: Int, completion: @escaping ([Beer]?) -> Void) {
+        guard let API_KEY = SettingsBundleHelper().API_KEY else {
+            completion(nil)
+            return}
+        
+        
+        let beersUrl = baseUrl.appendingPathComponent("beers")
+        var components = URLComponents(url: beersUrl, resolvingAgainstBaseURL: false)
+        components?.queryItems = [URLQueryItem(name: "key", value: API_KEY),
+                                  URLQueryItem(name: "styleId", value: String(styleId))]
+        
+        if let url = components?.url {
+            let task = URLSession.shared.dataTask(with: url) {
+                (data,response,error) in
+                let jsonDecoder = JSONDecoder()
+                print(try? JSONSerialization.jsonObject(with: data!, options: []))
+                try! jsonDecoder.decode(Beers.self, from: data!)
+                if let data = data, let beers = try? jsonDecoder.decode(Beers.self, from: data) {
+                    
+                    completion(beers.beers)
+                } else {
+                    completion(nil)
+                }
+            }
+            task.resume()
+        } else {
+            completion(nil)
+        }
+        
+        
+    }
+    
+    
+    //To fetch a specific beer by id
+    func fetchStyles( beerId: Int, completion: @escaping (Beer?) -> Void) {
+        guard let API_KEY = SettingsBundleHelper().API_KEY else {
+            completion(nil)
+            return}
+        
+        
+        let beerUrl = baseUrl.appendingPathComponent("styles")
+        var components = URLComponents(url: beerUrl, resolvingAgainstBaseURL: false)
+        components?.queryItems = [URLQueryItem(name: "key", value: API_KEY),
+                                  URLQueryItem(name: "id", value: String(beerId))]
+        
+        if let url = components?.url {
+            let task = URLSession.shared.dataTask(with: url) {
+                (data,response,error) in
+                let jsonDecoder = JSONDecoder()
+                if let data = data, let beer = try? jsonDecoder.decode(Beer.self, from: data) {
+                    
+                    completion(beer)
+                } else {
+                    completion(nil)
+                }
+            }
+            task.resume()
+        } else {
+            completion(nil)
+        }
         
         
     }

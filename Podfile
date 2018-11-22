@@ -6,6 +6,6 @@ target 'Beerio' do
   use_frameworks!
 
   # Pods for Beerio
-  pod "SkeletonView"
+  pod "RealmSwift"
 
 end

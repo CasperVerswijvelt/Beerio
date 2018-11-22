@@ -1,58 +1,61 @@
 //
-//  MyBeersTableViewController.swift
+//  BeersTableViewController.swift
 //  Beerio
 //
-//  Created by Casper Verswijvelt on 21/11/2018.
+//  Created by Casper Verswijvelt on 22/11/2018.
 //  Copyright © 2018 Casper Verswijvelt. All rights reserved.
 //
 
 import UIKit
 
-class MyBeersTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-    @IBOutlet weak var tableView: UITableView!
+class BeersTableViewController: LoaderTableViewController {
     
-    @IBOutlet weak var segmentedControl: UISegmentedControl!
+    var beers : [Beer] = []
+    var style : Style?
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.delegate = self
-        tableView.dataSource = self
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        if let style = style {
+            loadBeers(for: style.id)
+        }
     }
 
-    // MARK: - Table view data source
-
-    func numberOfSections(in tableView: UITableView) -> Int {
+    // Data source methods
+    override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
     }
 
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        
-        return 1
+        return beers.count
     }
-    
-    
 
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "beerCell", for: indexPath)
 
         // Configure the cell...
-        cell.textLabel?.text = "Test beer"
+        let beer = beers[indexPath.row]
 
+        cell.textLabel?.text = beer.name
+        
         return cell
     }
     
-    @IBAction func segmentedControlValueChanged(_ sender: Any) {
-        tableView.reloadData()
+    //Loading data from API
+    func loadBeers(for styleId: Int) {
+        showLoader()
+        BeerController.singleton.fetchBeers(for: styleId) {beers in
+            if let beers = beers {
+                self.beers = beers
+                self.tableView.reloadData()
+            }
+            self.hideLoader()
+        }
     }
     
+
     /*
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {

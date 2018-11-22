@@ -31,7 +31,7 @@
         <!--Beer Types-->
         <scene sceneID="3dn-Kj-3xL">
             <objects>
-                <tableViewController id="4NP-me-7x4" customClass="BrowseBeersTableViewController" customModule="Beerio" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="4NP-me-7x4" customClass="CategoriesTableViewController" customModule="Beerio" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="ATk-wA-PkH">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -86,8 +86,15 @@
                             <outlet property="delegate" destination="4NP-me-7x4" id="9Iq-Yu-Jdv"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Beer Types" id="ecq-pO-gvX"/>
+                    <navigationItem key="navigationItem" title="Beer Types" id="ecq-pO-gvX">
+                        <barButtonItem key="rightBarButtonItem" style="plain" systemItem="refresh" id="8bU-rX-E9C">
+                            <connections>
+                                <action selector="refreshTapped:" destination="4NP-me-7x4" id="iBo-vp-ekr"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
+                        <outlet property="refreshButton" destination="8bU-rX-E9C" id="Ge5-0h-z8Y"/>
                         <outlet property="searchBar" destination="iCJ-xI-Lfa" id="jZl-kp-yKn"/>
                         <outlet property="searchDisplayController" destination="dsV-EZ-Vcf" id="8Id-2V-edG"/>
                     </connections>
@@ -120,6 +127,9 @@
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="JJY-eq-TDf" kind="show" identifier="showBeersForStyle" id="v7t-H1-gPo"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -131,6 +141,34 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="92Q-Br-U6a" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1991" y="331"/>
+        </scene>
+        <!--Beers Table View Controller-->
+        <scene sceneID="8vb-5L-UU8">
+            <objects>
+                <tableViewController id="JJY-eq-TDf" customClass="BeersTableViewController" customModule="Beerio" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="pTr-F5-IsH">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="beerCell" id="uY3-aS-alb">
+                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="uY3-aS-alb" id="hXw-BV-gnn">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="JJY-eq-TDf" id="gLm-3w-kaw"/>
+                            <outlet property="delegate" destination="JJY-eq-TDf" id="ymW-V7-T3R"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="yqi-LA-7zd" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2895" y="331"/>
         </scene>
         <!--Item-->
         <scene sceneID="7R0-IP-Y0c">
