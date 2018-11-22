@@ -1,4 +1,5 @@
 PODS:
+  - DZNEmptyDataSet (1.8.1)
   - Realm (3.11.2):
     - Realm/Headers (= 3.11.2)
   - Realm/Headers (3.11.2)
@@ -6,17 +7,20 @@ PODS:
     - Realm (= 3.11.2)
 
 DEPENDENCIES:
+  - DZNEmptyDataSet
   - RealmSwift
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
+    - DZNEmptyDataSet
     - Realm
     - RealmSwift
 
 SPEC CHECKSUMS:
+  DZNEmptyDataSet: 9525833b9e68ac21c30253e1d3d7076cc828eaa7
   Realm: 864477d028db77f7c5a0cba64a4892ad53db128a
   RealmSwift: 12b8262fc08020b47de4fd88eb3d5c9425b34ec7
 
-PODFILE CHECKSUM: 06e114baea323965713a8a522271caf0f481d343
+PODFILE CHECKSUM: 558acc5aedac25c075e8fd81fdf804c0d1ccc1ca
 
 COCOAPODS: 1.5.3

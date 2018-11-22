@@ -6,6 +6,8 @@ target 'Beerio' do
   use_frameworks!
 
   # Pods for Beerio
-  pod "RealmSwift"
+  pod 'RealmSwift'
+  pod 'DZNEmptyDataSet'
+
 
 end

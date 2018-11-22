@@ -89,10 +89,7 @@ class BeerController {
             let task = URLSession.shared.dataTask(with: url) {
                 (data,response,error) in
                 let jsonDecoder = JSONDecoder()
-                print(try? JSONSerialization.jsonObject(with: data!, options: []))
-                try! jsonDecoder.decode(Beers.self, from: data!)
                 if let data = data, let beers = try? jsonDecoder.decode(Beers.self, from: data) {
-                    
                     completion(beers.beers)
                 } else {
                     completion(nil)

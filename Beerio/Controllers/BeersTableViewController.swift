@@ -7,10 +7,11 @@
 //
 
 import UIKit
+import DZNEmptyDataSet
 
 class BeersTableViewController: LoaderTableViewController {
     
-    var beers : [Beer] = []
+    var beers : [Beer]?
     var style : Style?
 
     override func viewDidLoad() {
@@ -18,6 +19,11 @@ class BeersTableViewController: LoaderTableViewController {
         if let style = style {
             loadBeers(for: style.id)
         }
+        
+        //Empty Dataset
+        tableView.emptyDataSetSource = self
+        tableView.emptyDataSetDelegate = self
+        tableView.tableFooterView = UIView()
     }
 
     // Data source methods
@@ -28,7 +34,7 @@ class BeersTableViewController: LoaderTableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return beers.count
+        return beers?.count ?? 0
     }
 
     
@@ -36,9 +42,9 @@ class BeersTableViewController: LoaderTableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "beerCell", for: indexPath)
 
         // Configure the cell...
-        let beer = beers[indexPath.row]
+        let beer = beers?[indexPath.row]
 
-        cell.textLabel?.text = beer.name
+        cell.textLabel?.text = beer?.name
         
         return cell
     }
@@ -47,13 +53,52 @@ class BeersTableViewController: LoaderTableViewController {
     func loadBeers(for styleId: Int) {
         showLoader()
         BeerController.singleton.fetchBeers(for: styleId) {beers in
-            if let beers = beers {
-                self.beers = beers
-                self.tableView.reloadData()
+            
+            DispatchQueue.main.async {
+                if let beers = beers {
+                    self.beers = beers
+                    self.tableView.reloadData()
+                }
+                self.hideLoader()
+                self.tableView.reloadEmptyDataSet()
             }
-            self.hideLoader()
         }
     }
+    
+    // Dealing with empty datasets
+    // Add title for empty dataset
+    func title(forEmptyDataSet _: UIScrollView!) -> NSAttributedString! {
+        let str = "Woops!"
+        let attrs = [NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: UIFont.TextStyle.headline)]
+        return NSAttributedString(string: str, attributes: attrs)
+    }
+    
+    // Add description/subtitle on empty dataset
+    func description(forEmptyDataSet _: UIScrollView!) -> NSAttributedString! {
+        let str = "No beers could be found for this style :'("
+        let attrs = [NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: UIFont.TextStyle.body)]
+        return NSAttributedString(string: str, attributes: attrs)
+    }
+    
+    // Add your image
+    func image(forEmptyDataSet _: UIScrollView!) -> UIImage! {
+        return UIImage(named: "beerIcon.pdf")
+    }
+    
+    // Add your button
+    func buttonTitle(forEmptyDataSet _: UIScrollView!, for _: UIControl.State) -> NSAttributedString! {
+        let str = "Yeet"
+        let attrs = [NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: UIFont.TextStyle.callout), NSAttributedString.Key.foregroundColor: UIColor.blue]
+        return NSAttributedString(string: str, attributes: attrs)
+    }
+    
+    // Add action for button
+    func emptyDataSetDidTapButton(_: UIScrollView!) {
+        let ac = UIAlertController(title: "Button tapped!", message: nil, preferredStyle: .alert)
+        ac.addAction(UIAlertAction(title: "Hurray", style: .default, handler: nil))
+        present(ac, animated: true, completion: nil)
+    }
+    
     
 
     /*
