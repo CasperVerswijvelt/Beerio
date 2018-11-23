@@ -30,19 +30,30 @@ class Beer : Codable{
         
         //Section with basic info (name and description)
         var basicInfo = BeerSectionInfo(header: "Basic info", cells: [])
-        basicInfo.cells.append(BeerCellInfo(key: "Name", value: name, cellType: .SIMPLE))
-        basicInfo.cells.appendCellIfValueIsPresent(key: "Description", value: description, cellType : .LARGE)
+        basicInfo.cells.append(BeerCellInfo(key: "Name", value: name, cellType: .SIMPLE,url:nil))
+        basicInfo.cells.appendCellIfValueIsPresent(key: "Description", value: description, cellType : .LARGE,url:nil)
         
         //Section with numbers and stuff
         var numbers = BeerSectionInfo(header: "Numbers and stuff", cells: [])
-        numbers.cells.appendCellIfValueIsPresent(key: "Original Gravity", value: originalGravity, cellType: .SIMPLE)
-        numbers.cells.appendCellIfValueIsPresent(key: "Alcohol By Volume", value: alcoholByVolume, cellType: .SIMPLE)
-        numbers.cells.appendCellIfValueIsPresent(key: "International Bittering Unit", value: internationalBitteringUnit, cellType: .SIMPLE)
-        numbers.cells.appendCellIfValueIsPresent(key: "Serving Temperature", value: servingTemperature, cellType: .SIMPLE)
+        numbers.cells.appendCellIfValueIsPresent(key: "Original Gravity", value: originalGravity, cellType: .SIMPLE,url:nil)
+        numbers.cells.appendCellIfValueIsPresent(key: "Alcohol By Volume", value: alcoholByVolume, cellType: .SIMPLE,url:nil)
+        numbers.cells.appendCellIfValueIsPresent(key: "International Bittering Unit", value: internationalBitteringUnit, cellType: .SIMPLE, url:nil)
+        numbers.cells.appendCellIfValueIsPresent(key: "Serving Temperature", value: servingTemperature, cellType: .SIMPLE,url:nil)
+        
+        //Section about other random stuff
+        var random = BeerSectionInfo(header: "Other", cells: [])
+        random.cells.appendCellIfValueIsPresent(key: "Food Pairings", value: foodPairings, cellType: CellType.LARGE,url:nil)
+        random.cells.appendCellIfValueIsPresent(key: "Is still made", value: isRetired, cellType: CellType.SIMPLE,url:nil)
+        random.cells.appendCellIfValueIsPresent(key: "Is organic", value: isOrganic, cellType: CellType.SIMPLE,url:nil)
+        random.cells.appendCellIfValueIsPresent(key: "Year", value: year, cellType: CellType.SIMPLE,url:nil)
+        random.cells.appendCellIfValueIsPresent(key: "Bottle Label", value: "Show image", cellType: CellType.IMAGE, url: labels?.large)
+        
+        
         
         
         sections.appendSectionIfHasCells(basicInfo)
         sections.appendSectionIfHasCells(numbers)
+        sections.appendSectionIfHasCells(random)
         
         
         return sections
@@ -88,9 +99,14 @@ extension Array where Iterator.Element == BeerSectionInfo  {
 }
 
 extension Array where Iterator.Element == BeerCellInfo  {
-    mutating func appendCellIfValueIsPresent(key: String, value: String?, cellType: CellType) {
+    mutating func appendCellIfValueIsPresent(key: String, value: Any?, cellType: CellType, url: URL?) {
         if let value = value {
-            self.append(BeerCellInfo(key: key, value: value, cellType: cellType) )
+            if let value = value as? String {
+                self.append(BeerCellInfo(key: key, value: value, cellType: cellType, url: url) )
+            }
+            if let value = value as? Int {
+                self.append(BeerCellInfo(key: key, value: String(value), cellType: cellType, url: url) )
+            }
         }
     }
 }

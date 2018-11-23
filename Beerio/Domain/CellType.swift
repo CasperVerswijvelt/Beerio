@@ -11,5 +11,6 @@ import Foundation
 enum CellType: String {
     case SIMPLE = "beerCellSimple"
     case LARGE = "beerCellLarge"
+    case IMAGE = "imageCell"
 }
 

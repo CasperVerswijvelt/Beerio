@@ -12,6 +12,6 @@ struct BeerCellInfo {
     var key : String
     var value : String
     var cellType : CellType = CellType.SIMPLE
-    
+    var url : URL?
     
 }

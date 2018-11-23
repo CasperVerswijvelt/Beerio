@@ -114,7 +114,7 @@ class CategoriesTableViewController: LoaderTableViewController, UISearchBarDeleg
             
             let selectedRow = tableView.indexPathForSelectedRow?.row
             if let selectedRow = selectedRow {
-                let selectedCategory = self.categories[selectedRow]
+                let selectedCategory = self.filteredCategories[selectedRow]
                 stylesController.category = selectedCategory
             }
         }
