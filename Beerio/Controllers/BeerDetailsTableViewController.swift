@@ -60,7 +60,9 @@ class BeerDetailsTableViewController: LoaderTableViewController {
         let beerSectionInfo = beerDetails[section]
         return beerSectionInfo.header
     }
-    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
     
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

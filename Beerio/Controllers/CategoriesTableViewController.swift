@@ -29,6 +29,7 @@ class CategoriesTableViewController: LoaderTableViewController, UISearchBarDeleg
             updateFilteredList()
         }
     }
+    let alert = UIAlertController.init(title: "API Key Incorrect", message: "It seems that you either have not entered your BreweryDB API key in the settings yet, or it is invalid. Please go to 'Settings App -> Beerio -> BreweryDB API Key' and input a valid API Key.", preferredStyle: .alert)
     
     
     //Override methods
@@ -38,7 +39,10 @@ class CategoriesTableViewController: LoaderTableViewController, UISearchBarDeleg
         self.navigationItem.hidesSearchBarWhenScrolling = true
         self.searchBar.delegate = self;
         
-        loadCategories()
+        doInitialAPICheck()
+        NotificationCenter.default.addObserver(self, selector: #selector(self.doInitialAPICheck), name: UserDefaults.didChangeNotification, object: nil)
+        
+        
     }
     
     
@@ -56,6 +60,23 @@ class CategoriesTableViewController: LoaderTableViewController, UISearchBarDeleg
                 }
             }
             self.hideLoader()
+        }
+    }
+    
+    @objc func doInitialAPICheck() {
+        showLoader()
+        NetworkController.singleton.isAPIKeyValid() { bool in
+            DispatchQueue.main.async {
+                if(!bool) {
+                    if(!self.alert.isBeingPresented) {
+                        self.present(self.alert, animated : true)
+                    }
+                    
+                } else {
+                    self.dismiss(animated: true, completion: nil)
+                    self.loadCategories()
+                }
+            }
         }
     }
     

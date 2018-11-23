@@ -25,6 +25,7 @@
 		AFD5821221A80FB800296746 /* BeerDetailsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFD5821121A80FB800296746 /* BeerDetailsTableViewController.swift */; };
 		AFD5821421A8462900296746 /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFD5821321A8462900296746 /* ImageViewController.swift */; };
 		AFD5821921A89B7C00296746 /* LocalController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFD5821821A89B7C00296746 /* LocalController.swift */; };
+		AFD5821C21A8B26200296746 /* ApiError.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFD5821B21A8B26100296746 /* ApiError.swift */; };
 		AFF0786021A5D8D800A23B06 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = AFF0785F21A5D8D800A23B06 /* Settings.bundle */; };
 		AFF0786221A5DB9800A23B06 /* SettingsBundleHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFF0786121A5DB9800A23B06 /* SettingsBundleHelper.swift */; };
 		AFF0786421A5E64E00A23B06 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFF0786321A5E64E00A23B06 /* Category.swift */; };
@@ -58,6 +59,7 @@
 		AFD5821121A80FB800296746 /* BeerDetailsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeerDetailsTableViewController.swift; sourceTree = "<group>"; };
 		AFD5821321A8462900296746 /* ImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewController.swift; sourceTree = "<group>"; };
 		AFD5821821A89B7C00296746 /* LocalController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalController.swift; sourceTree = "<group>"; };
+		AFD5821B21A8B26100296746 /* ApiError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiError.swift; sourceTree = "<group>"; };
 		AFF0785F21A5D8D800A23B06 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		AFF0786121A5DB9800A23B06 /* SettingsBundleHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsBundleHelper.swift; sourceTree = "<group>"; };
 		AFF0786321A5E64E00A23B06 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
@@ -118,6 +120,7 @@
 		AF63E06721A5AB5A00860A90 /* Beerio */ = {
 			isa = PBXGroup;
 			children = (
+				AFD5821A21A8B25400296746 /* Errors */,
 				AFD077E521A6DFA800D49D4A /* Views */,
 				AF63E08221A5BB9700860A90 /* Domain */,
 				AF63E07D21A5B2DD00860A90 /* Controllers */,
@@ -170,6 +173,14 @@
 				AFF0786521A605CA00A23B06 /* CategoryTableViewCell.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		AFD5821A21A8B25400296746 /* Errors */ = {
+			isa = PBXGroup;
+			children = (
+				AFD5821B21A8B26100296746 /* ApiError.swift */,
+			);
+			path = Errors;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -308,6 +319,7 @@
 				AF63E08421A5BC8000860A90 /* NetworkController.swift in Sources */,
 				AFD077ED21A75F4D00D49D4A /* BeersTableViewController.swift in Sources */,
 				AFF0786221A5DB9800A23B06 /* SettingsBundleHelper.swift in Sources */,
+				AFD5821C21A8B26200296746 /* ApiError.swift in Sources */,
 				AFD077E721A6E52800D49D4A /* LoaderTableViewController.swift in Sources */,
 				AFF0786421A5E64E00A23B06 /* Category.swift in Sources */,
 				AFD077EB21A75B9600D49D4A /* Labels.swift in Sources */,

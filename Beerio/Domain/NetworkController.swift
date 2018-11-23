@@ -14,7 +14,7 @@ class NetworkController {
     
     let baseUrl : URL = URL(string: "https://api.brewerydb.com/v2/")!
     
-    func fetchCategories(completion: @escaping ([Category]?) -> Void) {
+    func fetchCategories(completion: @escaping (_ categories : [Category]?) -> Void) {
         guard let API_KEY = SettingsBundleHelper().API_KEY else {
             
             return}
@@ -29,7 +29,6 @@ class NetworkController {
                 (data,response,error) in
                 let jsonDecoder = JSONDecoder()
                 if let data = data, let categories = try? jsonDecoder.decode(Categories.self, from: data) {
-                    
                     completion(categories.categories)
                 } else {
                     completion(nil)
@@ -60,7 +59,6 @@ class NetworkController {
                 (data,response,error) in
                 let jsonDecoder = JSONDecoder()
                 if let data = data, let styles = try? jsonDecoder.decode(Styles.self, from: data) {
-                    
                     completion(styles.styles.filter { (style) -> Bool in
                         return style.categoryId == categoryId
                     })
@@ -122,7 +120,6 @@ class NetworkController {
                 (data,response,error) in
                 let jsonDecoder = JSONDecoder()
                 if let data = data, let beer = try? jsonDecoder.decode(Beer.self, from: data) {
-                    
                     completion(beer)
                 } else {
                     completion(nil)
@@ -143,6 +140,27 @@ class NetworkController {
                 completion(image)
             } else {
                 completion(nil)
+            }
+        }
+        
+        task.resume()
+    }
+    
+    func isAPIKeyValid(completion: @escaping (Bool) -> Void) {
+        guard let API_KEY = SettingsBundleHelper().API_KEY else {
+            completion(false)
+            return}
+        var components = URLComponents.init(url: baseUrl.appendingPathComponent("beers"), resolvingAgainstBaseURL: false)
+        components?.queryItems = [URLQueryItem(name: "key", value: API_KEY), URLQueryItem(name: "name", value: "easterEgg:)")]
+        let task = URLSession.shared.dataTask(with: components!.url!) { (data,
+            response, error) in
+            if let data = data, let json = try?JSONSerialization.jsonObject(with: data, options: []) as? [String:String], json?["errorMessage"] == "API key could not be found" {
+                
+                completion(false)
+                return
+            } else {
+                completion(true)
+                return
             }
         }
         

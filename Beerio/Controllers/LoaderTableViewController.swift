@@ -23,8 +23,8 @@ class LoaderTableViewController :  UITableViewController, DZNEmptyDataSetSource,
     
     //Loader methods
     func showLoader() {
-        self.isShowingLoader = true
         DispatchQueue.main.async {
+            self.isShowingLoader = true
             self.tableView.reloadData()
             self.activityIndicatorView.startAnimating()
             self.tableView.separatorStyle = .none
@@ -32,8 +32,8 @@ class LoaderTableViewController :  UITableViewController, DZNEmptyDataSetSource,
         }
     }
     func hideLoader() {
-        self.isShowingLoader = false
         DispatchQueue.main.async {
+            self.isShowingLoader = false
             self.activityIndicatorView.stopAnimating()
             self.tableView.separatorStyle = .singleLine
             self.tableView.reloadEmptyDataSet()
