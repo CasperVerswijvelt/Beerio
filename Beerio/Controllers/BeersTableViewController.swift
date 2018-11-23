@@ -99,6 +99,12 @@ class BeersTableViewController: LoaderTableViewController {
         present(ac, animated: true, completion: nil)
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showBeer", let dest = segue.destination as? BeerDetailsTableViewController, let beerIndex = tableView.indexPathForSelectedRow?.row, let beers = beers {
+            dest.beer = beers[beerIndex]
+        }
+    }
+    
     
 
     /*

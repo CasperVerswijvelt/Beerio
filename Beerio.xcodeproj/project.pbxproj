@@ -19,6 +19,10 @@
 		AFD077E921A75A9B00D49D4A /* Glass.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFD077E821A75A9B00D49D4A /* Glass.swift */; };
 		AFD077EB21A75B9600D49D4A /* Labels.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFD077EA21A75B9600D49D4A /* Labels.swift */; };
 		AFD077ED21A75F4D00D49D4A /* BeersTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFD077EC21A75F4D00D49D4A /* BeersTableViewController.swift */; };
+		AFD5820C21A80B6E00296746 /* BeerSectionInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFD5820B21A80B6E00296746 /* BeerSectionInfo.swift */; };
+		AFD5820E21A80D3900296746 /* BeerCellInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFD5820D21A80D3900296746 /* BeerCellInfo.swift */; };
+		AFD5821021A80DEF00296746 /* CellType.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFD5820F21A80DEF00296746 /* CellType.swift */; };
+		AFD5821221A80FB800296746 /* BeerDetailsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFD5821121A80FB800296746 /* BeerDetailsTableViewController.swift */; };
 		AFF0786021A5D8D800A23B06 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = AFF0785F21A5D8D800A23B06 /* Settings.bundle */; };
 		AFF0786221A5DB9800A23B06 /* SettingsBundleHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFF0786121A5DB9800A23B06 /* SettingsBundleHelper.swift */; };
 		AFF0786421A5E64E00A23B06 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFF0786321A5E64E00A23B06 /* Category.swift */; };
@@ -46,6 +50,10 @@
 		AFD077E821A75A9B00D49D4A /* Glass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Glass.swift; sourceTree = "<group>"; };
 		AFD077EA21A75B9600D49D4A /* Labels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Labels.swift; sourceTree = "<group>"; };
 		AFD077EC21A75F4D00D49D4A /* BeersTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeersTableViewController.swift; sourceTree = "<group>"; };
+		AFD5820B21A80B6E00296746 /* BeerSectionInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeerSectionInfo.swift; sourceTree = "<group>"; };
+		AFD5820D21A80D3900296746 /* BeerCellInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeerCellInfo.swift; sourceTree = "<group>"; };
+		AFD5820F21A80DEF00296746 /* CellType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellType.swift; sourceTree = "<group>"; };
+		AFD5821121A80FB800296746 /* BeerDetailsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeerDetailsTableViewController.swift; sourceTree = "<group>"; };
 		AFF0785F21A5D8D800A23B06 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		AFF0786121A5DB9800A23B06 /* SettingsBundleHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsBundleHelper.swift; sourceTree = "<group>"; };
 		AFF0786321A5E64E00A23B06 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
@@ -129,6 +137,7 @@
 				AF63E08021A5BB2600860A90 /* CategoriesTableViewController.swift */,
 				AFF0786E21A6134A00A23B06 /* StylesTableViewController.swift */,
 				AFD077EC21A75F4D00D49D4A /* BeersTableViewController.swift */,
+				AFD5821121A80FB800296746 /* BeerDetailsTableViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -142,6 +151,9 @@
 				AFF0786921A60D5D00A23B06 /* Style.swift */,
 				AFD077E821A75A9B00D49D4A /* Glass.swift */,
 				AFD077EA21A75B9600D49D4A /* Labels.swift */,
+				AFD5820B21A80B6E00296746 /* BeerSectionInfo.swift */,
+				AFD5820D21A80D3900296746 /* BeerCellInfo.swift */,
+				AFD5820F21A80DEF00296746 /* CellType.swift */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -291,9 +303,13 @@
 				AFD077E721A6E52800D49D4A /* LoaderTableViewController.swift in Sources */,
 				AFF0786421A5E64E00A23B06 /* Category.swift in Sources */,
 				AFD077EB21A75B9600D49D4A /* Labels.swift in Sources */,
+				AFD5820C21A80B6E00296746 /* BeerSectionInfo.swift in Sources */,
+				AFD5821021A80DEF00296746 /* CellType.swift in Sources */,
 				AF63E06921A5AB5A00860A90 /* AppDelegate.swift in Sources */,
 				AFF0786621A605CA00A23B06 /* CategoryTableViewCell.swift in Sources */,
+				AFD5821221A80FB800296746 /* BeerDetailsTableViewController.swift in Sources */,
 				AFF0786A21A60D5D00A23B06 /* Style.swift in Sources */,
+				AFD5820E21A80D3900296746 /* BeerCellInfo.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

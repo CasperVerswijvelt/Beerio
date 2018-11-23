@@ -11,7 +11,6 @@ import Foundation
 class Beer : Codable{
     var id: String
     var name: String
-    var nameDisplay: String?
     var description: String?
     var foodPairings: String?
     var originalGravity: String?
@@ -26,11 +25,19 @@ class Beer : Codable{
     var year: Int?
     
     
+    func getValues() -> [BeerSectionInfo] {
+        var sections : [BeerSectionInfo] = []
+        sections.append(BeerSectionInfo(header: "Basic info", cells: [
+            BeerCellInfo(key: "Name", value: name, cellType: .SIMPLE),
+            BeerCellInfo(key: "Description", value: description ?? "Description unknown", cellType : .LARGE),
+            ]))
+        return sections
+    }
+    
     
     private enum CodingKeys : String, CodingKey {
         case id
         case name
-        case nameDisplay
         case description
         case foodPairings
         case originalGravity
@@ -44,6 +51,10 @@ class Beer : Codable{
         case status
         case year
     }
+    
+    
+    
+    
 }
 
 class Beers : Codable {
