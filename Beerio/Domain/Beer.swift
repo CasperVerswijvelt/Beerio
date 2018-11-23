@@ -27,10 +27,24 @@ class Beer : Codable{
     
     func getValues() -> [BeerSectionInfo] {
         var sections : [BeerSectionInfo] = []
-        sections.append(BeerSectionInfo(header: "Basic info", cells: [
-            BeerCellInfo(key: "Name", value: name, cellType: .SIMPLE),
-            BeerCellInfo(key: "Description", value: description ?? "Description unknown", cellType : .LARGE),
-            ]))
+        
+        //Section with basic info (name and description)
+        var basicInfo = BeerSectionInfo(header: "Basic info", cells: [])
+        basicInfo.cells.append(BeerCellInfo(key: "Name", value: name, cellType: .SIMPLE))
+        basicInfo.cells.appendCellIfValueIsPresent(key: "Description", value: description, cellType : .LARGE)
+        
+        //Section with numbers and stuff
+        var numbers = BeerSectionInfo(header: "Numbers and stuff", cells: [])
+        numbers.cells.appendCellIfValueIsPresent(key: "Original Gravity", value: originalGravity, cellType: .SIMPLE)
+        numbers.cells.appendCellIfValueIsPresent(key: "Alcohol By Volume", value: alcoholByVolume, cellType: .SIMPLE)
+        numbers.cells.appendCellIfValueIsPresent(key: "International Bittering Unit", value: internationalBitteringUnit, cellType: .SIMPLE)
+        numbers.cells.appendCellIfValueIsPresent(key: "Serving Temperature", value: servingTemperature, cellType: .SIMPLE)
+        
+        
+        sections.appendSectionIfHasCells(basicInfo)
+        sections.appendSectionIfHasCells(numbers)
+        
+        
         return sections
     }
     
@@ -62,5 +76,21 @@ class Beers : Codable {
     
     private enum CodingKeys : String, CodingKey {
         case beers = "data"
+    }
+}
+
+extension Array where Iterator.Element == BeerSectionInfo  {
+    mutating func appendSectionIfHasCells(_ section : BeerSectionInfo) {
+        if(section.cells.count != 0) {
+            self.append(section)
+        }
+    }
+}
+
+extension Array where Iterator.Element == BeerCellInfo  {
+    mutating func appendCellIfValueIsPresent(key: String, value: String?, cellType: CellType) {
+        if let value = value {
+            self.append(BeerCellInfo(key: key, value: value, cellType: cellType) )
+        }
     }
 }

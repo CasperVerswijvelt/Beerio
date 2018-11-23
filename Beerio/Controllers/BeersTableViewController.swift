@@ -17,6 +17,7 @@ class BeersTableViewController: LoaderTableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         if let style = style {
+            self.navigationItem.title = style.name
             loadBeers(for: style.id)
         }
         

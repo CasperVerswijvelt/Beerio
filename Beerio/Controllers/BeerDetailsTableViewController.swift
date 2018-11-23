@@ -13,6 +13,7 @@ class BeerDetailsTableViewController: LoaderTableViewController {
     var beer : Beer? {
         didSet {
             if let beer = beer {
+                self.navigationItem.title = beer.name
                beerDetails = beer.getValues()
                 tableView.reloadData()
             }
@@ -46,14 +47,7 @@ class BeerDetailsTableViewController: LoaderTableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let beerCellInfo = beerDetails[indexPath.section].cells[indexPath.row]
-        var cellIdentifier : String
-        switch(beerCellInfo.cellType) {
-        case CellType.SIMPLE:
-            cellIdentifier = "beerCellSimple"
-        case CellType.LARGE:
-            cellIdentifier = "beerCellLarge"
-        }
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: beerCellInfo.cellType.rawValue, for: indexPath)
 
         // Configure the cell...
         cell.textLabel?.text = beerCellInfo.key

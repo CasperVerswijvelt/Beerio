@@ -8,7 +8,8 @@
 
 import Foundation
 
-enum CellType {
-    case SIMPLE
-    case LARGE
+enum CellType: String {
+    case SIMPLE = "beerCellSimple"
+    case LARGE = "beerCellLarge"
 }
+
