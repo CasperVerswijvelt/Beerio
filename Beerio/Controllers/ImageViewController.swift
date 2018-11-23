@@ -24,9 +24,11 @@ class ImageViewController: UIViewController {
 
     func loadImage() {
         if let imageURL = imageURL {
+            imageView.showLoader()
             BeerController.singleton.fetchImage(with: imageURL) {image in
                 DispatchQueue.main.async {
                     self.imageView.image = image
+                    self.imageView.hideLoader()
                 }
             }
         }

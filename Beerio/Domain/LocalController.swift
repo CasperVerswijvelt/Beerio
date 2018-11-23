@@ -1,5 +1,5 @@
 //
-//  BeerCellInfo.swift
+//  LocalController.swift
 //  Beerio
 //
 //  Created by Casper Verswijvelt on 23/11/2018.
@@ -8,10 +8,8 @@
 
 import Foundation
 
-struct BeerCellInfo {
-    var key : String
-    var value : String?
-    var cellType : CellType = CellType.SIMPLE
-    var url : URL?
+class LocalController {
+    static let singleton : LocalController = LocalController()
+    
     
 }

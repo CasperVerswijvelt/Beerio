@@ -101,11 +101,15 @@ extension Array where Iterator.Element == BeerSectionInfo  {
 extension Array where Iterator.Element == BeerCellInfo  {
     mutating func appendCellIfValueIsPresent(key: String, value: Any?, cellType: CellType, url: URL?) {
         if let value = value {
+            var beerCellInfo = BeerCellInfo(key: key, value: nil, cellType: cellType, url: url)
             if let value = value as? String {
-                self.append(BeerCellInfo(key: key, value: value, cellType: cellType, url: url) )
+                beerCellInfo.value = value
             }
             if let value = value as? Int {
-                self.append(BeerCellInfo(key: key, value: String(value), cellType: cellType, url: url) )
+                beerCellInfo.value = String(value)
+            }
+            if !(cellType == .IMAGE && url == nil) {
+                self.append(beerCellInfo)
             }
         }
     }
