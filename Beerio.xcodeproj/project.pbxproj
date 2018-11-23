@@ -24,7 +24,6 @@
 		AFD5821021A80DEF00296746 /* CellType.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFD5820F21A80DEF00296746 /* CellType.swift */; };
 		AFD5821221A80FB800296746 /* BeerDetailsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFD5821121A80FB800296746 /* BeerDetailsTableViewController.swift */; };
 		AFD5821421A8462900296746 /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFD5821321A8462900296746 /* ImageViewController.swift */; };
-		AFD5821721A898B200296746 /* UIImageViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFD5821621A898B200296746 /* UIImageViewExtension.swift */; };
 		AFD5821921A89B7C00296746 /* LocalController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFD5821821A89B7C00296746 /* LocalController.swift */; };
 		AFF0786021A5D8D800A23B06 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = AFF0785F21A5D8D800A23B06 /* Settings.bundle */; };
 		AFF0786221A5DB9800A23B06 /* SettingsBundleHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFF0786121A5DB9800A23B06 /* SettingsBundleHelper.swift */; };
@@ -58,7 +57,6 @@
 		AFD5820F21A80DEF00296746 /* CellType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellType.swift; sourceTree = "<group>"; };
 		AFD5821121A80FB800296746 /* BeerDetailsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeerDetailsTableViewController.swift; sourceTree = "<group>"; };
 		AFD5821321A8462900296746 /* ImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewController.swift; sourceTree = "<group>"; };
-		AFD5821621A898B200296746 /* UIImageViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageViewExtension.swift; sourceTree = "<group>"; };
 		AFD5821821A89B7C00296746 /* LocalController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalController.swift; sourceTree = "<group>"; };
 		AFF0785F21A5D8D800A23B06 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		AFF0786121A5DB9800A23B06 /* SettingsBundleHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsBundleHelper.swift; sourceTree = "<group>"; };
@@ -120,7 +118,6 @@
 		AF63E06721A5AB5A00860A90 /* Beerio */ = {
 			isa = PBXGroup;
 			children = (
-				AFD5821521A8988A00296746 /* Extensions */,
 				AFD077E521A6DFA800D49D4A /* Views */,
 				AF63E08221A5BB9700860A90 /* Domain */,
 				AF63E07D21A5B2DD00860A90 /* Controllers */,
@@ -173,14 +170,6 @@
 				AFF0786521A605CA00A23B06 /* CategoryTableViewCell.swift */,
 			);
 			path = Views;
-			sourceTree = "<group>";
-		};
-		AFD5821521A8988A00296746 /* Extensions */ = {
-			isa = PBXGroup;
-			children = (
-				AFD5821621A898B200296746 /* UIImageViewExtension.swift */,
-			);
-			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -317,7 +306,6 @@
 				AF63E06B21A5AB5A00860A90 /* ViewController.swift in Sources */,
 				AFF0786F21A6134A00A23B06 /* StylesTableViewController.swift in Sources */,
 				AF63E08421A5BC8000860A90 /* NetworkController.swift in Sources */,
-				AFD5821721A898B200296746 /* UIImageViewExtension.swift in Sources */,
 				AFD077ED21A75F4D00D49D4A /* BeersTableViewController.swift in Sources */,
 				AFF0786221A5DB9800A23B06 /* SettingsBundleHelper.swift in Sources */,
 				AFD077E721A6E52800D49D4A /* LoaderTableViewController.swift in Sources */,

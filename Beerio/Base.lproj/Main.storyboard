@@ -291,29 +291,43 @@
         <scene sceneID="IxH-hf-xFM">
             <objects>
                 <viewController id="RU2-TK-Msj" customClass="ImageViewController" customModule="Beerio" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="QWi-7h-opI">
+                    <view key="view" multipleTouchEnabled="YES" contentMode="scaleToFill" id="VVc-Ph-JQc">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="2MH-A0-6dN">
-                                <rect key="frame" x="0.0" y="64" width="375" height="554"/>
-                            </imageView>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pIt-qX-Fo8">
+                                <rect key="frame" x="0.0" y="64" width="375" height="539"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="BVu-3D-ciq">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="539"/>
+                                    </imageView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="BVu-3D-ciq" firstAttribute="top" secondItem="pIt-qX-Fo8" secondAttribute="top" id="0UD-2S-AVf"/>
+                                    <constraint firstItem="BVu-3D-ciq" firstAttribute="centerX" secondItem="pIt-qX-Fo8" secondAttribute="centerX" id="B78-iF-O4K"/>
+                                    <constraint firstItem="BVu-3D-ciq" firstAttribute="trailing" secondItem="pIt-qX-Fo8" secondAttribute="trailing" id="Z3c-Gd-PJA"/>
+                                    <constraint firstItem="BVu-3D-ciq" firstAttribute="bottom" secondItem="pIt-qX-Fo8" secondAttribute="bottom" id="bA0-GH-Uk8"/>
+                                    <constraint firstItem="BVu-3D-ciq" firstAttribute="centerY" secondItem="pIt-qX-Fo8" secondAttribute="centerY" id="o7e-OL-u6G"/>
+                                    <constraint firstItem="BVu-3D-ciq" firstAttribute="leading" secondItem="pIt-qX-Fo8" secondAttribute="leading" id="oh7-F7-PRa"/>
+                                </constraints>
+                                <viewLayoutGuide key="safeArea" id="lVc-ET-0r7"/>
+                                <connections>
+                                    <outlet property="delegate" destination="RU2-TK-Msj" id="2N4-tD-JpF"/>
+                                </connections>
+                            </scrollView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="2MH-A0-6dN" firstAttribute="leading" secondItem="JLc-Ny-Ubi" secondAttribute="leading" id="9rr-8p-4h9"/>
-                            <constraint firstItem="2MH-A0-6dN" firstAttribute="top" secondItem="JLc-Ny-Ubi" secondAttribute="top" id="JLL-fV-ug1"/>
-                            <constraint firstItem="2MH-A0-6dN" firstAttribute="top" secondItem="JLc-Ny-Ubi" secondAttribute="top" id="OGX-0u-vgQ"/>
-                            <constraint firstItem="JLc-Ny-Ubi" firstAttribute="trailing" secondItem="2MH-A0-6dN" secondAttribute="trailing" id="Oia-93-Mfy"/>
-                            <constraint firstItem="JLc-Ny-Ubi" firstAttribute="trailing" secondItem="2MH-A0-6dN" secondAttribute="trailing" id="Qsz-HQ-J72"/>
-                            <constraint firstItem="JLc-Ny-Ubi" firstAttribute="bottom" secondItem="2MH-A0-6dN" secondAttribute="bottom" id="X0q-Ly-g7Z"/>
-                            <constraint firstItem="2MH-A0-6dN" firstAttribute="leading" secondItem="JLc-Ny-Ubi" secondAttribute="leading" id="roz-Ez-Pca"/>
-                            <constraint firstItem="JLc-Ny-Ubi" firstAttribute="bottom" secondItem="2MH-A0-6dN" secondAttribute="bottom" id="t9c-a2-oQQ"/>
+                            <constraint firstItem="pIt-qX-Fo8" firstAttribute="top" secondItem="DNS-CO-vH3" secondAttribute="top" id="242-at-u0w"/>
+                            <constraint firstItem="pIt-qX-Fo8" firstAttribute="leading" secondItem="VVc-Ph-JQc" secondAttribute="leading" id="6Ha-i2-sQ2"/>
+                            <constraint firstItem="pIt-qX-Fo8" firstAttribute="centerX" secondItem="VVc-Ph-JQc" secondAttribute="centerX" id="LPh-My-aBC"/>
+                            <constraint firstItem="pIt-qX-Fo8" firstAttribute="centerY" secondItem="VVc-Ph-JQc" secondAttribute="centerY" id="igv-9R-OmK"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="JLc-Ny-Ubi"/>
+                        <viewLayoutGuide key="safeArea" id="DNS-CO-vH3"/>
                     </view>
                     <connections>
-                        <outlet property="imageView" destination="2MH-A0-6dN" id="v7y-X2-U30"/>
+                        <outlet property="imageView" destination="BVu-3D-ciq" id="7LQ-X5-bLj"/>
+                        <outlet property="scrollView" destination="pIt-qX-Fo8" id="XMa-oz-UQD"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Bsu-zR-lxk" userLabel="First Responder" sceneMemberID="firstResponder"/>

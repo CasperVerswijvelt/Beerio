@@ -58,7 +58,7 @@ class StylesTableViewController: LoaderTableViewController {
     //
     func loadStyles(_ categoryId : Int) {
         self.showLoader()
-        BeerController.singleton.fetchStyles(for: categoryId) { styles in           
+        NetworkController.singleton.fetchStyles(for: categoryId) { styles in           
             if let styles  = styles {
                 DispatchQueue.main.async {
                     self.styles = styles

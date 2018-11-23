@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 class NetworkController {
-    static let singleton : BeerController = BeerController()
+    static let singleton : NetworkController = NetworkController()
     
     let baseUrl : URL = URL(string: "https://api.brewerydb.com/v2/")!
     

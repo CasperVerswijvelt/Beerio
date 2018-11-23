@@ -46,7 +46,7 @@ class CategoriesTableViewController: LoaderTableViewController, UISearchBarDeleg
     func loadCategories() {
         self.categories = []
         self.showLoader()
-        BeerController.singleton.fetchCategories {
+        NetworkController.singleton.fetchCategories {
             (categories) in
             if let categories = categories {
                 self.categories = categories

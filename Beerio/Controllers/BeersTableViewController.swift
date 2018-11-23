@@ -53,7 +53,7 @@ class BeersTableViewController: LoaderTableViewController {
     //Loading data from API
     func loadBeers(for styleId: Int) {
         showLoader()
-        BeerController.singleton.fetchBeers(for: styleId) {beers in
+        NetworkController.singleton.fetchBeers(for: styleId) {beers in
             
             DispatchQueue.main.async {
                 if let beers = beers {

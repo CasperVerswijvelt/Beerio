@@ -8,13 +8,27 @@
 
 import UIKit
 
-class ImageViewController: UIViewController {
+class ImageViewController: UIViewController, UIScrollViewDelegate {
     
+    @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var imageView: UIImageView!
+    
     var imageURL: URL?
+    var loader : UIActivityIndicatorView = UIActivityIndicatorView(style: .gray)
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //Loader
+        loader.center = self.view.center
+        loader.hidesWhenStopped = true
+        self.view.addSubview(loader)
+        
+        //Scroll
+        scrollView.contentSize=CGSize(width: 1280, height:960);
+        scrollView.minimumZoomScale = 0.5
+        scrollView.maximumZoomScale = 10.0
+        
         
         loadImage()
 
@@ -24,14 +38,26 @@ class ImageViewController: UIViewController {
 
     func loadImage() {
         if let imageURL = imageURL {
-            imageView.showLoader()
-            BeerController.singleton.fetchImage(with: imageURL) {image in
+            loader.startAnimating()
+            NetworkController.singleton.fetchImage(with: imageURL) {image in
                 DispatchQueue.main.async {
                     self.imageView.image = image
-                    self.imageView.hideLoader()
+                    self.setZoomScale()
+                    self.loader.stopAnimating()
                 }
             }
         }
     }
-
+    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
+        return imageView
+    }
+    
+    func setZoomScale() {
+        var minZoom = min(self.view.bounds.size.width / imageView!.bounds.size.width, self.view.bounds.size.height / imageView!.bounds.size.height);
+        if (minZoom > 1.0) {
+            minZoom = 1.0;
+        }
+        scrollView.minimumZoomScale = minZoom;
+        scrollView.zoomScale = minZoom;
+    }
 }
