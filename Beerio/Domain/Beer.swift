@@ -7,22 +7,47 @@
 //
 
 import Foundation
+import RealmSwift
+import Realm
 
-class Beer : Codable{
-    var id: String
-    var name: String
-    var description: String?
-    var foodPairings: String?
-    var originalGravity: String?
-    var alcoholByVolume: String? //abv
-    var internationalBitteringUnit: String? //ibu
-    var isRetired: String?
+class Beer : Object, Codable{
+    @objc dynamic var id: String=""
+    @objc dynamic var name: String=""
+    @objc dynamic var beerDescription: String?
+    @objc dynamic var foodPairings: String?
+    @objc dynamic var originalGravity: String?
+    @objc dynamic var alcoholByVolume: String? //abv
+    @objc dynamic var internationalBitteringUnit: String? //ibu
+    @objc dynamic var isRetired: String?
     var glass: Glass?
-    var isOrganic: String?
+    @objc dynamic var isOrganic: String?
     var labels : Labels?
-    var servingTemperature : String? //servingTemperatureDisplay
-    var status : String?
+    @objc dynamic var servingTemperature : String? //servingTemperatureDisplay
+    @objc dynamic var status : String?
     var year: Int?
+    
+    var yearRealm : RealmOptional<Int> {
+        get {
+            return RealmOptional<Int>(year)
+        }
+        set {
+            year = yearRealm.value
+        }
+    }
+    
+
+    //Realm initialisers
+    required init() {
+        super.init()
+    }
+    required init(value: Any, schema: RLMSchema) {
+        super.init(value: value, schema: schema)
+    }
+    required init(realm: RLMRealm, schema: RLMObjectSchema) {
+        super.init(realm: realm, schema: schema)
+    }
+    
+    
     
     
     func getValues() -> [BeerSectionInfo] {
@@ -31,7 +56,7 @@ class Beer : Codable{
         //Section with basic info (name and description)
         var basicInfo = BeerSectionInfo(header: "Basic info", cells: [])
         basicInfo.cells.append(BeerCellInfo(key: "Name", value: name, cellType: .SIMPLE,url:nil))
-        basicInfo.cells.appendCellIfValueIsPresent(key: "Description", value: description, cellType : .LARGE,url:nil)
+        basicInfo.cells.appendCellIfValueIsPresent(key: "Description", value: beerDescription, cellType : .LARGE,url:nil)
         
         //Section with numbers and stuff
         var numbers = BeerSectionInfo(header: "Numbers and stuff", cells: [])
@@ -63,7 +88,7 @@ class Beer : Codable{
     private enum CodingKeys : String, CodingKey {
         case id
         case name
-        case description
+        case beerDescription = "description"
         case foodPairings
         case originalGravity
         case alcoholByVolume = "abv"

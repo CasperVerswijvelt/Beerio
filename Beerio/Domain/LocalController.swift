@@ -7,9 +7,26 @@
 //
 
 import Foundation
+import RealmSwift
 
 class LocalController {
     static let singleton : LocalController = LocalController()
+    
+    var beers : Results<Beer> = try! Realm().objects(Beer.self)
+    
+    func addBeer(beer : Beer) {
+        let realm = try! Realm()
+        try! realm.write {
+            realm.add(beer)
+        }
+    }
+    
+    func removeBeer(beer:Beer) {
+        let realm = try! Realm()
+        try! realm.write {
+            realm.delete(beer)
+        }
+    }
     
     
 }

@@ -7,15 +7,33 @@
 //
 
 import Foundation
+import RealmSwift
+import Realm
 
-class Labels : Codable {
-    var icon : URL
-    var medium : URL
-    var large : URL
+class Labels :  Object, Codable {
+    var icon : URL?
+    var medium : URL?
+    var large : URL? {
+        set {
+            self.largeString = newValue?.absoluteString
+        }
+        get {
+            return URL(string: largeString ?? "")
+        }
+    }
+    @objc dynamic var largeString : String?
+    
+    //Realm initialisers
+    convenience init(icon : URL, medium : URL, large:URL) {
+        self.init()
+        self.icon = icon
+        self.medium = medium
+        self.large = large
+    }
     
     private enum CodingKeys : String, CodingKey {
         case icon
         case medium
-        case large
+        case largeString = "large"
     }
 }
