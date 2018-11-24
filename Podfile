@@ -8,6 +8,7 @@ target 'Beerio' do
   # Pods for Beerio
   pod 'RealmSwift'
   pod 'DZNEmptyDataSet'
+  pod 'Toast-Swift', '~> 4.0.0'
 
 
 end

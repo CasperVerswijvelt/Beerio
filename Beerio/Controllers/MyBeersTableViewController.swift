@@ -17,7 +17,7 @@ class MyBeersTableViewController: UIViewController, UITableViewDelegate, UITable
         tableView.delegate = self
         tableView.dataSource = self
         
-        LocalController.singleton.setTableViewToUpdate(tableView)
+        RealmController.singleton.setTableViewToUpdate(tableView)
 
         
     }
@@ -32,7 +32,7 @@ class MyBeersTableViewController: UIViewController, UITableViewDelegate, UITable
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         
-        return LocalController.singleton.beers.count
+        return RealmController.singleton.beers.count
     }
     
     
@@ -41,7 +41,7 @@ class MyBeersTableViewController: UIViewController, UITableViewDelegate, UITable
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "beerCell", for: indexPath)
         
-        let beer = LocalController.singleton.beers[indexPath.row]
+        let beer = RealmController.singleton.beers[indexPath.row]
         // Configure the cell...
         cell.textLabel?.text = beer.name
 
@@ -56,7 +56,8 @@ class MyBeersTableViewController: UIViewController, UITableViewDelegate, UITable
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showMyBeer", let destination = segue.destination as? BeerDetailsTableViewController, let beerIndex = tableView.indexPathForSelectedRow?.row {
-            destination.beer = LocalController.singleton.beers[beerIndex]
+            destination.beer = RealmController.singleton.beers[beerIndex]
+            destination.isLocal = true
         }
     }
 }

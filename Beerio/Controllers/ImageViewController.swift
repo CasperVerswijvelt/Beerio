@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Toast_Swift
 
 class ImageViewController: UIViewController, UIScrollViewDelegate {
     
@@ -75,11 +76,15 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
         })
         alert.addAction(UIAlertAction(title: "Image URL", style: .default) { alert in
             let pasteBoard = UIPasteboard.general
+            var style = ToastStyle()
+            style.backgroundColor = UIColor.lightGray
             if let imageURL = self.imageURL {
                 pasteBoard.string = imageURL.absoluteString
                 //SHow notification that it succeeded
+                self.view.makeToast("Image URL copied to clipboard!", duration: 4.0, style: style)
             } else {
                 //Show notification that it has failed
+                self.view.makeToast("Failed to copy Image URL to clipboard!", duration: 4.0, style: style)
             }
         })
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))

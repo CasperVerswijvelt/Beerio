@@ -88,6 +88,7 @@ class NetworkController {
             let task = URLSession.shared.dataTask(with: url) {
                 (data,response,error) in
                 let jsonDecoder = JSONDecoder()
+                //try! jsonDecoder.decode(Beers.self, from: data!) This was to force the decoding to easier see errors
                 if let data = data, let beers = try? jsonDecoder.decode(Beers.self, from: data) {
                     completion(beers.beers)
                 } else {
@@ -104,7 +105,7 @@ class NetworkController {
     
     
     //To fetch a specific beer by id
-    func fetchStyles( beerId: Int, completion: @escaping (Beer?) -> Void) {
+    func fetchBeer( beerId: Int, completion: @escaping (Beer?) -> Void) {
         guard let API_KEY = SettingsBundleHelper().API_KEY else {
             completion(nil)
             return}

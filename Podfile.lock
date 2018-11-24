@@ -5,22 +5,26 @@ PODS:
   - Realm/Headers (3.11.2)
   - RealmSwift (3.11.2):
     - Realm (= 3.11.2)
+  - Toast-Swift (4.0.0)
 
 DEPENDENCIES:
   - DZNEmptyDataSet
   - RealmSwift
+  - Toast-Swift (~> 4.0.0)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - DZNEmptyDataSet
     - Realm
     - RealmSwift
+    - Toast-Swift
 
 SPEC CHECKSUMS:
   DZNEmptyDataSet: 9525833b9e68ac21c30253e1d3d7076cc828eaa7
   Realm: 864477d028db77f7c5a0cba64a4892ad53db128a
   RealmSwift: 12b8262fc08020b47de4fd88eb3d5c9425b34ec7
+  Toast-Swift: 594b5c5e5129f15438e410207e43287f027b3c00
 
-PODFILE CHECKSUM: 558acc5aedac25c075e8fd81fdf804c0d1ccc1ca
+PODFILE CHECKSUM: 9809b5d5ccec60db7604e045a1312cf574c3f589
 
 COCOAPODS: 1.5.3

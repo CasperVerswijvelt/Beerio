@@ -29,21 +29,42 @@ class CategoriesTableViewController: LoaderTableViewController, UISearchBarDeleg
             updateFilteredList()
         }
     }
-    let alert = UIAlertController.init(title: "API Key Incorrect", message: "It seems that you either have not entered your BreweryDB API key in the settings yet, or it is invalid. Please go to 'Settings App -> Beerio -> BreweryDB API Key' and input a valid API Key.", preferredStyle: .alert)
+    var alert : UIAlertController!
+    
     
     
     //Override methods
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.navigationItem.hidesSearchBarWhenScrolling = true
+        //self.navigationItem.hidesSearchBarWhenScrolling = true
         self.searchBar.delegate = self;
         
-        doInitialAPICheck()
-        NotificationCenter.default.addObserver(self, selector: #selector(self.doInitialAPICheck), name: UserDefaults.didChangeNotification, object: nil)
+        //Filling in our 'api key not valid' alert with the right alert, based on ios version
+        if #available(iOS 10.0, *) {
+            alert = UIAlertController.init(title: "API Key Incorrect", message: "It seems that you either have not entered your BreweryDB API key in the settings yet, or it is invalid. Go to settings and enter a valid API Key", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Take me to Beerio Settings", style: .default) {
+                _ in
+                
+                UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString+":root=Beerio")!, options:[:]) {
+                    Bool in
+                    //presenting the alert again so when they come back and their key is still invalid, they will still not be able to go further
+                    self.present(self.alert, animated: true)
+                }
+
+                
+            })
+        } else {
+            //We can't redirect to settings in this IOS version, show explanation
+            alert = UIAlertController.init(title: "API Key Incorrect", message: "It seems that you either have not entered your BreweryDB API key in the settings yet, or it is invalid. Please go to 'Settings App -> Beerio -> BreweryDB API Key' and enter a valid API Key.", preferredStyle: .alert)
+            
+        }
         
-        
+        //Checking if entered API Key is correct
+        doAPIKeyCheck()
+        NotificationCenter.default.addObserver(self, selector: #selector(self.doAPIKeyCheck), name: UserDefaults.didChangeNotification, object: nil)
     }
+    
     
     
     //Retrieving data from controller
@@ -63,18 +84,23 @@ class CategoriesTableViewController: LoaderTableViewController, UISearchBarDeleg
         }
     }
     
-    @objc func doInitialAPICheck() {
+    
+    //objc so we can call it in our listener that listens to changes in our app settings
+    @objc func doAPIKeyCheck() {
         showLoader()
         NetworkController.singleton.isAPIKeyValid() { bool in
             DispatchQueue.main.async {
                 if(!bool) {
                     if(!self.alert.isBeingPresented) {
                         self.present(self.alert, animated : true)
+                        
                     }
                     
                 } else {
                     self.dismiss(animated: true, completion: nil)
-                    self.loadCategories()
+                    if(self.categories.count == 0) {
+                        self.loadCategories()
+                    }
                 }
             }
         }

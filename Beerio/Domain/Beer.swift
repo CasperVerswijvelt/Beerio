@@ -10,7 +10,7 @@ import Foundation
 import RealmSwift
 import Realm
 
-class Beer : Object, Codable{
+class Beer : Object, Codable {
     @objc dynamic var id: String=""
     @objc dynamic var name: String=""
     @objc dynamic var beerDescription: String?
@@ -18,22 +18,35 @@ class Beer : Object, Codable{
     @objc dynamic var originalGravity: String?
     @objc dynamic var alcoholByVolume: String? //abv
     @objc dynamic var internationalBitteringUnit: String? //ibu
-    @objc dynamic var isRetired: String?
+    var isRetired : String? {
+        //Doesn't seem to get called? Called updateRalmOptionals in decoder init instead
+        didSet {
+            updateRealmOptionals()
+        }
+    }
     @objc dynamic var glass: Glass?
-    @objc dynamic var isOrganic: String?
+    var isOrganic : String?
+    {
+        //Doesn't seem to get called? Called updateRalmOptionals in decoder init instead
+        didSet {
+            updateRealmOptionals()
+        }
+    }
     @objc dynamic var labels : Labels?
     @objc dynamic var servingTemperature : String? //servingTemperatureDisplay
     @objc dynamic var status : String?
-    var year: Int?
-    
-    var yearRealm : RealmOptional<Int> {
-        get {
-            return RealmOptional<Int>(year)
-        }
-        set {
-            year = yearRealm.value
+    var year: Int? {
+        //Doesn't seem to get called? Called updateRalmOptionals in decoder init instead
+        didSet {
+            updateRealmOptionals()
         }
     }
+    var notes : List<Note> = List<Note>()
+    
+    //Realm can't save 'Int?', so we
+    var yearRealm : RealmOptional<Int> = RealmOptional<Int>()
+    var isRetiredRealm: RealmOptional<Bool> = RealmOptional<Bool>()
+    var isOrganicRealm: RealmOptional<Bool> = RealmOptional<Bool>()
     
 
     //Realm initialisers
@@ -47,45 +60,73 @@ class Beer : Object, Codable{
         super.init(realm: realm, schema: schema)
     }
     
-    
-    
-    
-    func getValues() -> [BeerSectionInfo] {
-        var sections : [BeerSectionInfo] = []
-        
-        //Section with basic info (name and description)
-        var basicInfo = BeerSectionInfo(header: "Basic info", cells: [])
-        basicInfo.cells.append(BeerCellInfo(key: "Name", value: name, cellType: .SIMPLE,url:nil))
-        basicInfo.cells.appendCellIfValueIsPresent(key: "Description", value: beerDescription, cellType : .LARGE,url:nil)
-        
-        //Section with numbers and stuff
-        var numbers = BeerSectionInfo(header: "Numbers and stuff", cells: [])
-        numbers.cells.appendCellIfValueIsPresent(key: "Original Gravity", value: originalGravity, cellType: .SIMPLE,url:nil)
-        numbers.cells.appendCellIfValueIsPresent(key: "Alcohol By Volume", value: alcoholByVolume, cellType: .SIMPLE,url:nil)
-        numbers.cells.appendCellIfValueIsPresent(key: "International Bittering Unit", value: internationalBitteringUnit, cellType: .SIMPLE, url:nil)
-        numbers.cells.appendCellIfValueIsPresent(key: "Serving Temperature", value: servingTemperature, cellType: .SIMPLE,url:nil)
-        
-        //Section about other random stuff
-        var random = BeerSectionInfo(header: "Other", cells: [])
-        random.cells.appendCellIfValueIsPresent(key: "Food Pairings", value: foodPairings, cellType: CellType.LARGE,url:nil)
-        random.cells.appendCellIfValueIsPresent(key: "Is still made", value: isRetired, cellType: CellType.SIMPLE,url:nil)
-        random.cells.appendCellIfValueIsPresent(key: "Is organic", value: isOrganic, cellType: CellType.SIMPLE,url:nil)
-        random.cells.appendCellIfValueIsPresent(key: "Year", value: year, cellType: CellType.SIMPLE,url:nil)
-        random.cells.appendCellIfValueIsPresent(key: "Bottle Label", value: "Show image", cellType: CellType.IMAGE, url: labels?.large)
-        print(labels)
-        
-        
-        
-        
-        sections.appendSectionIfHasCells(basicInfo)
-        sections.appendSectionIfHasCells(numbers)
-        sections.appendSectionIfHasCells(random)
-        
-        
-        return sections
+    func updateRealmOptionals() {
+        if let isRetired = isRetired {
+            if isRetired == "Y" {
+                isRetiredRealm.value = true
+            } else if isRetired == "N" {
+                isRetiredRealm.value = false
+            }
+        }
+        if let isOrganic = isOrganic {
+            if isOrganic == "Y" {
+                isOrganicRealm.value = true
+            } else if isOrganic == "N" {
+                isOrganicRealm.value = false
+            }
+        }
+        if let year = year {
+            yearRealm.value = year
+        }
     }
     
     
+    //To transform to data that a table can easily read
+    var tableLayout : [BeerSectionInfo] {
+        get {
+            var sections : [BeerSectionInfo] = []
+            
+            //Section with basic info (name and description)
+            var basicInfo = BeerSectionInfo(header: "Basic info")
+            basicInfo.cells.append(BeerCellInfo(key: "Name", value: name, cellType: .LARGE,url:nil))
+            basicInfo.cells.appendCellIfValueIsPresent(key: "Description", value: beerDescription, cellType : .LARGE,url:nil)
+            
+            //Section with numbers and stuff
+            var numbers = BeerSectionInfo(header: "Numbers and stuff")
+            numbers.cells.appendCellIfValueIsPresent(key: "Original Gravity", value: originalGravity, cellType: .SIMPLE,url:nil)
+            numbers.cells.appendCellIfValueIsPresent(key: "Alcohol By Volume", value: alcoholByVolume, cellType: .SIMPLE,url:nil)
+            numbers.cells.appendCellIfValueIsPresent(key: "International Bittering Unit", value: internationalBitteringUnit, cellType: .SIMPLE, url:nil)
+            numbers.cells.appendCellIfValueIsPresent(key: "Serving Temperature", value: servingTemperature, cellType: .SIMPLE,url:nil)
+            
+            //Section about other random stuff
+            var random = BeerSectionInfo(header: "Other")
+            random.cells.appendCellIfValueIsPresent(key: "Food Pairings", value: foodPairings, cellType: CellType.LARGE,url:nil)
+            random.cells.appendCellIfValueIsPresent(key: "Is retired", value: isRetiredRealm.value, cellType: CellType.SIMPLE,url:nil)
+            random.cells.appendCellIfValueIsPresent(key: "Is organic", value: isOrganicRealm.value, cellType: CellType.SIMPLE,url:nil)
+            random.cells.appendCellIfValueIsPresent(key: "Year", value: yearRealm.value, cellType: CellType.SIMPLE,url:nil)
+            random.cells.appendCellIfValueIsPresent(key: "Bottle Label", value: "Show image", cellType: CellType.IMAGE, url: labels?.large)
+            
+            var notes = BeerSectionInfo(header: "Personal notes")
+            self.notes.forEach { note in
+                let df = DateFormatter()
+                df.dateStyle = .medium
+                notes.cells.append(BeerCellInfo(key: df.string(from: note.date), value: note.text, cellType: .LARGE, url: nil))
+            }
+            notes.isNotes = true
+            
+            
+            sections.appendSectionIfHasCells(basicInfo)
+            sections.appendSectionIfHasCells(numbers)
+            sections.appendSectionIfHasCells(random)
+            sections.appendSectionIfHasCells(notes)
+            
+            
+            return sections
+        }
+        set {}
+    }
+    
+    //Codable
     private enum CodingKeys : String, CodingKey {
         case id
         case name
@@ -103,11 +144,52 @@ class Beer : Object, Codable{
         case year
     }
     
+    required init(from decoder:Decoder) throws {
+        super.init()
+        
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        
+        self.id = try container.decode(String.self, forKey: CodingKeys.id)
+        self.name = try container.decode(String.self, forKey: CodingKeys.name)
+        self.beerDescription = try container.decodeIfPresent(String.self, forKey: CodingKeys.beerDescription)
+        self.foodPairings = try container.decodeIfPresent(String.self, forKey: CodingKeys.foodPairings)
+        self.originalGravity = try container.decodeIfPresent(String.self, forKey: CodingKeys.originalGravity)
+        self.alcoholByVolume = try container.decodeIfPresent(String.self, forKey: CodingKeys.alcoholByVolume)
+        self.internationalBitteringUnit = try container.decodeIfPresent(String.self, forKey: CodingKeys.internationalBitteringUnit)
+        self.isRetired = try container.decodeIfPresent(String.self, forKey: CodingKeys.isRetired)
+        self.glass = try container.decodeIfPresent(Glass.self, forKey: CodingKeys.glass)
+        self.isOrganic = try container.decodeIfPresent(String.self, forKey: CodingKeys.isOrganic)
+        self.labels = try container.decodeIfPresent(Labels.self, forKey: CodingKeys.labels)
+        self.servingTemperature = try container.decodeIfPresent(String.self, forKey: CodingKeys.servingTemperature)
+        self.status = try container.decodeIfPresent(String.self, forKey: CodingKeys.status)
+        self.year = try container.decodeIfPresent(Int.self, forKey: CodingKeys.year)
+        
+        updateRealmOptionals()
+    }
     
-    
-    
+    required init(from encoder : Encoder) throws {
+        super.init()
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        
+        try container.encode(id, forKey: CodingKeys.id)
+        try container.encode(name, forKey: CodingKeys.name)
+        try container.encodeIfPresent(beerDescription, forKey: CodingKeys.beerDescription)
+        try container.encodeIfPresent(foodPairings, forKey: CodingKeys.foodPairings)
+        try container.encodeIfPresent(originalGravity, forKey: CodingKeys.originalGravity)
+        try container.encodeIfPresent(alcoholByVolume, forKey: CodingKeys.alcoholByVolume)
+        try container.encodeIfPresent(internationalBitteringUnit, forKey:  CodingKeys.internationalBitteringUnit)
+        try container.encodeIfPresent(isRetired, forKey: CodingKeys.isRetired)
+        try container.encodeIfPresent(glass, forKey: CodingKeys.glass)
+        try container.encodeIfPresent(isOrganic, forKey: CodingKeys.isOrganic)
+        try container.encodeIfPresent(labels, forKey: CodingKeys.labels)
+        try container.encodeIfPresent(servingTemperature, forKey: CodingKeys.servingTemperature)
+        try container.encodeIfPresent(status, forKey: CodingKeys.status)
+        try container.encodeIfPresent(year, forKey: CodingKeys.year)
+    }
+
 }
 
+//beers class, to decode to
 class Beers : Codable {
     var beers : [Beer]?
     
@@ -116,6 +198,8 @@ class Beers : Codable {
     }
 }
 
+
+//EXTENSIONS
 extension Array where Iterator.Element == BeerSectionInfo  {
     mutating func appendSectionIfHasCells(_ section : BeerSectionInfo) {
         if(section.cells.count != 0) {
@@ -133,6 +217,9 @@ extension Array where Iterator.Element == BeerCellInfo  {
             }
             if let value = value as? Int {
                 beerCellInfo.value = String(value)
+            }
+            if let value = value as? Bool {
+                beerCellInfo.value = value ? "Yes" : "No"
             }
             if !(cellType == .IMAGE && url == nil) {
                 self.append(beerCellInfo)
