@@ -67,6 +67,7 @@ class BeerDetailsTableViewController: LoaderTableViewController {
     }
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        
     }
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         
@@ -93,13 +94,17 @@ class BeerDetailsTableViewController: LoaderTableViewController {
                         } else {
                             self.tableView.beginUpdates()
                             self.beerDetails = beer.tableLayout
-                            
-                            if self.getNotesSectionIndex() == nil {
-                                self.tableView.deleteSections(IndexSet(arrayLiteral: notesSectionIndex), with: .fade)
-                            } else {
-                                self.tableView.deleteRows(at: [indexPath], with: .automatic)
+                            //Explanation for using async here:
+                            // If we don't do it async, the delete animation is ugly
+                            DispatchQueue.main.async {
+                                if self.getNotesSectionIndex() == nil {
+                                    self.tableView.deleteSections(IndexSet(arrayLiteral: notesSectionIndex), with: .fade)
+                                } else {
+                                    self.tableView.deleteRows(at: [indexPath], with: .automatic)
+                                }
+                                self.tableView.endUpdates()
                             }
-                            self.tableView.endUpdates()
+                           
                         }
                     }
                 }
