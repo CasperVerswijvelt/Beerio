@@ -363,7 +363,7 @@
         <scene sceneID="7R0-IP-Y0c">
             <objects>
                 <navigationController id="9EI-og-6h8" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Browse Online" image="menuTabBarItem" selectedImage="menuTabBarItem" id="20c-iR-ty5"/>
+                    <tabBarItem key="tabBarItem" title="Browse Online" image="menuTabBarItem" selectedImage="menuTabBarItemSelected" id="20c-iR-ty5"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Dgk-Ee-tFT">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -459,6 +459,7 @@
     <resources>
         <image name="beerTabBarItem" width="25" height="25"/>
         <image name="menuTabBarItem" width="25" height="25"/>
+        <image name="menuTabBarItemSelected" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="D3H-HM-DML"/>
