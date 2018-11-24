@@ -16,6 +16,8 @@ class MyBeersTableViewController: UIViewController, UITableViewDelegate, UITable
         super.viewDidLoad()
         tableView.delegate = self
         tableView.dataSource = self
+        
+        LocalController.singleton.setTableViewToUpdate(tableView)
 
         
     }
@@ -45,6 +47,8 @@ class MyBeersTableViewController: UIViewController, UITableViewDelegate, UITable
 
         return cell
     }
+    
+    
     
     @IBAction func segmentedControlValueChanged(_ sender: Any) {
         tableView.reloadData()

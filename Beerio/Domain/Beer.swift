@@ -19,9 +19,9 @@ class Beer : Object, Codable{
     @objc dynamic var alcoholByVolume: String? //abv
     @objc dynamic var internationalBitteringUnit: String? //ibu
     @objc dynamic var isRetired: String?
-    var glass: Glass?
+    @objc dynamic var glass: Glass?
     @objc dynamic var isOrganic: String?
-    var labels : Labels?
+    @objc dynamic var labels : Labels?
     @objc dynamic var servingTemperature : String? //servingTemperatureDisplay
     @objc dynamic var status : String?
     var year: Int?
@@ -72,6 +72,7 @@ class Beer : Object, Codable{
         random.cells.appendCellIfValueIsPresent(key: "Is organic", value: isOrganic, cellType: CellType.SIMPLE,url:nil)
         random.cells.appendCellIfValueIsPresent(key: "Year", value: year, cellType: CellType.SIMPLE,url:nil)
         random.cells.appendCellIfValueIsPresent(key: "Bottle Label", value: "Show image", cellType: CellType.IMAGE, url: labels?.large)
+        print(labels)
         
         
         
