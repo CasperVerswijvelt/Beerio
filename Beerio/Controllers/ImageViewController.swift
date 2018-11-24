@@ -52,6 +52,8 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
         return imageView
     }
     
+    //SOURCE: https://stackoverflow.com/a/40245415
+    // I run this method after i set the image in the imageView, so you can't zoom out further than  the image filling the screen
     func setZoomScale() {
         var minZoom = min(self.view.bounds.size.width / imageView!.bounds.size.width, self.view.bounds.size.height / imageView!.bounds.size.height);
         if (minZoom > 1.0) {
@@ -59,5 +61,32 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
         }
         scrollView.minimumZoomScale = minZoom;
         scrollView.zoomScale = minZoom;
+    }
+    
+    
+    @IBAction func actionTapped(_ sender: Any) {
+        let alert = UIAlertController(title: "What to save?", message: nil, preferredStyle: .actionSheet)
+        alert.addAction(UIAlertAction(title: "Image", style: .default) { alert in
+            guard let image = self.imageView.image else {return}
+            let activityController = UIActivityViewController(activityItems: [image], applicationActivities: nil)
+            
+            activityController.popoverPresentationController?.barButtonItem = self.navigationItem.rightBarButtonItem
+            self.present(activityController,animated: true, completion: nil)
+        })
+        alert.addAction(UIAlertAction(title: "Image URL", style: .default) { alert in
+            let pasteBoard = UIPasteboard.general
+            if let imageURL = self.imageURL {
+                pasteBoard.string = imageURL.absoluteString
+                //SHow notification that it succeeded
+            } else {
+                //Show notification that it has failed
+            }
+        })
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        
+        //For Ipad: popover location
+        alert.popoverPresentationController?.barButtonItem = self.navigationItem.rightBarButtonItem
+        
+        self.present(alert, animated: true)
     }
 }
