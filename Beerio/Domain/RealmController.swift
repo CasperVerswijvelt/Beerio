@@ -71,6 +71,15 @@ class RealmController {
         completion(nil)
     }
     
+    func hasBeerAlreadySaved(beer : Beer) -> Bool{
+        if let _ = beers.firstIndex(where: {
+            $0 == beer
+        }) {
+            return true
+        }
+        return false
+    }
+    
     
     func setTableViewToUpdate(_ tableView : UITableView) {
         self.tableView = tableView

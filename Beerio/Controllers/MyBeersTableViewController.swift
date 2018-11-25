@@ -34,6 +34,9 @@ class MyBeersTableViewController: UIViewController, UITableViewDelegate, UITable
         
         return RealmController.singleton.beers.count
     }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
     
     
 

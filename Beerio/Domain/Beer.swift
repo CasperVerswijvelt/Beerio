@@ -186,6 +186,12 @@ class Beer : Object, Codable {
         try container.encodeIfPresent(status, forKey: CodingKeys.status)
         try container.encodeIfPresent(year, forKey: CodingKeys.year)
     }
+    
+    
+    //Equatable
+    static func == (lhs: Beer, rhs: Beer) -> Bool {
+        return lhs.id == rhs.id
+    }
 
 }
 

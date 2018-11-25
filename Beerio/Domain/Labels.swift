@@ -11,7 +11,15 @@ import RealmSwift
 import Realm
 
 class Labels :  Object, Codable {
-    var icon : URL?
+    var icon : URL?{
+        set {
+            self.iconString = newValue?.absoluteString
+        }
+        get {
+            return URL(string: iconString ?? "")
+        }
+        
+    }
     var medium : URL?
     var large : URL? {
         set {
@@ -21,7 +29,9 @@ class Labels :  Object, Codable {
             return URL(string: largeString ?? "")
         }
     }
+    
     @objc dynamic var largeString : String?
+    @objc dynamic var iconString : String?
     
     //Realm initialisers
     convenience init(icon : URL, medium : URL, large:URL) {
@@ -32,7 +42,7 @@ class Labels :  Object, Codable {
     }
     
     private enum CodingKeys : String, CodingKey {
-        case icon
+        case iconString = "icon"
         case medium
         case largeString = "large"
     }

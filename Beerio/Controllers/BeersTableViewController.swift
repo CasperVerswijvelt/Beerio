@@ -26,6 +26,16 @@ class BeersTableViewController: LoaderTableViewController {
         tableView.emptyDataSetDelegate = self
         tableView.tableFooterView = UIView()
     }
+    override func viewWillAppear(_ animated: Bool) {
+        if let index = tableView.indexPathForSelectedRow {
+            //This also reloads the image, which might be unpleasant for the eye
+            //We reload the last selected row, in case it ws added to our personal library, then a checkmark should appear
+            //tableView.reloadRows(at: [index], with: .automatic)
+            // ^ Apparently this does something wrong that changes the images in a wrong manner. I really don't want to deal with this so i reload the whole table
+            tableView.reloadData()
+        }
+        
+    }
 
     // Data source methods
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -40,14 +50,37 @@ class BeersTableViewController: LoaderTableViewController {
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "beerCell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "beerCell", for: indexPath) as! BeerTableViewCell
 
         // Configure the cell...
-        let beer = beers?[indexPath.row]
-
-        cell.textLabel?.text = beer?.name
+        let beer = beers![indexPath.row]
+        
+        cell.beerNameLabel?.text = beer.name
+        if(RealmController.singleton.hasBeerAlreadySaved(beer: beer)) {
+            //print("\(beer.name) is already saved, displayin checkmark")
+            cell.accessoryType = .checkmark
+        }
+        
+        //If icon exists, fetch and display it
+        if let icon = beer.labels?.icon {
+            NetworkController.singleton.fetchImage(with: icon) { image in
+                if let image = image {
+                    DispatchQueue.main.async {
+                        cell.setIconImage(image: image)
+                    }
+                }
+            }
+        } else {
+            cell.setIconImage(image: UIImage(named: "beerIcon.pdf")!)
+        }
+        
+        
         
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 70.0
     }
     
     //Loading data from API
@@ -86,71 +119,11 @@ class BeersTableViewController: LoaderTableViewController {
         return UIImage(named: "beerIcon.pdf")
     }
     
-    // Add your button
-    func buttonTitle(forEmptyDataSet _: UIScrollView!, for _: UIControl.State) -> NSAttributedString! {
-        let str = "Yeet"
-        let attrs = [NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: UIFont.TextStyle.callout), NSAttributedString.Key.foregroundColor: UIColor.blue]
-        return NSAttributedString(string: str, attributes: attrs)
-    }
-    
-    // Add action for button
-    func emptyDataSetDidTapButton(_: UIScrollView!) {
-        let ac = UIAlertController(title: "Button tapped!", message: nil, preferredStyle: .alert)
-        ac.addAction(UIAlertAction(title: "Hurray", style: .default, handler: nil))
-        present(ac, animated: true, completion: nil)
-    }
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showBeer", let dest = segue.destination as? BeerDetailsTableViewController, let beerIndex = tableView.indexPathForSelectedRow?.row, let beers = beers {
             dest.beer = beers[beerIndex]
         }
     }
-    
-    
 
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

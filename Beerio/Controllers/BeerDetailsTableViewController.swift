@@ -11,15 +11,14 @@ import Toast_Swift
 
 class BeerDetailsTableViewController: LoaderTableViewController {
     //Outlets
-    @IBOutlet weak var addButton: UIBarButtonItem!
-    @IBOutlet weak var addNoteButton: UIBarButtonItem!
-    
+    var addButton : UIBarButtonItem!
+    var addNoteButton : UIBarButtonItem!
+    var alreadySavedButton : UIBarButtonItem!
     
     //Vars
     var beer : Beer? {
         didSet {
             if let beer = beer {
-                self.addButton.isEnabled = true
                 self.navigationItem.title = beer.name
                 beerDetails = beer.tableLayout
                 tableView.reloadData()
@@ -28,16 +27,24 @@ class BeerDetailsTableViewController: LoaderTableViewController {
     }
     var toastStyle = ToastStyle()
     var isLocal : Bool = false 
-    var beerDetails : [BeerSectionInfo] = []
+    var beerDetails : [BeerSectionInfo] = [] {
+        didSet {
+            self.editButtonItem.isEnabled = getNotesSectionIndex() != nil
+        }
+    }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         toastStyle.backgroundColor = .lightGray
         
-        
+        //Initialising BarButtonItems
+        addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addTapped))
+        addNoteButton = UIBarButtonItem(barButtonSystemItem: .compose, target: self, action: #selector(addNoteTapped))
+        alreadySavedButton = UIBarButtonItem(image: UIImage(named: "checkmarkBarButtonItem.pdf"), style: .plain, target: self, action: #selector(alreadySavedTapped))
     }
     override func viewWillAppear(_ animated: Bool) {
-        self.navigationItem.rightBarButtonItems = isLocal ? [self.editButtonItem,addNoteButton] : [addButton]
+        updateBarButtonItems()
     }
     
     //Data source methods
@@ -98,13 +105,16 @@ class BeerDetailsTableViewController: LoaderTableViewController {
                             // If we don't do it async, the delete animation is ugly
                             DispatchQueue.main.async {
                                 if self.getNotesSectionIndex() == nil {
-                                    self.tableView.deleteSections(IndexSet(arrayLiteral: notesSectionIndex), with: .fade)
+                                    self.tableView.deleteSections(IndexSet(arrayLiteral:
+                                        notesSectionIndex), with: .fade)
+                                    //Setting editing mode false, since the 'done' button can no longer be tapped (disabled now)
+                                    self.isEditing = false
                                 } else {
                                     self.tableView.deleteRows(at: [indexPath], with: .automatic)
                                 }
                                 self.tableView.endUpdates()
                             }
-                           
+                            
                         }
                     }
                 }
@@ -120,19 +130,20 @@ class BeerDetailsTableViewController: LoaderTableViewController {
         }
     }
     
-    @IBAction func addTapped(_ sender: Any) {
+    @objc func addTapped() {
         let alert = UIAlertController(title: "Add to 'My Beers'", message: "Are you sure you want to add \(beer!.name) to your personal beer library?", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         alert.addAction(UIAlertAction(title: "Add", style: .default) { alert in
             if let beer = self.beer {
                 RealmController.singleton.addBeer(beer: beer, shouldUpdateTable: true) {
                     error in
-
+                    
                     if let error = error {
                         self.navigationController?.view.makeToast("Beer could not be added: '\(error.localizedDescription)'", duration: 4.0, position: .center, style: self.toastStyle)
                     } else {
                         //There were no errors
                         self.navigationController?.view.makeToast("Beer succesfully added to your library", duration: 2.0, position: .center, style: self.toastStyle)
+                        self.updateBarButtonItems()
                     }
                     
                 }
@@ -141,7 +152,7 @@ class BeerDetailsTableViewController: LoaderTableViewController {
         self.present(alert, animated: true)
         
     }
-    @IBAction func addNoteTapped(_ sender: Any) {
+    @objc func addNoteTapped() {
         let alert = UIAlertController(title: "Add a note to this beer", message: nil, preferredStyle: .alert)
         alert.addTextField { (textField : UITextField!) -> Void in
             textField.placeholder = "e.g. 'This one made me puke'"
@@ -180,12 +191,34 @@ class BeerDetailsTableViewController: LoaderTableViewController {
         self.present(alert, animated: true)
     }
     
+    @objc func alreadySavedTapped(){
+        print("cunt")
+    }
+    
     func getNotesSectionIndex() -> Int? {
         if let notesSectionIndex = beerDetails.firstIndex(where: {$0.isNotes}) {
             return notesSectionIndex
         }
         return nil
     }
+    
+    func updateBarButtonItems() {
+        var items : [UIBarButtonItem] = []
+        
+        if isLocal {
+            items.append(self.editButtonItem)
+            items.append(addNoteButton)
+        } else {
+            if let beer = beer, RealmController.singleton.hasBeerAlreadySaved(beer: beer) {
+                items.append(alreadySavedButton)
+            } else {
+                items.append(addButton)
+            }
+        }
+        self.navigationItem.rightBarButtonItems = items
+    }
+    
+    
     
     
     

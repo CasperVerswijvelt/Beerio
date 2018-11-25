@@ -85,6 +85,7 @@ class NetworkController {
                                   URLQueryItem(name: "styleId", value: String(styleId))]
         
         if let url = components?.url {
+            print(url)
             let task = URLSession.shared.dataTask(with: url) {
                 (data,response,error) in
                 let jsonDecoder = JSONDecoder()
@@ -137,6 +138,9 @@ class NetworkController {
         let task = URLSession.shared.dataTask(with: url) { (data,
             response, error) in
             if let data = data {
+                
+            URLCache.shared.storeCachedResponse(CachedURLResponse(response: response!, data: data), for: URLRequest(url: url))
+                
                 let image = UIImage(data: data)
                 completion(image)
             } else {
