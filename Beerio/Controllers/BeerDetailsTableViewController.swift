@@ -25,7 +25,6 @@ class BeerDetailsTableViewController: LoaderTableViewController {
             }
         }
     }
-    var toastStyle = ToastStyle()
     var isLocal : Bool = false 
     var beerDetails : [BeerSectionInfo] = [] {
         didSet {
@@ -36,7 +35,6 @@ class BeerDetailsTableViewController: LoaderTableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        toastStyle.backgroundColor = .lightGray
         
         //Initialising BarButtonItems
         addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addTapped))
@@ -97,7 +95,7 @@ class BeerDetailsTableViewController: LoaderTableViewController {
                 if let beer = beer {
                     RealmController.singleton.removeNoteFromBeer(beer:beer,index:indexPath.row) {error in
                         if let error = error {
-                            self.navigationController?.view.makeToast("Note could not be removed: '\(error.localizedDescription)'", duration: 4.0, position: .center, style: self.toastStyle)
+                           Toaster.makeErrorToast(view: self.navigationController?.view, text: "Note could not be removed: '\(error.localizedDescription)'") 
                         } else {
                             self.tableView.beginUpdates()
                             self.beerDetails = beer.tableLayout
@@ -139,10 +137,10 @@ class BeerDetailsTableViewController: LoaderTableViewController {
                     error in
                     
                     if let error = error {
-                        self.navigationController?.view.makeToast("Beer could not be added: '\(error.localizedDescription)'", duration: 4.0, position: .center, style: self.toastStyle)
+                        Toaster.makeErrorToast(view: self.navigationController?.view, text: "Beer could not be added: '\(error.localizedDescription)'")
                     } else {
                         //There were no errors
-                        self.navigationController?.view.makeToast("Beer succesfully added to your library", duration: 2.0, position: .center, style: self.toastStyle)
+                        Toaster.makeSuccesToast(view: self.navigationController?.view, text: "Beer succesfully added to your library")
                         self.updateBarButtonItems()
                     }
                     
@@ -163,9 +161,9 @@ class BeerDetailsTableViewController: LoaderTableViewController {
             if let beer = self.beer, let noteText = noteTextfield.text {
                 RealmController.singleton.addNoteToBeer(beer: beer, text: noteText) {error in
                     if let error = error {
-                        self.navigationController?.view.makeToast("Note could not be added: '\(error.localizedDescription)'", duration: 4.0, position: .center, style: self.toastStyle)
+                        Toaster.makeErrorToast(view: self.navigationController?.view, text: "Note could not be added: '\(error.localizedDescription)'")
                     } else {
-                        self.navigationController?.view.makeToast("Note added!", duration: 2.0, position: .center, style: self.toastStyle)
+                        Toaster.makeSuccesToast(view: self.navigationController?.view, text: "Note added!")
                         
                         self.tableView.beginUpdates()
                         let notesSectionIndex = self.getNotesSectionIndex()
@@ -174,12 +172,23 @@ class BeerDetailsTableViewController: LoaderTableViewController {
                         //Determininging where we should insert a section
                         if notesSectionIndex == nil, let newNotesSectionIndex = self.getNotesSectionIndex() {
                             self.tableView.insertSections(IndexSet(arrayLiteral: newNotesSectionIndex), with: .automatic)
+                            //If we don't do this async it would give us an out of range error
+                            DispatchQueue.main.async {
+                                self.tableView.scrollToRow(at: IndexPath(row: 0, section: newNotesSectionIndex), at: .bottom, animated: true)
+                            }
+                            
                         } else {
                             //We don't need to insert a new section, insert individual rows
                             let rowIndex = self.beerDetails[notesSectionIndex!].cells.count-1
                             let indexPath = IndexPath(row: rowIndex, section: notesSectionIndex!)
                             
                             self.tableView.insertRows(at: [indexPath], with: .automatic)
+                            
+                            //If we don't do this async it would give us an out of range error
+                            DispatchQueue.main.async {
+                                self.tableView.scrollToRow(at: indexPath, at: UITableView.ScrollPosition.top , animated: true)
+                            }
+                            
                         }
                         self.tableView.endUpdates()
                     }

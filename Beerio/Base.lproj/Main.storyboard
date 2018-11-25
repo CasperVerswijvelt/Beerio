@@ -28,7 +28,7 @@
             </objects>
             <point key="canvasLocation" x="-546" y="-82"/>
         </scene>
-        <!--Beer Types-->
+        <!--Beer Categories-->
         <scene sceneID="3dn-Kj-3xL">
             <objects>
                 <tableViewController id="4NP-me-7x4" customClass="CategoriesTableViewController" customModule="Beerio" customModuleProvider="target" sceneMemberID="viewController">
@@ -86,7 +86,7 @@
                             <outlet property="delegate" destination="4NP-me-7x4" id="9Iq-Yu-Jdv"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Beer Types" id="ecq-pO-gvX">
+                    <navigationItem key="navigationItem" title="Beer Categories" id="ecq-pO-gvX">
                         <barButtonItem key="rightBarButtonItem" style="plain" systemItem="refresh" id="8bU-rX-E9C">
                             <connections>
                                 <action selector="refreshTapped:" destination="4NP-me-7x4" id="iBo-vp-ekr"/>
@@ -167,7 +167,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="8Qj-ki-fdn" userLabel="imageView">
+                                        <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="beerIcon" translatesAutoresizingMaskIntoConstraints="NO" id="8Qj-ki-fdn" userLabel="imageView">
                                             <rect key="frame" x="0.0" y="0.0" width="43.5" height="43.5"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" secondItem="8Qj-ki-fdn" secondAttribute="height" id="AAp-ho-FmT"/>
@@ -419,7 +419,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="oyx-tm-jFD">
-                                <rect key="frame" x="16" y="132" width="343" height="31"/>
+                                <rect key="frame" x="16" y="80" width="343" height="31"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="4f2-fz-fiC"/>
                                 </constraints>
@@ -433,7 +433,7 @@
                                 </connections>
                             </segmentedControl>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="9ut-M1-g23">
-                                <rect key="frame" x="0.0" y="170" width="375" height="448"/>
+                                <rect key="frame" x="0.0" y="111" width="375" height="455"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="beerCell" id="DXK-XH-SOT">
@@ -449,21 +449,40 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6ek-e6-Pee">
+                                <rect key="frame" x="16" y="566" width="343" height="44"/>
+                                <color key="backgroundColor" red="0.84585492227979275" green="0.68465505080451228" blue="0.12038679301948335" alpha="0.84705882349999995" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="7Z9-VZ-VcM"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="20"/>
+                                <color key="tintColor" red="0.0014309784830000001" green="0.82510929399999999" blue="0.1054107861" alpha="0.84705882349999995" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" title="New Beer">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="newBeerTapped:" destination="TB3-m9-naR" eventType="touchUpInside" id="XzC-SH-MJc"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="oyx-tm-jFD" firstAttribute="top" secondItem="GEp-l2-yqV" secondAttribute="topMargin" constant="16" id="JLl-Zg-ouu"/>
                             <constraint firstItem="oyx-tm-jFD" firstAttribute="trailing" secondItem="GEp-l2-yqV" secondAttribute="trailingMargin" id="KPl-Vn-Ti1"/>
+                            <constraint firstItem="6ek-e6-Pee" firstAttribute="leading" secondItem="GEp-l2-yqV" secondAttribute="leadingMargin" id="LcY-OU-g9H"/>
                             <constraint firstItem="4Y9-CB-osm" firstAttribute="leading" secondItem="9ut-M1-g23" secondAttribute="leading" id="VIl-2T-YRB"/>
-                            <constraint firstItem="9ut-M1-g23" firstAttribute="top" secondItem="oyx-tm-jFD" secondAttribute="bottom" constant="8" id="r8c-U8-TUD"/>
-                            <constraint firstItem="9ut-M1-g23" firstAttribute="bottom" secondItem="4Y9-CB-osm" secondAttribute="bottom" id="tte-bG-590"/>
+                            <constraint firstItem="9ut-M1-g23" firstAttribute="top" secondItem="oyx-tm-jFD" secondAttribute="bottom" constant="1" id="r8c-U8-TUD"/>
+                            <constraint firstItem="4Y9-CB-osm" firstAttribute="bottom" secondItem="6ek-e6-Pee" secondAttribute="bottom" constant="8" id="tmK-lQ-MIZ"/>
+                            <constraint firstItem="9ut-M1-g23" firstAttribute="bottom" secondItem="6ek-e6-Pee" secondAttribute="top" id="tte-bG-590"/>
                             <constraint firstItem="9ut-M1-g23" firstAttribute="trailing" secondItem="4Y9-CB-osm" secondAttribute="trailing" id="w5Y-gV-Ve3"/>
                             <constraint firstItem="oyx-tm-jFD" firstAttribute="leading" secondItem="GEp-l2-yqV" secondAttribute="leadingMargin" id="xBL-bs-ruT"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="6ek-e6-Pee" secondAttribute="trailing" id="yUv-HS-Dfd"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="4Y9-CB-osm"/>
                     </view>
-                    <navigationItem key="navigationItem" title="My Beers" id="EEb-yH-caA"/>
+                    <navigationItem key="navigationItem" title="My Beers" largeTitleDisplayMode="never" id="EEb-yH-caA"/>
                     <connections>
+                        <outlet property="addBeerButton" destination="6ek-e6-Pee" id="MSx-7R-0ex"/>
                         <outlet property="segmentedControl" destination="oyx-tm-jFD" id="Euh-Ts-89I"/>
                         <outlet property="tableView" destination="9ut-M1-g23" id="XoD-I6-gw8"/>
                     </connections>
@@ -474,12 +493,13 @@
         </scene>
     </scenes>
     <resources>
+        <image name="beerIcon" width="33" height="45"/>
         <image name="beerTabBarItem" width="25" height="25"/>
         <image name="beerTabBarItemSelected" width="25" height="25"/>
         <image name="menuTabBarItem" width="25" height="25"/>
         <image name="menuTabBarItemSelected" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Flz-BO-K2m"/>
+        <segue reference="D3H-HM-DML"/>
     </inferredMetricsTieBreakers>
 </document>

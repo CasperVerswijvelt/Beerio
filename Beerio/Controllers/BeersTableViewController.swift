@@ -109,7 +109,7 @@ class BeersTableViewController: LoaderTableViewController {
     
     // Add description/subtitle on empty dataset
     func description(forEmptyDataSet _: UIScrollView!) -> NSAttributedString! {
-        let str = "No beers could be found for this style :'("
+        let str = "This style doesn't contain any beer 😢"
         let attrs = [NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: UIFont.TextStyle.body)]
         return NSAttributedString(string: str, attributes: attrs)
     }

@@ -17,6 +17,7 @@
 		AF7CBE6C21A9BCEE0004B112 /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF7CBE6B21A9BCEE0004B112 /* Note.swift */; };
 		AF7CBE7021AAAD720004B112 /* BeerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF7CBE6F21AAAD720004B112 /* BeerTableViewCell.swift */; };
 		AF7CBE7321AABF3A0004B112 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AF7CBE7121AABF3A0004B112 /* Main.storyboard */; };
+		AF7CBE7521AB28E60004B112 /* Toaster.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF7CBE7421AB28E60004B112 /* Toaster.swift */; };
 		AFD077E721A6E52800D49D4A /* LoaderTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFD077E621A6E52800D49D4A /* LoaderTableViewController.swift */; };
 		AFD077E921A75A9B00D49D4A /* Glass.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFD077E821A75A9B00D49D4A /* Glass.swift */; };
 		AFD077EB21A75B9600D49D4A /* Labels.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFD077EA21A75B9600D49D4A /* Labels.swift */; };
@@ -52,6 +53,7 @@
 		AF7CBE6B21A9BCEE0004B112 /* Note.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Note.swift; sourceTree = "<group>"; };
 		AF7CBE6F21AAAD720004B112 /* BeerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeerTableViewCell.swift; sourceTree = "<group>"; };
 		AF7CBE7221AABF3A0004B112 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		AF7CBE7421AB28E60004B112 /* Toaster.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Toaster.swift; sourceTree = "<group>"; };
 		AFD077E621A6E52800D49D4A /* LoaderTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoaderTableViewController.swift; sourceTree = "<group>"; };
 		AFD077E821A75A9B00D49D4A /* Glass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Glass.swift; sourceTree = "<group>"; };
 		AFD077EA21A75B9600D49D4A /* Labels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Labels.swift; sourceTree = "<group>"; };
@@ -165,6 +167,7 @@
 				AFD5820F21A80DEF00296746 /* CellType.swift */,
 				AFD5821821A89B7C00296746 /* RealmController.swift */,
 				AF7CBE6B21A9BCEE0004B112 /* Note.swift */,
+				AF7CBE7421AB28E60004B112 /* Toaster.swift */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -307,6 +310,7 @@
 			files = (
 				AF63E07F21A5B2FD00860A90 /* MyBeersTableViewController.swift in Sources */,
 				AFD5821921A89B7C00296746 /* RealmController.swift in Sources */,
+				AF7CBE7521AB28E60004B112 /* Toaster.swift in Sources */,
 				AFD077E921A75A9B00D49D4A /* Glass.swift in Sources */,
 				AFD5821421A8462900296746 /* ImageViewController.swift in Sources */,
 				AFF0786821A60B2B00A23B06 /* Beer.swift in Sources */,

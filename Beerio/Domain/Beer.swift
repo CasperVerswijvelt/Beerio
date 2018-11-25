@@ -42,6 +42,7 @@ class Beer : Object, Codable {
         }
     }
     var notes : List<Note> = List<Note>()
+    @objc dynamic var dateAdded : Date?
     
     //Realm can't save 'Int?', so we
     var yearRealm : RealmOptional<Int> = RealmOptional<Int>()
@@ -106,10 +107,13 @@ class Beer : Object, Codable {
             random.cells.appendCellIfValueIsPresent(key: "Year", value: yearRealm.value, cellType: CellType.SIMPLE,url:nil)
             random.cells.appendCellIfValueIsPresent(key: "Bottle Label", value: "Show image", cellType: CellType.IMAGE, url: labels?.large)
             
+            var dateAdded = BeerSectionInfo(header: "Added to local library")
+            let df = DateFormatter()
+            df.dateStyle = .medium
+            dateAdded.cells.appendCellIfValueIsPresent(key: "Date", value: df.string(for: self.dateAdded), cellType: .SIMPLE, url: nil)
+            
             var notes = BeerSectionInfo(header: "Personal notes")
             self.notes.forEach { note in
-                let df = DateFormatter()
-                df.dateStyle = .medium
                 notes.cells.append(BeerCellInfo(key: df.string(from: note.date), value: note.text, cellType: .LARGE, url: nil))
             }
             notes.isNotes = true
@@ -118,6 +122,7 @@ class Beer : Object, Codable {
             sections.appendSectionIfHasCells(basicInfo)
             sections.appendSectionIfHasCells(numbers)
             sections.appendSectionIfHasCells(random)
+            sections.appendSectionIfHasCells(dateAdded)
             sections.appendSectionIfHasCells(notes)
             
             

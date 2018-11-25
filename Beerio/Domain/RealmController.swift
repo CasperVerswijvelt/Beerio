@@ -13,15 +13,17 @@ import RealmSwift
 class RealmController {
     static let singleton : RealmController = RealmController()
     
-    var beers : Results<Beer> = try! Realm().objects(Beer.self)
+    var beers : Results<Beer> = try! Realm().objects(Beer.self).sorted(byKeyPath: "dateAdded", ascending: true)
     var tableView : UITableView?
     
     func addBeer(beer : Beer, shouldUpdateTable: Bool,completion: @escaping (Error?) -> Void) {
         do {
             let realm = try Realm()
             try realm.write {
+                beer.dateAdded = Date()
                 realm.add(beer)
             }
+            updateResultsList()
             updateTable(shouldUpdateTable: shouldUpdateTable)   
         } catch let error as NSError {
             completion(error)
@@ -38,6 +40,7 @@ class RealmController {
                 realm.delete(beer)
                 updateTable(shouldUpdateTable: shouldUpdateTable)
             }
+            updateResultsList()
         } catch let error as NSError {
             completion(error)
             return
@@ -69,6 +72,10 @@ class RealmController {
             return
         }
         completion(nil)
+    }
+    
+    func updateResultsList() {
+        beers = try! Realm().objects(Beer.self).sorted(byKeyPath: "dateAdded", ascending: true)
     }
     
     func hasBeerAlreadySaved(beer : Beer) -> Bool{
