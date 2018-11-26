@@ -9,6 +9,7 @@ target 'Beerio' do
   pod 'RealmSwift'
   pod 'DZNEmptyDataSet'
   pod 'Toast-Swift', '~> 4.0.0'
+  pod 'PopupDialog', '~> 0.9'
 
 
 end

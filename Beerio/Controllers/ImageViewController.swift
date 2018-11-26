@@ -50,6 +50,9 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
                         self.loader.stopAnimating()
                     }
                 }
+            } else {
+                //No image to display, they shouldn't even be able to get to this page if this is the case
+                
             }
         }
         

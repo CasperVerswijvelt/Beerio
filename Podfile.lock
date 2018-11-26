@@ -1,5 +1,8 @@
 PODS:
+  - DynamicBlurView (3.0.1)
   - DZNEmptyDataSet (1.8.1)
+  - PopupDialog (0.9.1):
+    - DynamicBlurView (~> 3.0.1)
   - Realm (3.11.2):
     - Realm/Headers (= 3.11.2)
   - Realm/Headers (3.11.2)
@@ -9,22 +12,27 @@ PODS:
 
 DEPENDENCIES:
   - DZNEmptyDataSet
+  - PopupDialog (~> 0.9)
   - RealmSwift
   - Toast-Swift (~> 4.0.0)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
+    - DynamicBlurView
     - DZNEmptyDataSet
+    - PopupDialog
     - Realm
     - RealmSwift
     - Toast-Swift
 
 SPEC CHECKSUMS:
+  DynamicBlurView: b1df5415f9bd31897549e5d7077e5ec120a4d636
   DZNEmptyDataSet: 9525833b9e68ac21c30253e1d3d7076cc828eaa7
+  PopupDialog: 03985b669c29802661c187513bf827340db1ae4d
   Realm: 864477d028db77f7c5a0cba64a4892ad53db128a
   RealmSwift: 12b8262fc08020b47de4fd88eb3d5c9425b34ec7
   Toast-Swift: 594b5c5e5129f15438e410207e43287f027b3c00
 
-PODFILE CHECKSUM: 9809b5d5ccec60db7604e045a1312cf574c3f589
+PODFILE CHECKSUM: 3ca502d62207e2bc72a1683134ad21aa7abd4e5c
 
 COCOAPODS: 1.5.3

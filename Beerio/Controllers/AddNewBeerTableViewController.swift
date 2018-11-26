@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import PopupDialog
 
 class AddNewBeerTableViewController: UITableViewController, UIPickerViewDelegate, UIPickerViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
@@ -23,6 +24,8 @@ class AddNewBeerTableViewController: UITableViewController, UIPickerViewDelegate
     @IBOutlet weak var yearLabel: UILabel!
     @IBOutlet weak var yearPicker: UIPickerView!
     @IBOutlet weak var bottleLabelCell: UITableViewCell!
+    
+    var currentPickedImage : UIImage?
     
     var years: [Int] = []
     var yearPickerCollapsed : Bool = false {
@@ -88,12 +91,20 @@ class AddNewBeerTableViewController: UITableViewController, UIPickerViewDelegate
             self.isOrganicSwitch.becomeFirstResponder()
         case (2, 4):
             yearPickerCollapsed = !yearPickerCollapsed
-        case (2, 5):
-            //picket itself
-            break
         case (2, 6):
             openImageSelection();
             break
+        case (_, _):
+            break
+        }
+    }
+    override func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
+        let row = indexPath.row
+        let section = indexPath.section
+        //print("section: \(section), row: \(row)")
+        switch(section,row){
+        case (2, 6):
+            openImageSelection();
         case (_, _):
             break
         }
@@ -124,33 +135,62 @@ class AddNewBeerTableViewController: UITableViewController, UIPickerViewDelegate
         let imagePicker = UIImagePickerController()
         imagePicker.delegate = self
         
-        let alertController = UIAlertController(title: "Choose image", message: "Choose an image source", preferredStyle: .actionSheet)
-        
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-        let cameraAction = UIAlertAction(title: "Take a picture", style: .default, handler:
-        {action in
-            imagePicker.sourceType = .camera
-            self.present(imagePicker,animated: true, completion: nil)
-        })
-        let libraryAction = UIAlertAction(title: "Choose a picture", style: .default, handler:
-        {action in
-            imagePicker.sourceType = .photoLibrary
-            self.present(imagePicker,animated: true, completion: nil)
-        })
-        
-        alertController.addAction(cancelAction)
-        alertController.addAction(cameraAction)
-        alertController.addAction(libraryAction)
-        alertController.popoverPresentationController?.sourceView = bottleLabelCell
-        
-        present(alertController,animated: true, completion: nil)
+        if currentPickedImage == nil {
+            
+            let alertController = UIAlertController(title: "Choose image", message: "Choose an image source", preferredStyle: .actionSheet)
+            
+            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+            let cameraAction = UIAlertAction(title: "Take a picture", style: .default, handler:
+            {action in
+                imagePicker.sourceType = .camera
+                self.present(imagePicker,animated: true, completion: nil)
+            })
+            let libraryAction = UIAlertAction(title: "Choose a picture", style: .default, handler:
+            {action in
+                imagePicker.sourceType = .photoLibrary
+                self.present(imagePicker,animated: true, completion: nil)
+            })
+            
+            alertController.addAction(cancelAction)
+            alertController.addAction(cameraAction)
+            alertController.addAction(libraryAction)
+            alertController.popoverPresentationController?.sourceView = bottleLabelCell
+            
+            present(alertController,animated: true, completion: nil)
+        } else {
+            let popup = PopupDialog(title: "Current picked image", message: nil, image: currentPickedImage)
+            
+            let resetImageButton = DefaultButton(title: "Remove image",dismissOnTap: true) {
+                self.currentPickedImage = nil
+                self.updateLabelPickerCell()
+            }
+            
+            let cancelPopupButton = CancelButton(title: "Cancel", dismissOnTap: true) {}
+            
+            popup.addButtons([resetImageButton, cancelPopupButton])
+            
+            // Present dialog
+            self.present(popup, animated: true, completion: nil)
+        }
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let pickedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-            
+            currentPickedImage = pickedImage
+            updateLabelPickerCell()
             dismiss(animated: true, completion: nil)
         }
     }
+    
+    func updateLabelPickerCell() {
+        if let _ = currentPickedImage {
+            bottleLabelCell.accessoryType = .detailButton
+            bottleLabelCell.detailTextLabel?.text = "Image selected"
+        } else {
+            bottleLabelCell.accessoryType = .disclosureIndicator
+            bottleLabelCell.detailTextLabel?.text = "Choose an image"
+        }
+    }
+    
 
 }

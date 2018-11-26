@@ -205,7 +205,10 @@ class Beer : Object, Codable {
                 DocumentsDirectoryController.singleton.saveImageDocumentDirectory(image: image, fileName: id)
             }
         }
+    }
     
+    func saveCustomImage(image : UIImage) {
+        DocumentsDirectoryController.singleton.saveImageDocumentDirectory(image: image, fileName: id)
     }
     
     //Equatable
