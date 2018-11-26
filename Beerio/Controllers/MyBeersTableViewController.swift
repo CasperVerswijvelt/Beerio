@@ -97,7 +97,11 @@ class MyBeersTableViewController: UIViewController, UITableViewDelegate, UITable
         }, completion: { bool in
             UIView.animate(withDuration: 0.2, animations: {
                 self.addBeerButton.transform = CGAffineTransform.identity
+                self.performSegue(withIdentifier: "showNewBeerScreen", sender: self)
             })
         })
+    }
+    @IBAction func unwindToMyBeersScreen(segue:UIStoryboardSegue) {
+        
     }
 }
