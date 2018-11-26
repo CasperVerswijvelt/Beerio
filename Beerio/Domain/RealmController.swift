@@ -23,8 +23,8 @@ class RealmController {
                 beer.dateAdded = Date()
                 realm.add(beer)
             }
-            updateResultsList()
-            updateTable(shouldUpdateTable: shouldUpdateTable)   
+            self.updateResultsList()
+            self.updateTable(shouldUpdateTable: shouldUpdateTable)
         } catch let error as NSError {
             completion(error)
             return

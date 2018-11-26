@@ -27,7 +27,7 @@ class BeersTableViewController: LoaderTableViewController {
         tableView.tableFooterView = UIView()
     }
     override func viewWillAppear(_ animated: Bool) {
-        if let index = tableView.indexPathForSelectedRow {
+        if let _ = tableView.indexPathForSelectedRow {
             //We reload the last selected row, in case it ws added to our personal library, then a checkmark should appear
             //tableView.reloadRows(at: [index], with: .automatic)
             // ^ Apparently this does something wrong that changes the images in a wrong manner. I really don't want to deal with this so i reload the whole table

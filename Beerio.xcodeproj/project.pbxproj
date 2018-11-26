@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AF097E1421AC22B9003B948C /* DocumentsDirectoryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF097E1321AC22B9003B948C /* DocumentsDirectoryController.swift */; };
 		AF63E06921A5AB5A00860A90 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF63E06821A5AB5A00860A90 /* AppDelegate.swift */; };
-		AF63E06B21A5AB5A00860A90 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF63E06A21A5AB5A00860A90 /* ViewController.swift */; };
 		AF63E07021A5AB5C00860A90 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AF63E06F21A5AB5C00860A90 /* Assets.xcassets */; };
 		AF63E07321A5AB5C00860A90 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AF63E07121A5AB5C00860A90 /* LaunchScreen.storyboard */; };
 		AF63E07F21A5B2FD00860A90 /* MyBeersTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF63E07E21A5B2FD00860A90 /* MyBeersTableViewController.swift */; };
@@ -42,9 +42,9 @@
 /* Begin PBXFileReference section */
 		1BAFEBC978022720F7DF4FD9 /* Pods_Beerio.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Beerio.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2BBE31B14A413F3BE19936AC /* Pods-Beerio.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Beerio.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Beerio/Pods-Beerio.debug.xcconfig"; sourceTree = "<group>"; };
+		AF097E1321AC22B9003B948C /* DocumentsDirectoryController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentsDirectoryController.swift; sourceTree = "<group>"; };
 		AF63E06521A5AB5A00860A90 /* Beerio.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Beerio.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF63E06821A5AB5A00860A90 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		AF63E06A21A5AB5A00860A90 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		AF63E06F21A5AB5C00860A90 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AF63E07221A5AB5C00860A90 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		AF63E07421A5AB5C00860A90 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -144,7 +144,6 @@
 			isa = PBXGroup;
 			children = (
 				AFD077E621A6E52800D49D4A /* LoaderTableViewController.swift */,
-				AF63E06A21A5AB5A00860A90 /* ViewController.swift */,
 				AF63E07E21A5B2FD00860A90 /* MyBeersTableViewController.swift */,
 				AF63E08021A5BB2600860A90 /* CategoriesTableViewController.swift */,
 				AFF0786E21A6134A00A23B06 /* StylesTableViewController.swift */,
@@ -171,6 +170,7 @@
 				AFD5821821A89B7C00296746 /* RealmController.swift */,
 				AF7CBE6B21A9BCEE0004B112 /* Note.swift */,
 				AF7CBE7421AB28E60004B112 /* Toaster.swift */,
+				AF097E1321AC22B9003B948C /* DocumentsDirectoryController.swift */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -318,7 +318,6 @@
 				AFD5821421A8462900296746 /* ImageViewController.swift in Sources */,
 				AFF0786821A60B2B00A23B06 /* Beer.swift in Sources */,
 				AF63E08121A5BB2600860A90 /* CategoriesTableViewController.swift in Sources */,
-				AF63E06B21A5AB5A00860A90 /* ViewController.swift in Sources */,
 				AF7CBE6C21A9BCEE0004B112 /* Note.swift in Sources */,
 				AFF0786F21A6134A00A23B06 /* StylesTableViewController.swift in Sources */,
 				AF63E08421A5BC8000860A90 /* NetworkController.swift in Sources */,
@@ -331,6 +330,7 @@
 				AFD5820C21A80B6E00296746 /* BeerSectionInfo.swift in Sources */,
 				AFD5821021A80DEF00296746 /* CellType.swift in Sources */,
 				AF63E06921A5AB5A00860A90 /* AppDelegate.swift in Sources */,
+				AF097E1421AC22B9003B948C /* DocumentsDirectoryController.swift in Sources */,
 				AFF0786621A605CA00A23B06 /* CategoryTableViewCell.swift in Sources */,
 				AFD5821221A80FB800296746 /* BeerDetailsTableViewController.swift in Sources */,
 				AF7CBE7921AB6A330004B112 /* AddNewBeerTableViewController.swift in Sources */,

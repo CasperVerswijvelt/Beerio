@@ -49,7 +49,9 @@ class CategoriesTableViewController: LoaderTableViewController, UISearchBarDeleg
                 UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString+":root=Beerio")!, options:[:]) {
                     Bool in
                     //presenting the alert again so when they come back and their key is still invalid, they will still not be able to go further
-                    self.present(self.alert, animated: true)
+                    if !self.alert.isBeingPresented {
+                        self.present(self.alert, animated: true)
+                    }
                 }
 
                 

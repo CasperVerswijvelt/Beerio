@@ -14,7 +14,7 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var imageView: UIImageView!
     
-    var imageURL: URL?
+    var beer: Beer!
     var loader : UIActivityIndicatorView = UIActivityIndicatorView(style: .gray)
 
     override func viewDidLoad() {
@@ -38,16 +38,22 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
     
 
     func loadImage() {
-        if let imageURL = imageURL {
-            loader.startAnimating()
-            NetworkController.singleton.fetchImage(with: imageURL) {image in
-                DispatchQueue.main.async {
-                    self.imageView.image = image
-                    self.setZoomScale()
-                    self.loader.stopAnimating()
+        if let image = DocumentsDirectoryController.singleton.getImage(fileName: beer.id) {
+            self.imageView.image = image 
+        } else {
+            if let imageURL = beer.labels?.large {
+                loader.startAnimating()
+                NetworkController.singleton.fetchImage(with: imageURL) {image in
+                    DispatchQueue.main.async {
+                        self.imageView.image = image
+                        self.setZoomScale()
+                        self.loader.stopAnimating()
+                    }
                 }
             }
         }
+        
+        
     }
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         return imageView
@@ -78,7 +84,7 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
             let pasteBoard = UIPasteboard.general
             var style = ToastStyle()
             style.backgroundColor = UIColor.lightGray
-            if let imageURL = self.imageURL {
+            if let imageURL = self.beer.labels?.large {
                 pasteBoard.string = imageURL.absoluteString
                 //SHow notification that it succeeded
                 self.view.makeToast("Image URL copied to clipboard!", duration: 4.0, style: style)

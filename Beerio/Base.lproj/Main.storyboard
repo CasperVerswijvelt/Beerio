@@ -910,7 +910,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="alcoholByVolumeTextField" destination="Yp9-yK-TyJ" id="kVL-2e-BBY"/>
-                        <outlet property="bottleLabelCell" destination="Kin-IQ-713" id="5Ce-cz-EXQ"/>
+                        <outlet property="bottleLabelCell" destination="E87-tM-HeE" id="PA2-Wy-1r2"/>
                         <outlet property="descriptionTextView" destination="2VC-bb-2ov" id="OyW-Hl-GQR"/>
                         <outlet property="foodPairingsTextView" destination="XyI-Wj-Fo8" id="b81-ET-SGk"/>
                         <outlet property="internationalBitteringUnitTextField" destination="h3n-2q-h8b" id="FYY-ts-0i0"/>

@@ -168,8 +168,10 @@ class NetworkController {
                 return
             }
         }
+        completion(false)
         
         task.resume()
     }
+    
     
 }

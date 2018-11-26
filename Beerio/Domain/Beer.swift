@@ -49,7 +49,7 @@ class Beer : Object, Codable {
     var isRetiredRealm: RealmOptional<Bool> = RealmOptional<Bool>()
     var isOrganicRealm: RealmOptional<Bool> = RealmOptional<Bool>()
     
-
+    
     //Realm initialisers
     required init() {
         super.init()
@@ -192,12 +192,27 @@ class Beer : Object, Codable {
         try container.encodeIfPresent(year, forKey: CodingKeys.year)
     }
     
+    func fetchAndSaveImageIfNotAlreadySaved() {
+        guard DocumentsDirectoryController.singleton.getImage(fileName: self.id) == nil, let labels = labels,let originalUrl = labels.large else {return}
+        //After this guard we are sure that there is no image saved yet, and we have a large image to persist
+        
+        //We recreate the objects we will need in another thread, if we use the original objects we will get a Realm exception
+        let urlToPersist = URL(string: originalUrl.absoluteString)
+        let id = String(self.id)
+        
+        NetworkController.singleton.fetchImage(with: urlToPersist!) {image in
+            if let image = image {
+                DocumentsDirectoryController.singleton.saveImageDocumentDirectory(image: image, fileName: id)
+            }
+        }
+    
+    }
     
     //Equatable
     static func == (lhs: Beer, rhs: Beer) -> Bool {
         return lhs.id == rhs.id
     }
-
+    
 }
 
 //beers class, to decode to

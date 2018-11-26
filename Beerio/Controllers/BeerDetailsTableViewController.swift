@@ -19,6 +19,9 @@ class BeerDetailsTableViewController: LoaderTableViewController {
     var beer : Beer? {
         didSet {
             if let beer = beer {
+                if isLocal {
+                    beer.fetchAndSaveImageIfNotAlreadySaved()
+                }
                 self.navigationItem.title = beer.name
                 beerDetails = beer.tableLayout
                 tableView.reloadData()
@@ -40,6 +43,7 @@ class BeerDetailsTableViewController: LoaderTableViewController {
         addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addTapped))
         addNoteButton = UIBarButtonItem(barButtonSystemItem: .compose, target: self, action: #selector(addNoteTapped))
         alreadySavedButton = UIBarButtonItem(image: UIImage(named: "checkmarkBarButtonItem.pdf"), style: .plain, target: self, action: #selector(alreadySavedTapped))
+        
     }
     override func viewWillAppear(_ animated: Bool) {
         updateBarButtonItems()
@@ -95,7 +99,7 @@ class BeerDetailsTableViewController: LoaderTableViewController {
                 if let beer = beer {
                     RealmController.singleton.removeNoteFromBeer(beer:beer,index:indexPath.row) {error in
                         if let error = error {
-                           Toaster.makeErrorToast(view: self.navigationController?.view, text: "Note could not be removed: '\(error.localizedDescription)'") 
+                            Toaster.makeErrorToast(view: self.navigationController?.view, text: "Note could not be removed: '\(error.localizedDescription)'")
                         } else {
                             self.tableView.beginUpdates()
                             self.beerDetails = beer.tableLayout
@@ -122,9 +126,9 @@ class BeerDetailsTableViewController: LoaderTableViewController {
     
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "showLabel", let destination = segue.destination as? ImageViewController, let cellIndex = tableView.indexPathForSelectedRow {
+        if segue.identifier == "showLabel", let destination = segue.destination as? ImageViewController, let _ = tableView.indexPathForSelectedRow {
             
-            destination.imageURL = self.beerDetails[cellIndex.section].cells[cellIndex.row].url
+            destination.beer = self.beer!
         }
     }
     
@@ -133,6 +137,7 @@ class BeerDetailsTableViewController: LoaderTableViewController {
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         alert.addAction(UIAlertAction(title: "Add", style: .default) { alert in
             if let beer = self.beer {
+                beer.fetchAndSaveImageIfNotAlreadySaved()
                 RealmController.singleton.addBeer(beer: beer, shouldUpdateTable: true) {
                     error in
                     
@@ -201,7 +206,7 @@ class BeerDetailsTableViewController: LoaderTableViewController {
     }
     
     @objc func alreadySavedTapped(){
-        print("cunt")
+        //
     }
     
     func getNotesSectionIndex() -> Int? {

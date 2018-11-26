@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AddNewBeerTableViewController: UITableViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+class AddNewBeerTableViewController: UITableViewController, UIPickerViewDelegate, UIPickerViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     
     @IBOutlet weak var nameTextField: UITextField!
@@ -92,7 +92,7 @@ class AddNewBeerTableViewController: UITableViewController, UIPickerViewDelegate
             //picket itself
             break
         case (2, 6):
-            //bottle label
+            openImageSelection();
             break
         case (_, _):
             break
@@ -119,7 +119,38 @@ class AddNewBeerTableViewController: UITableViewController, UIPickerViewDelegate
     }
     func updateYearLabel() {
         self.yearLabel.text = String(years[yearPicker.selectedRow(inComponent: 0)])
+    }
+    func openImageSelection() {
+        let imagePicker = UIImagePickerController()
+        imagePicker.delegate = self
         
+        let alertController = UIAlertController(title: "Choose image", message: "Choose an image source", preferredStyle: .actionSheet)
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        let cameraAction = UIAlertAction(title: "Take a picture", style: .default, handler:
+        {action in
+            imagePicker.sourceType = .camera
+            self.present(imagePicker,animated: true, completion: nil)
+        })
+        let libraryAction = UIAlertAction(title: "Choose a picture", style: .default, handler:
+        {action in
+            imagePicker.sourceType = .photoLibrary
+            self.present(imagePicker,animated: true, completion: nil)
+        })
+        
+        alertController.addAction(cancelAction)
+        alertController.addAction(cameraAction)
+        alertController.addAction(libraryAction)
+        alertController.popoverPresentationController?.sourceView = bottleLabelCell
+        
+        present(alertController,animated: true, completion: nil)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        if let pickedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+            
+            dismiss(animated: true, completion: nil)
+        }
     }
 
 }

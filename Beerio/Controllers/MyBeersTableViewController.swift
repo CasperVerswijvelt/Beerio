@@ -84,8 +84,8 @@ class MyBeersTableViewController: UIViewController, UITableViewDelegate, UITable
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showMyBeer", let destination = segue.destination as? BeerDetailsTableViewController, let beerIndex = tableView.indexPathForSelectedRow?.row {
-            destination.beer = RealmController.singleton.beers[beerIndex]
             destination.isLocal = true
+            destination.beer = RealmController.singleton.beers[beerIndex]
         }
     }
     @IBAction func newBeerTapped(_ sender: Any) {
