@@ -32,7 +32,6 @@ class DocumentsDirectoryController {
         if fileManager.fileExists(atPath: imagePath.relativePath){
             return UIImage(contentsOfFile: imagePath.relativePath)
         }else{
-            print("not found")
             return nil
         }
     }
