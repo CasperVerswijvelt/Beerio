@@ -37,8 +37,9 @@ class RealmController {
         do {
             let realm = try Realm()
             try realm.write {
+                let id = beer.id
                 realm.delete(beer)
-                
+                DocumentsDirectoryController.singleton.removeImage(fileName: id)
             }
             updateResultsList()
             self.updateRealmUpdatables(shouldUpdateTable: shouldUpdateTable)

@@ -14,6 +14,12 @@ class DocumentsDirectoryController {
     
     let imageExtension = ".jpg"
     func saveImageDocumentDirectory(image : UIImage, fileName : String) {
+        let fileManager = FileManager.default
+        do{
+            try fileManager.createDirectory(atPath: getDirectoryPath().relativePath,withIntermediateDirectories: true, attributes: nil)
+        } catch {
+            //Folder exists already
+        }
         
         let fileURL = getDirectoryPath().appendingPathComponent(fileName+imageExtension)
         let imageData = image.jpegData(compressionQuality: 1.0)
@@ -23,7 +29,7 @@ class DocumentsDirectoryController {
     }
     
     func getDirectoryPath() -> URL {
-        return FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+        return FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.appendingPathComponent("BeerImages")
     }
     
     func getImage(fileName : String) -> UIImage?{
@@ -33,6 +39,14 @@ class DocumentsDirectoryController {
             return UIImage(contentsOfFile: imagePath.relativePath)
         }else{
             return nil
+        }
+    }
+    
+    func removeImage(fileName : String) {
+        let fileManager = FileManager.default
+        let imagePath = getDirectoryPath().appendingPathComponent(fileName+imageExtension)
+        if fileManager.fileExists(atPath: imagePath.relativePath){
+            try? fileManager.removeItem(at: imagePath)
         }
     }
     

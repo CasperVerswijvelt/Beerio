@@ -33,6 +33,12 @@ class ApiKeyInvalidPopUpViewController: UIViewController {
     }
     
     func fadeOut(callBack : @escaping () -> Void) {
+        UIView.animate(withDuration: 0.3,
+                       delay: 0,
+                       options: [],
+                       animations: {
+                        self.popUpView.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
+        },completion: { Void in() })
         UIView.animate(withDuration: 0.3, delay: 0.0, options: [], animations: {
             self.view.alpha = 0.0
             
@@ -41,6 +47,15 @@ class ApiKeyInvalidPopUpViewController: UIViewController {
         })
     }
     func fadeIn(callBack : @escaping () -> Void) {
+        self.popUpView.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
+        UIView.animate(withDuration: 0.3,
+                       delay: 0,
+                       usingSpringWithDamping: CGFloat(0.7),
+                       initialSpringVelocity: CGFloat(3.0),
+                       options: [],
+                       animations: {
+                       self.popUpView.transform = CGAffineTransform.identity
+        },completion: { Void in()  })
         
         UIView.animate(withDuration: 0.3, delay: 0.0, options: [], animations: {
             self.view.alpha = 1.0

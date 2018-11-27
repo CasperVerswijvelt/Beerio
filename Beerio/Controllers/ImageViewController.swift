@@ -93,7 +93,7 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
                 self.view.makeToast("Image URL copied to clipboard!", duration: 4.0, style: style)
             } else {
                 //Show notification that it has failed
-                self.view.makeToast("Failed to copy Image URL to clipboard!", duration: 4.0, style: style)
+                self.view.makeToast("This image doesn't have an URL", duration: 4.0, style: style)
             }
         })
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
