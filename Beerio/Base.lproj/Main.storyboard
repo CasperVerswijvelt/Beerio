@@ -131,7 +131,7 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="descriptionLabel" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eaO-9u-7FF">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="descriptionLabel" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eaO-9u-7FF">
                                                 <rect key="frame" x="56" y="53" width="127.5" height="53.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
@@ -171,7 +171,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AaH-SP-ukw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="374" y="1187"/>
+            <point key="canvasLocation" x="375" y="1081"/>
         </scene>
         <!--Styles Table View Controller-->
         <scene sceneID="TfM-Vy-SlI">
@@ -905,14 +905,14 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Year" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Wgk-kk-r8h">
-                                                    <rect key="frame" x="15" y="12" width="34" height="20.5"/>
+                                                    <rect key="frame" x="16" y="12" width="34" height="20.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ykJ-cI-aFi">
-                                                    <rect key="frame" x="316" y="12" width="44" height="20.5"/>
+                                                    <rect key="frame" x="315" y="12" width="44" height="20.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
@@ -944,11 +944,11 @@
                                         <rect key="frame" x="0.0" y="897.5" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Kin-IQ-713" id="E87-tM-HeE">
-                                            <rect key="frame" x="0.0" y="0.0" width="349" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="341" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Bottle Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="jZN-XD-Is3">
-                                                    <rect key="frame" x="15" y="12" width="91.5" height="20.5"/>
+                                                    <rect key="frame" x="16" y="12" width="91.5" height="20.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
@@ -990,8 +990,8 @@
                         <outlet property="descriptionTextView" destination="2VC-bb-2ov" id="OyW-Hl-GQR"/>
                         <outlet property="foodPairingsTextView" destination="XyI-Wj-Fo8" id="b81-ET-SGk"/>
                         <outlet property="internationalBitteringUnitTextField" destination="h3n-2q-h8b" id="FYY-ts-0i0"/>
-                        <outlet property="isOrganicSwitch" destination="zs8-Oo-pHi" id="GF1-jL-w6k"/>
-                        <outlet property="isRetiredSwitch" destination="Tf5-c7-xPg" id="mwd-E1-Klh"/>
+                        <outlet property="isOrganicSwitch" destination="zs8-Oo-pHi" id="L0K-3E-9ma"/>
+                        <outlet property="isRetiredSwitch" destination="Tf5-c7-xPg" id="izW-bf-jH8"/>
                         <outlet property="nameTextField" destination="b7W-js-wqW" id="FCF-AV-58a"/>
                         <outlet property="originalGravityTextField" destination="cEI-Mz-GEg" id="jOa-bU-8ey"/>
                         <outlet property="saveButton" destination="p6A-zT-575" id="Bph-v7-Aos"/>

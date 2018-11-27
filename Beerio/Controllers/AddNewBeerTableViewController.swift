@@ -203,10 +203,11 @@ class AddNewBeerTableViewController: UITableViewController, UIPickerViewDelegate
         let internationalBitteringUnit = internationalBitteringUnitTextField.text?.count ?? 0  == 0 ? nil : internationalBitteringUnitTextField.text
         let servingTemperature = servingTemperatureTextField.text?.count ?? 0  == 0 ? nil : servingTemperatureTextField.text
         let foodPairings = foodPairingsTextView.text.count == 0 ? nil : foodPairingsTextView.text
-        let isRetired = isRetiredSwitch.isEnabled
-        let isOrganic = isOrganicSwitch.isEnabled
+        let isRetired = isRetiredSwitch.isOn
+        let isOrganic = isOrganicSwitch.isOn
         let year = years[yearPicker.selectedRow(inComponent: 0)]
         let image = currentPickedImage
+
         
         let beer = Beer()
         beer.name = name
