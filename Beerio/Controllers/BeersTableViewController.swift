@@ -9,9 +9,9 @@
 import UIKit
 import DZNEmptyDataSet
 
-class BeersTableViewController: LoaderTableViewController {
+class BeersTableViewController: LoaderTableViewController, Reloadable {
     
-    var beers : [Beer]?
+    var beers : [Beer] = []
     var style : Style?
 
     override func viewDidLoad() {
@@ -44,7 +44,7 @@ class BeersTableViewController: LoaderTableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return beers?.count ?? 0
+        return beers.count
     }
 
     
@@ -52,7 +52,7 @@ class BeersTableViewController: LoaderTableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "beerCell", for: indexPath) as! BeerTableViewCell
 
         // Configure the cell...
-        let beer = beers![indexPath.row]
+        let beer = beers[indexPath.row]
         
         cell.beerNameLabel?.text = beer.name
         if(RealmController.singleton.hasBeerAlreadySaved(beer: beer)) {
@@ -82,6 +82,14 @@ class BeersTableViewController: LoaderTableViewController {
         return 70.0
     }
     
+    //Reloadable API
+    func reloadData() {
+        if let style = style, beers.count == 0 {
+            loadBeers(for: style.id)
+        }
+    }
+    
+    
     //Loading data from API
     func loadBeers(for styleId: Int) {
         showLoader()
@@ -108,7 +116,7 @@ class BeersTableViewController: LoaderTableViewController {
     
     // Add description/subtitle on empty dataset
     func description(forEmptyDataSet _: UIScrollView!) -> NSAttributedString! {
-        let str = "This style doesn't contain any beer 😢"
+        let str = "This style doesn't contain any beer :'("
         let attrs = [NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: UIFont.TextStyle.body)]
         return NSAttributedString(string: str, attributes: attrs)
     }
@@ -119,7 +127,7 @@ class BeersTableViewController: LoaderTableViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "showBeer", let dest = segue.destination as? BeerDetailsTableViewController, let beerIndex = tableView.indexPathForSelectedRow?.row, let beers = beers {
+        if segue.identifier == "showBeer", let dest = segue.destination as? BeerDetailsTableViewController, let beerIndex = tableView.indexPathForSelectedRow?.row {
             dest.beer = beers[beerIndex]
         }
     }

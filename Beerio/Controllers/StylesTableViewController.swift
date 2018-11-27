@@ -8,7 +8,7 @@
 
 import UIKit
 
-class StylesTableViewController: LoaderTableViewController {
+class StylesTableViewController: LoaderTableViewController, Reloadable {
     
     //Attributes
     var category : Category? {
@@ -52,10 +52,15 @@ class StylesTableViewController: LoaderTableViewController {
         return category?.description
     }
     
+    //Reloadable protocol
+    func reloadData() {
+        if styles.count == 0 , let category = category {
+            loadStyles(category.id)
+        }
+    }
     
     
     
-    //
     func loadStyles(_ categoryId : Int) {
         self.showLoader()
         NetworkController.singleton.fetchStyles(for: categoryId) { styles in           
