@@ -150,15 +150,17 @@
                                     <constraint firstItem="4U6-fU-lBR" firstAttribute="top" secondItem="EH9-Ld-VnI" secondAttribute="top" constant="8" id="bSa-15-5M8"/>
                                     <constraint firstItem="4U6-fU-lBR" firstAttribute="leading" secondItem="EH9-Ld-VnI" secondAttribute="leading" constant="8" id="dpF-Mv-fJO"/>
                                     <constraint firstAttribute="trailing" secondItem="4U6-fU-lBR" secondAttribute="trailing" constant="8" id="eEZ-bz-yLb"/>
-                                    <constraint firstAttribute="height" constant="200" id="eeG-TR-Xe2"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="200" id="eeG-TR-Xe2"/>
                                 </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.29415162852112675" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="EH9-Ld-VnI" firstAttribute="leading" secondItem="7iw-ws-q52" secondAttribute="leading" constant="60" id="Ad5-HS-211"/>
+                            <constraint firstItem="EH9-Ld-VnI" firstAttribute="leading" relation="lessThanOrEqual" secondItem="7iw-ws-q52" secondAttribute="leading" constant="60" id="Ad5-HS-211"/>
+                            <constraint firstItem="EH9-Ld-VnI" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="7iw-ws-q52" secondAttribute="leading" constant="20" id="Xwf-CZ-kpK"/>
                             <constraint firstItem="EH9-Ld-VnI" firstAttribute="centerX" secondItem="WAx-Uw-rFc" secondAttribute="centerX" id="h6t-Yi-dfM"/>
-                            <constraint firstItem="7iw-ws-q52" firstAttribute="trailing" secondItem="EH9-Ld-VnI" secondAttribute="trailing" constant="60" id="wDx-Lo-Rqs"/>
+                            <constraint firstItem="7iw-ws-q52" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="EH9-Ld-VnI" secondAttribute="trailing" constant="20" id="vob-HM-mOi"/>
+                            <constraint firstItem="7iw-ws-q52" firstAttribute="trailing" relation="lessThanOrEqual" secondItem="EH9-Ld-VnI" secondAttribute="trailing" constant="60" id="wDx-Lo-Rqs"/>
                             <constraint firstItem="EH9-Ld-VnI" firstAttribute="centerY" secondItem="WAx-Uw-rFc" secondAttribute="centerY" id="zXq-zU-O5m"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="7iw-ws-q52"/>
@@ -264,10 +266,17 @@
                             <outlet property="delegate" destination="JJY-eq-TDf" id="ymW-V7-T3R"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" id="y3P-Bu-KOg">
+                        <barButtonItem key="rightBarButtonItem" image="infoTabBarItem" id="mTR-9i-2aK">
+                            <connections>
+                                <action selector="infoTapped:" destination="JJY-eq-TDf" id="oTD-hI-XcJ"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yqi-LA-7zd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2585" y="331"/>
+            <point key="canvasLocation" x="2584.8000000000002" y="330.58470764617692"/>
         </scene>
         <!--Beer Details Table View Controller-->
         <scene sceneID="sbQ-8I-uXX">
@@ -1013,11 +1022,12 @@
         <image name="beerIcon" width="33" height="45"/>
         <image name="beerTabBarItem" width="25" height="25"/>
         <image name="beerTabBarItemSelected" width="25" height="25"/>
+        <image name="infoTabBarItem" width="18.75" height="18.75"/>
         <image name="menuTabBarItem" width="25" height="25"/>
         <image name="menuTabBarItemSelected" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="A2P-uK-y22"/>
-        <segue reference="D3H-HM-DML"/>
+        <segue reference="Flz-BO-K2m"/>
     </inferredMetricsTieBreakers>
 </document>

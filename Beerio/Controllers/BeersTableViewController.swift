@@ -56,6 +56,7 @@ class BeersTableViewController: LoaderTableViewController, Reloadable {
         
         cell.beerNameLabel?.text = beer.name
         if(RealmController.singleton.hasBeerAlreadySaved(beer: beer)) {
+            //print("\(beer.name) is already saved, displayin checkmark")
             cell.accessoryType = .checkmark
         }
         
@@ -131,5 +132,10 @@ class BeersTableViewController: LoaderTableViewController, Reloadable {
         }
     }
 
-
+    @IBAction func infoTapped(_ sender: Any) {
+        let alert = UIAlertController(title: style?.name, message: style?.description, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Close", style: .cancel, handler: nil))
+        self.present(alert, animated: true)
+    }
+    
 }
