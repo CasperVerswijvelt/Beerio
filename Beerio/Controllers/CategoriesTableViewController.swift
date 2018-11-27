@@ -29,7 +29,7 @@ class CategoriesTableViewController: LoaderTableViewController, UISearchBarDeleg
             updateFilteredList()
         }
     }
-    var alert : UIAlertController!
+    var apiKeyInvalidAlert : UIAlertController!
     
     
     
@@ -42,32 +42,60 @@ class CategoriesTableViewController: LoaderTableViewController, UISearchBarDeleg
         
         //Filling in our 'api key not valid' alert with the right alert, based on ios version
         if #available(iOS 10.0, *) {
-            alert = UIAlertController.init(title: "API Key Incorrect", message: "It seems that you either have not entered your BreweryDB API key in the settings yet, or it is invalid. Go to settings and enter a valid API Key", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Take me to Beerio Settings", style: .default) {
+            apiKeyInvalidAlert = UIAlertController.init(title: "API Key Incorrect", message: "It seems that you either have not entered your BreweryDB API key in the settings yet, or it is invalid. Go to settings and enter a valid API Key", preferredStyle: .alert)
+            apiKeyInvalidAlert.addAction(UIAlertAction(title: "Take me to Beerio Settings", style: .default) {
                 _ in
-                
+                self.dismiss(animated: false, completion: nil )
                 UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString+":root=Beerio")!, options:[:]) {
                     Bool in
                     //presenting the alert again so when they come back and their key is still invalid, they will still not be able to go further
-                    if !self.alert.isBeingPresented {
-                        self.present(self.alert, animated: true)
+                    if !self.apiKeyInvalidAlert.isBeingPresented {
+                        self.present(self.apiKeyInvalidAlert, animated: true)
                     }
                 }
-
-                
             })
         } else {
             //We can't redirect to settings in this IOS version, show explanation
-            alert = UIAlertController.init(title: "API Key Incorrect", message: "It seems that you either have not entered your BreweryDB API key in the settings yet, or it is invalid. Please go to 'Settings App -> Beerio -> BreweryDB API Key' and enter a valid API Key.", preferredStyle: .alert)
+            apiKeyInvalidAlert = UIAlertController.init(title: "API Key Incorrect", message: "It seems that you either have not entered your BreweryDB API key in the settings yet, or it is invalid. Please go to 'Settings App -> Beerio -> BreweryDB API Key' and enter a valid API Key.", preferredStyle: .alert)
             
         }
         
         //Checking if entered API Key is correct
-        doAPIKeyCheck()
-        NotificationCenter.default.addObserver(self, selector: #selector(self.doAPIKeyCheck), name: UserDefaults.didChangeNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.doApiCheckv2), name: UserDefaults.didChangeNotification, object: nil)
+        doApiCheckv2()
+        
     }
     
+    @objc func doApiCheckv2(){
+        print("observer apicheck")
+        doAPIKeyCheck {
+            
+        }
+    }
     
+    //objc so we can call it in our listener that listens to changes in our app settings
+    @objc func doAPIKeyCheck(completion: @escaping () -> Void) {
+        showLoader()
+        print("checking api key")
+        NetworkController.singleton.isAPIKeyValid() { bool in
+            DispatchQueue.main.async {
+                if(!bool) {
+                    
+                    self.dismiss(animated: false, completion: nil)
+                    self.present(self.apiKeyInvalidAlert, animated : false)
+                    
+                } else {
+                    print("dismiss")
+                    self.dismiss(animated: true, completion: nil)
+                    if(self.categories.count == 0) {
+                        self.loadCategories()
+                    }
+                }
+                completion()
+                
+            }
+        }
+    }
     
     //Retrieving data from controller
     func loadCategories() {
@@ -83,30 +111,10 @@ class CategoriesTableViewController: LoaderTableViewController, UISearchBarDeleg
                 }
             }
             self.hideLoader()
+            
         }
     }
     
-    
-    //objc so we can call it in our listener that listens to changes in our app settings
-    @objc func doAPIKeyCheck() {
-        showLoader()
-        NetworkController.singleton.isAPIKeyValid() { bool in
-            DispatchQueue.main.async {
-                if(!bool) {
-                    if(!self.alert.isBeingPresented) {
-                        self.present(self.alert, animated : true)
-                        
-                    }
-                    
-                } else {
-                    self.dismiss(animated: true, completion: nil)
-                    if(self.categories.count == 0) {
-                        self.loadCategories()
-                    }
-                }
-            }
-        }
-    }
     
     // Data source methods
     override func numberOfSections(in tableView: UITableView) -> Int {

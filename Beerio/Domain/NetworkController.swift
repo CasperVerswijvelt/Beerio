@@ -159,17 +159,15 @@ class NetworkController {
         components?.queryItems = [URLQueryItem(name: "key", value: API_KEY), URLQueryItem(name: "name", value: "easterEgg:)")]
         let task = URLSession.shared.dataTask(with: components!.url!) { (data,
             response, error) in
-            if let data = data, let json = try?JSONSerialization.jsonObject(with: data, options: []) as? [String:String], json?["errorMessage"] == "API key could not be found" {
+            if let data = data, let json = try?JSONSerialization.jsonObject(with: data, options: []) as? [String:String] {
                 
-                completion(false)
+                completion(json?["errorMessage"] != "API key could not be found")
                 return
             } else {
-                completion(true)
+                completion(false)
                 return
             }
         }
-        completion(false)
-        
         task.resume()
     }
     

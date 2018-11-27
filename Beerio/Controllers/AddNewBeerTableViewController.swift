@@ -25,6 +25,7 @@ class AddNewBeerTableViewController: UITableViewController, UIPickerViewDelegate
     @IBOutlet weak var yearPicker: UIPickerView!
     @IBOutlet weak var bottleLabelCell: UITableViewCell!
     
+    @IBOutlet weak var saveButton: UIBarButtonItem!
     var currentPickedImage : UIImage?
     
     var years: [Int] = []
@@ -44,6 +45,8 @@ class AddNewBeerTableViewController: UITableViewController, UIPickerViewDelegate
         years.reverse()
         yearPicker.delegate = self
         yearPicker.dataSource = self
+        
+        nameTextField.addTarget(self, action: #selector(nameChanged), for: .editingChanged)
         
         updateYearLabel()
         
@@ -192,5 +195,52 @@ class AddNewBeerTableViewController: UITableViewController, UIPickerViewDelegate
         }
     }
     
+    @IBAction func saveTapped(_ sender: Any) {
+        let name = nameTextField.text!
+        let description = descriptionTextView.text.count == 0 ? nil :  descriptionTextView.text
+        let originalGravity = originalGravityTextField.text?.count ?? 0 == 0 ? nil :  originalGravityTextField.text
+        let alcoholByVolume = alcoholByVolumeTextField.text?.count ?? 0  == 0 ? nil : alcoholByVolumeTextField.text
+        let internationalBitteringUnit = internationalBitteringUnitTextField.text?.count ?? 0  == 0 ? nil : internationalBitteringUnitTextField.text
+        let servingTemperature = servingTemperatureTextField.text?.count ?? 0  == 0 ? nil : servingTemperatureTextField.text
+        let foodPairings = foodPairingsTextView.text.count == 0 ? nil : foodPairingsTextView.text
+        let isRetired = isRetiredSwitch.isEnabled
+        let isOrganic = isOrganicSwitch.isEnabled
+        let year = years[yearPicker.selectedRow(inComponent: 0)]
+        let image = currentPickedImage
+        
+        let beer = Beer()
+        beer.name = name
+        beer.beerDescription = description
+        beer.originalGravity = originalGravity
+        beer.alcoholByVolume = alcoholByVolume
+        beer.internationalBitteringUnit = internationalBitteringUnit
+        beer.servingTemperature = servingTemperature
+        beer.foodPairings = foodPairings
+        beer.isRetiredRealm.value = isRetired
+        beer.isOrganicRealm.value = isOrganic
+        beer.year = year
+        
+        beer.generateRandomId()
+        beer.isSelfMade = true
+        
+        RealmController.singleton.addBeer(beer: beer, shouldUpdateTable: true) {
+            error in
+            if let error = error {
+                Toaster.makeErrorToast(view: self.navigationController?.view, text: "Couldn't add new beer: \(error.localizedDescription)")
+            } else {
+                if let image = image {
+                    beer.saveCustomImage(image: image)
+                }
+                Toaster.makeSuccesToast(view: self.navigationController?.view, text: "Succesfully added beer '\(name)'")
+                self.performSegue(withIdentifier: "unwindToMyBeers", sender: self)
+            }
+        }
+        
+        
+    }
+    
+    @objc func nameChanged() {
+        saveButton.isEnabled = (nameTextField.text?.count ?? 0) > 0
 
+    }
 }

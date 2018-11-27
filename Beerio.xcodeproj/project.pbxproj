@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		AF097E1421AC22B9003B948C /* DocumentsDirectoryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF097E1321AC22B9003B948C /* DocumentsDirectoryController.swift */; };
+		AF097E1621ACA348003B948C /* RealmUpdatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF097E1521ACA348003B948C /* RealmUpdatable.swift */; };
 		AF63E06921A5AB5A00860A90 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF63E06821A5AB5A00860A90 /* AppDelegate.swift */; };
 		AF63E07021A5AB5C00860A90 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AF63E06F21A5AB5C00860A90 /* Assets.xcassets */; };
 		AF63E07321A5AB5C00860A90 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AF63E07121A5AB5C00860A90 /* LaunchScreen.storyboard */; };
@@ -43,6 +44,7 @@
 		1BAFEBC978022720F7DF4FD9 /* Pods_Beerio.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Beerio.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2BBE31B14A413F3BE19936AC /* Pods-Beerio.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Beerio.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Beerio/Pods-Beerio.debug.xcconfig"; sourceTree = "<group>"; };
 		AF097E1321AC22B9003B948C /* DocumentsDirectoryController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentsDirectoryController.swift; sourceTree = "<group>"; };
+		AF097E1521ACA348003B948C /* RealmUpdatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmUpdatable.swift; sourceTree = "<group>"; };
 		AF63E06521A5AB5A00860A90 /* Beerio.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Beerio.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF63E06821A5AB5A00860A90 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AF63E06F21A5AB5C00860A90 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -105,6 +107,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		AF097E1721ACA354003B948C /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				AF097E1521ACA348003B948C /* RealmUpdatable.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
 		AF63E05C21A5AB5A00860A90 = {
 			isa = PBXGroup;
 			children = (
@@ -126,6 +136,7 @@
 		AF63E06721A5AB5A00860A90 /* Beerio */ = {
 			isa = PBXGroup;
 			children = (
+				AF097E1721ACA354003B948C /* Protocols */,
 				AFD077E521A6DFA800D49D4A /* Views */,
 				AF63E08221A5BB9700860A90 /* Domain */,
 				AF63E07D21A5B2DD00860A90 /* Controllers */,
@@ -331,6 +342,7 @@
 				AFF0786421A5E64E00A23B06 /* Category.swift in Sources */,
 				AFD077EB21A75B9600D49D4A /* Labels.swift in Sources */,
 				AF7CBE7021AAAD720004B112 /* BeerTableViewCell.swift in Sources */,
+				AF097E1621ACA348003B948C /* RealmUpdatable.swift in Sources */,
 				AFD5820C21A80B6E00296746 /* BeerSectionInfo.swift in Sources */,
 				AFD5821021A80DEF00296746 /* CellType.swift in Sources */,
 				AF63E06921A5AB5A00860A90 /* AppDelegate.swift in Sources */,

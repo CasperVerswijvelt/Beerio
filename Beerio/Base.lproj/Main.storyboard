@@ -216,7 +216,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <view key="tableFooterView" contentMode="scaleToFill" id="jI4-po-cBr">
-                            <rect key="frame" x="0.0" y="205.5" width="375" height="44"/>
+                            <rect key="frame" x="0.0" y="261.5" width="375" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Data courtesy of BreweryDB" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="beJ-K3-34f">
@@ -259,22 +259,22 @@
                                     </subviews>
                                 </tableViewCellContentView>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="beerCellLarge" textLabel="cwW-R1-vrd" detailTextLabel="Atb-9O-0bO" style="IBUITableViewCellStyleSubtitle" id="Jvo-7m-o0E">
-                                <rect key="frame" x="0.0" y="99.5" width="375" height="44"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="beerCellLarge" textLabel="cwW-R1-vrd" detailTextLabel="Atb-9O-0bO" rowHeight="100" style="IBUITableViewCellStyleSubtitle" id="Jvo-7m-o0E">
+                                <rect key="frame" x="0.0" y="99.5" width="375" height="100"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Jvo-7m-o0E" id="R17-Pr-IR4">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="99.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="cwW-R1-vrd">
-                                            <rect key="frame" x="16" y="5" width="33.5" height="20.5"/>
+                                            <rect key="frame" x="16" y="30" width="33.5" height="20.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Subtitle" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Atb-9O-0bO">
-                                            <rect key="frame" x="16" y="25.5" width="44" height="14.5"/>
+                                            <rect key="frame" x="16" y="53.5" width="44" height="14.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                             <nil key="textColor"/>
@@ -284,7 +284,7 @@
                                 </tableViewCellContentView>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="imageCell" textLabel="JJ7-KH-GSV" detailTextLabel="Fv9-d2-3Ve" style="IBUITableViewCellStyleValue1" id="gcd-lC-EZ9">
-                                <rect key="frame" x="0.0" y="143.5" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="199.5" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="gcd-lC-EZ9" id="EUy-f5-JZ8">
                                     <rect key="frame" x="0.0" y="0.0" width="341" height="43.5"/>
@@ -317,6 +317,9 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" largeTitleDisplayMode="never" id="6UE-yk-3Fg"/>
+                    <connections>
+                        <outlet property="dataCourtesy" destination="jI4-po-cBr" id="C8X-lK-2e1"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yJq-Ny-WKD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -425,8 +428,8 @@
                                 </constraints>
                                 <segments>
                                     <segment title="All"/>
-                                    <segment title="Verified"/>
-                                    <segment title="Pending"/>
+                                    <segment title="Self made"/>
+                                    <segment title="Downloaded"/>
                                 </segments>
                                 <connections>
                                     <action selector="segmentedControlValueChanged:" destination="TB3-m9-naR" eventType="valueChanged" id="v3L-Mv-24G"/>
@@ -467,7 +470,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="oyx-tm-jFD" firstAttribute="top" secondItem="GEp-l2-yqV" secondAttribute="topMargin" constant="16" id="JLl-Zg-ouu"/>
+                            <constraint firstItem="oyx-tm-jFD" firstAttribute="top" secondItem="4Y9-CB-osm" secondAttribute="top" constant="16" id="JLl-Zg-ouu"/>
                             <constraint firstItem="oyx-tm-jFD" firstAttribute="trailing" secondItem="GEp-l2-yqV" secondAttribute="trailingMargin" id="KPl-Vn-Ti1"/>
                             <constraint firstItem="6ek-e6-Pee" firstAttribute="leading" secondItem="GEp-l2-yqV" secondAttribute="leadingMargin" id="LcY-OU-g9H"/>
                             <constraint firstItem="4Y9-CB-osm" firstAttribute="leading" secondItem="9ut-M1-g23" secondAttribute="leading" id="VIl-2T-YRB"/>
@@ -840,14 +843,14 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Year" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Wgk-kk-r8h">
-                                                    <rect key="frame" x="16" y="12" width="34" height="20.5"/>
+                                                    <rect key="frame" x="15" y="12" width="34" height="20.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ykJ-cI-aFi">
-                                                    <rect key="frame" x="315" y="12" width="44" height="20.5"/>
+                                                    <rect key="frame" x="316" y="12" width="44" height="20.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
@@ -879,11 +882,11 @@
                                         <rect key="frame" x="0.0" y="897.5" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Kin-IQ-713" id="E87-tM-HeE">
-                                            <rect key="frame" x="0.0" y="0.0" width="341" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="349" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Bottle Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="jZN-XD-Is3">
-                                                    <rect key="frame" x="16" y="12" width="91.5" height="20.5"/>
+                                                    <rect key="frame" x="15" y="12" width="91.5" height="20.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
@@ -910,10 +913,14 @@
                     <navigationItem key="navigationItem" title="Add new beer" id="gUc-ne-Jr6">
                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="JWk-00-ogt">
                             <connections>
-                                <segue destination="5XG-Zb-A0C" kind="unwind" unwindAction="unwindToMyBeersScreenWithSegue:" id="kFW-xA-Ve7"/>
+                                <segue destination="5XG-Zb-A0C" kind="unwind" unwindAction="unwindToMyBeersScreenWithSegue:" id="tmC-BN-0lS"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="p6A-zT-575"/>
+                        <barButtonItem key="rightBarButtonItem" enabled="NO" systemItem="save" id="p6A-zT-575">
+                            <connections>
+                                <action selector="saveTapped:" destination="qSe-Xi-2jx" id="Og2-kS-obG"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="alcoholByVolumeTextField" destination="Yp9-yK-TyJ" id="kVL-2e-BBY"/>
@@ -925,9 +932,11 @@
                         <outlet property="isRetiredSwitch" destination="Tf5-c7-xPg" id="mwd-E1-Klh"/>
                         <outlet property="nameTextField" destination="b7W-js-wqW" id="FCF-AV-58a"/>
                         <outlet property="originalGravityTextField" destination="cEI-Mz-GEg" id="jOa-bU-8ey"/>
+                        <outlet property="saveButton" destination="p6A-zT-575" id="Bph-v7-Aos"/>
                         <outlet property="servingTemperatureTextField" destination="4mQ-MN-hmC" id="1z7-zk-y9X"/>
                         <outlet property="yearLabel" destination="ykJ-cI-aFi" id="lcx-SG-CP2"/>
                         <outlet property="yearPicker" destination="vo6-Xd-Pxe" id="67r-vB-t4g"/>
+                        <segue destination="5XG-Zb-A0C" kind="unwind" identifier="unwindToMyBeers" unwindAction="unwindToMyBeersScreenWithSegue:" id="3al-Qf-wry"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QQo-1u-QF6" userLabel="First Responder" sceneMemberID="firstResponder"/>

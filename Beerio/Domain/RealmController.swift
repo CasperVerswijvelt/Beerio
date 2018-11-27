@@ -14,7 +14,7 @@ class RealmController {
     static let singleton : RealmController = RealmController()
     
     var beers : Results<Beer> = try! Realm().objects(Beer.self).sorted(byKeyPath: "dateAdded", ascending: true)
-    var tableView : UITableView?
+    var realmUpdatables : Array<RealmUpdatable> = []
     
     func addBeer(beer : Beer, shouldUpdateTable: Bool,completion: @escaping (Error?) -> Void) {
         do {
@@ -24,7 +24,7 @@ class RealmController {
                 realm.add(beer)
             }
             self.updateResultsList()
-            self.updateTable(shouldUpdateTable: shouldUpdateTable)
+            self.updateRealmUpdatables(shouldUpdateTable: shouldUpdateTable)
         } catch let error as NSError {
             completion(error)
             return
@@ -38,9 +38,10 @@ class RealmController {
             let realm = try Realm()
             try realm.write {
                 realm.delete(beer)
-                updateTable(shouldUpdateTable: shouldUpdateTable)
+                
             }
             updateResultsList()
+            self.updateRealmUpdatables(shouldUpdateTable: shouldUpdateTable)
         } catch let error as NSError {
             completion(error)
             return
@@ -88,14 +89,14 @@ class RealmController {
     }
     
     
-    func setTableViewToUpdate(_ tableView : UITableView) {
-        self.tableView = tableView
+    func updateRealmUpdatables(shouldUpdateTable : Bool) {
+        realmUpdatables.forEach {obj in
+            obj.updateData(shouldUpdateTable: shouldUpdateTable)
+        }
     }
     
-    func updateTable(shouldUpdateTable : Bool) {
-        if let tableView = tableView, shouldUpdateTable {
-            tableView.reloadData()
-        }
+    func addRealmUpdatable(updatable : RealmUpdatable) {
+        realmUpdatables.append(updatable)
     }
     
     

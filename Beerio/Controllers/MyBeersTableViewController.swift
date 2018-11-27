@@ -7,22 +7,35 @@
 //
 
 import UIKit
+import RealmSwift
 
-class MyBeersTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class MyBeersTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, RealmUpdatable {
+    
+    
     //Outlets
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var segmentedControl: UISegmentedControl!
     @IBOutlet weak var addBeerButton: UIButton!
     
     //Vars
-    var localBeerList = RealmController.singleton.beers
+    var localBeerList = RealmController.singleton.beers {
+        didSet {
+            updateFilteredLists()
+        }
+    }
+    var tableViewBeers : Array<Beer>!
+    var downloadedBeers : Array<Beer>!
+    var selfMadeBeers : Array<Beer>!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.delegate = self
         tableView.dataSource = self
         
+        updateFilteredLists()
+        
         //We set this table to update whenever something in the Realm changes, so if another view adds something to the realm, this tableview is automaticcaly up to date
-        RealmController.singleton.setTableViewToUpdate(tableView)
+        RealmController.singleton.addRealmUpdatable(updatable: self)
         
         self.navigationItem.rightBarButtonItem = self.editButtonItem
         addBeerButton.layer.cornerRadius = 10
@@ -38,7 +51,7 @@ class MyBeersTableViewController: UIViewController, UITableViewDelegate, UITable
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         
-        return RealmController.singleton.beers.count
+        return tableViewBeers.count
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
@@ -48,7 +61,7 @@ class MyBeersTableViewController: UIViewController, UITableViewDelegate, UITable
     }
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if(editingStyle == .delete) {
-            RealmController.singleton.removeBeer(beer: localBeerList[indexPath.row], shouldUpdateTable: false) {error in
+            RealmController.singleton.removeBeer(beer: tableViewBeers[indexPath.row], shouldUpdateTable: false) {error in
                 if let error = error {
                     Toaster.makeErrorToast(view: self.navigationController?.view, text: "Couldn't delete beer from library: \(error.localizedDescription)")
                 } else {
@@ -63,15 +76,32 @@ class MyBeersTableViewController: UIViewController, UITableViewDelegate, UITable
         tableView.setEditing(editing, animated: animated)
     }
     
-    
+    //RealmUpdatable
+    func updateData(shouldUpdateTable : Bool) {
+        self.localBeerList = RealmController.singleton.beers
+        updateFilteredLists()
+        if shouldUpdateTable {
+            tableView.reloadData()
+        }
+    }
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "beerCell", for: indexPath)
         
-        let beer = localBeerList[indexPath.row]
+        let beer = tableViewBeers[indexPath.row]
         // Configure the cell...
         cell.textLabel?.text = beer.name
+        
+        
+        //Customizing the accesory type based on wether the beer is self made
+        var imageView : UIImageView
+        imageView  = UIImageView(frame:CGRect(x:20, y:20, width:25, height:25))
+        
+        imageView.image = beer.isSelfMade ? nil : UIImage(named:"downloadedAccesory.pdf")
+        imageView.tintColor = UIColor.blue //not working?
+        
+        cell.accessoryView = imageView
         
         return cell
     }
@@ -79,13 +109,34 @@ class MyBeersTableViewController: UIViewController, UITableViewDelegate, UITable
     
     
     @IBAction func segmentedControlValueChanged(_ sender: Any) {
+        fillInTableViewBeersList()
         tableView.reloadData()
+    }
+    
+    func updateFilteredLists() {
+        downloadedBeers = Array(localBeerList.filter {
+            !$0.isSelfMade
+        })
+        selfMadeBeers = Array(localBeerList.filter {
+            $0.isSelfMade
+        })
+        fillInTableViewBeersList()
+    }
+    func fillInTableViewBeersList(){
+        switch(segmentedControl.selectedSegmentIndex) {
+        case 1:
+            tableViewBeers = selfMadeBeers
+        case 2:
+            tableViewBeers = downloadedBeers
+        default:
+            tableViewBeers = Array(localBeerList)
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showMyBeer", let destination = segue.destination as? BeerDetailsTableViewController, let beerIndex = tableView.indexPathForSelectedRow?.row {
             destination.isLocal = true
-            destination.beer = RealmController.singleton.beers[beerIndex]
+            destination.beer = tableViewBeers[beerIndex]
         }
     }
     @IBAction func newBeerTapped(_ sender: Any) {

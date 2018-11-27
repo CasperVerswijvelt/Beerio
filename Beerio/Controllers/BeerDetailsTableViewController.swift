@@ -34,6 +34,7 @@ class BeerDetailsTableViewController: LoaderTableViewController {
             self.editButtonItem.isEnabled = getNotesSectionIndex() != nil
         }
     }
+    @IBOutlet weak var dataCourtesy: UIView!
     
     
     override func viewDidLoad() {
@@ -43,6 +44,11 @@ class BeerDetailsTableViewController: LoaderTableViewController {
         addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addTapped))
         addNoteButton = UIBarButtonItem(barButtonSystemItem: .compose, target: self, action: #selector(addNoteTapped))
         alreadySavedButton = UIBarButtonItem(image: UIImage(named: "checkmarkBarButtonItem.pdf"), style: .plain, target: self, action: #selector(alreadySavedTapped))
+        
+        dataCourtesy.isHidden = beer?.isSelfMade ?? true
+        
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = 44
         
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -88,6 +94,7 @@ class BeerDetailsTableViewController: LoaderTableViewController {
     override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
         return .delete
     }
+
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if(editingStyle == .delete) {

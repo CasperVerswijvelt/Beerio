@@ -27,7 +27,7 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
         
         //Scroll
         scrollView.contentSize=CGSize(width: 1280, height:960);
-        scrollView.minimumZoomScale = 0.5
+        scrollView.minimumZoomScale = 1.0
         scrollView.maximumZoomScale = 10.0
         
         
