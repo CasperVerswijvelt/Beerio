@@ -56,7 +56,6 @@ class BeersTableViewController: LoaderTableViewController, Reloadable {
         
         cell.beerNameLabel?.text = beer.name
         if(RealmController.singleton.hasBeerAlreadySaved(beer: beer)) {
-            //print("\(beer.name) is already saved, displayin checkmark")
             cell.accessoryType = .checkmark
         }
         

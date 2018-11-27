@@ -85,7 +85,6 @@ class NetworkController {
                                   URLQueryItem(name: "styleId", value: String(styleId))]
         
         if let url = components?.url {
-            print(url)
             let task = URLSession.shared.dataTask(with: url) {
                 (data,response,error) in
                 let jsonDecoder = JSONDecoder()
@@ -100,8 +99,6 @@ class NetworkController {
         } else {
             completion(nil)
         }
-        
-        
     }
     
     

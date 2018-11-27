@@ -30,7 +30,7 @@ class BrowsOnlineViewController: UINavigationController {
 
     //objc so we can call it in our listener that listens to changes in our app settings
     @objc func doAPIKeyCheck() {
-        print("checking api key")
+        print("Settings changed, checking API key")
         NetworkController.singleton.isAPIKeyValid() { bool in
             DispatchQueue.main.async {
                 if(!bool) {

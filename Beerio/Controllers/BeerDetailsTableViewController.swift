@@ -14,6 +14,7 @@ class BeerDetailsTableViewController: LoaderTableViewController {
     var addButton : UIBarButtonItem!
     var addNoteButton : UIBarButtonItem!
     var alreadySavedButton : UIBarButtonItem!
+    var editButton : UIBarButtonItem!
     
     //Vars
     var beer : Beer? {
@@ -44,11 +45,10 @@ class BeerDetailsTableViewController: LoaderTableViewController {
         addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addTapped))
         addNoteButton = UIBarButtonItem(barButtonSystemItem: .compose, target: self, action: #selector(addNoteTapped))
         alreadySavedButton = UIBarButtonItem(image: UIImage(named: "checkmarkBarButtonItem.pdf"), style: .plain, target: self, action: #selector(alreadySavedTapped))
+        editButton = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(editTapped))
+        
         
         dataCourtesy.isHidden = beer?.isSelfMade ?? true
-        
-        tableView.rowHeight = UITableView.automaticDimension
-        tableView.estimatedRowHeight = 44
         
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -136,6 +136,8 @@ class BeerDetailsTableViewController: LoaderTableViewController {
         if segue.identifier == "showLabel", let destination = segue.destination as? ImageViewController, let _ = tableView.indexPathForSelectedRow {
             
             destination.beer = self.beer!
+        } else if segue.identifier == "editExistingBeer", let destination = (segue.destination as? UINavigationController)?.viewControllers.first as? EditBeerTableViewController, let beer = beer {
+            destination.editBeer = beer
         }
     }
     
@@ -213,7 +215,11 @@ class BeerDetailsTableViewController: LoaderTableViewController {
     }
     
     @objc func alreadySavedTapped(){
-        //
+        //doesn't do anything lmao
+    }
+    
+    @objc func editTapped(){
+        self.performSegue(withIdentifier: "editExistingBeer", sender: self);
     }
     
     func getNotesSectionIndex() -> Int? {
@@ -227,7 +233,9 @@ class BeerDetailsTableViewController: LoaderTableViewController {
         var items : [UIBarButtonItem] = []
         
         if isLocal {
-            items.append(self.editButtonItem)
+            if((beer?.isSelfMade)!) {
+                items.append(editButton)
+            }
             items.append(addNoteButton)
         } else {
             if let beer = beer, RealmController.singleton.hasBeerAlreadySaved(beer: beer) {
@@ -237,6 +245,13 @@ class BeerDetailsTableViewController: LoaderTableViewController {
             }
         }
         self.navigationItem.rightBarButtonItems = items
+    }
+    
+    @IBAction func unwindToBeerDetailScreen(segue : UIStoryboardSegue) {
+        if let beer = beer {
+            beerDetails = beer.tableLayout
+            tableView.reloadData()
+        }
     }
     
     

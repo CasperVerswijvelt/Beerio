@@ -12,6 +12,10 @@ import UIKit
 class DocumentsDirectoryController {
     static let singleton = DocumentsDirectoryController()
     
+    init() {
+        print("Documents directory: \(getDirectoryPath())")
+    }
+    
     let imageExtension = ".jpg"
     func saveImageDocumentDirectory(image : UIImage, fileName : String) {
         let fileManager = FileManager.default
@@ -24,8 +28,6 @@ class DocumentsDirectoryController {
         let fileURL = getDirectoryPath().appendingPathComponent(fileName+imageExtension)
         let imageData = image.jpegData(compressionQuality: 1.0)
         try? imageData?.write(to: fileURL)
-        
-        
     }
     
     func getDirectoryPath() -> URL {
@@ -49,5 +51,4 @@ class DocumentsDirectoryController {
             try? fileManager.removeItem(at: imagePath)
         }
     }
-    
 }

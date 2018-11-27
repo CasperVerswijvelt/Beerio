@@ -171,7 +171,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AaH-SP-ukw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="375" y="1081"/>
+            <point key="canvasLocation" x="374" y="1033"/>
         </scene>
         <!--Styles Table View Controller-->
         <scene sceneID="TfM-Vy-SlI">
@@ -211,7 +211,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="92Q-Br-U6a" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1991" y="331"/>
+            <point key="canvasLocation" x="1876" y="331"/>
         </scene>
         <!--Beers Table View Controller-->
         <scene sceneID="8vb-5L-UU8">
@@ -267,7 +267,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yqi-LA-7zd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2895" y="331"/>
+            <point key="canvasLocation" x="2585" y="331"/>
         </scene>
         <!--Beer Details Table View Controller-->
         <scene sceneID="sbQ-8I-uXX">
@@ -381,11 +381,12 @@
                     <navigationItem key="navigationItem" largeTitleDisplayMode="never" id="6UE-yk-3Fg"/>
                     <connections>
                         <outlet property="dataCourtesy" destination="jI4-po-cBr" id="C8X-lK-2e1"/>
+                        <segue destination="uJb-i9-bOH" kind="presentation" identifier="editExistingBeer" id="A2P-uK-y22"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yJq-Ny-WKD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3705" y="343"/>
+            <point key="canvasLocation" x="3287" y="332"/>
         </scene>
         <!--Bottle Label-->
         <scene sceneID="IxH-hf-xFM">
@@ -439,7 +440,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Bsu-zR-lxk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4631" y="342"/>
+            <point key="canvasLocation" x="4073" y="331"/>
         </scene>
         <!--Browse Online-->
         <scene sceneID="7R0-IP-Y0c">
@@ -571,12 +572,12 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2Y3-Mf-zOA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1990" y="-559"/>
+            <point key="canvasLocation" x="4074" y="-559"/>
         </scene>
-        <!--Add new beer-->
+        <!--Add new / edit beer-->
         <scene sceneID="dgj-ry-wub">
             <objects>
-                <tableViewController id="qSe-Xi-2jx" customClass="AddNewBeerTableViewController" customModule="Beerio" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="qSe-Xi-2jx" customClass="EditBeerTableViewController" customModule="Beerio" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="3fd-Ng-wfL">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -972,10 +973,10 @@
                             <outlet property="delegate" destination="qSe-Xi-2jx" id="Sh8-2N-LQd"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Add new beer" id="gUc-ne-Jr6">
+                    <navigationItem key="navigationItem" title="Add new / edit beer" id="gUc-ne-Jr6">
                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="JWk-00-ogt">
                             <connections>
-                                <segue destination="5XG-Zb-A0C" kind="unwind" unwindAction="unwindToMyBeersScreenWithSegue:" id="tmC-BN-0lS"/>
+                                <action selector="cancelTapped:" destination="qSe-Xi-2jx" id="SSI-hl-N82"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" enabled="NO" systemItem="save" id="p6A-zT-575">
@@ -999,12 +1000,13 @@
                         <outlet property="yearLabel" destination="ykJ-cI-aFi" id="lcx-SG-CP2"/>
                         <outlet property="yearPicker" destination="vo6-Xd-Pxe" id="67r-vB-t4g"/>
                         <segue destination="5XG-Zb-A0C" kind="unwind" identifier="unwindToMyBeers" unwindAction="unwindToMyBeersScreenWithSegue:" id="3al-Qf-wry"/>
+                        <segue destination="5XG-Zb-A0C" kind="unwind" identifier="unwindToBeerDetails" unwindAction="unwindToBeerDetailScreenWithSegue:" id="7rm-cV-Vka"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QQo-1u-QF6" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="5XG-Zb-A0C" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="2804" y="-559"/>
+            <point key="canvasLocation" x="4950" y="-559"/>
         </scene>
     </scenes>
     <resources>
@@ -1015,6 +1017,7 @@
         <image name="menuTabBarItemSelected" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="A2P-uK-y22"/>
         <segue reference="D3H-HM-DML"/>
     </inferredMetricsTieBreakers>
 </document>

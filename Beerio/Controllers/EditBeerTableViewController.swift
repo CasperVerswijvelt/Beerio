@@ -9,7 +9,7 @@
 import UIKit
 import PopupDialog
 
-class AddNewBeerTableViewController: UITableViewController, UIPickerViewDelegate, UIPickerViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class EditBeerTableViewController: UITableViewController, UIPickerViewDelegate, UIPickerViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     
     @IBOutlet weak var nameTextField: UITextField!
@@ -37,6 +37,8 @@ class AddNewBeerTableViewController: UITableViewController, UIPickerViewDelegate
         }
     }
     
+    var editBeer : Beer?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         for year in 1500...Calendar.current.component(Calendar.Component.year, from: Date()) {
@@ -49,6 +51,25 @@ class AddNewBeerTableViewController: UITableViewController, UIPickerViewDelegate
         nameTextField.addTarget(self, action: #selector(nameChanged), for: .editingChanged)
         
         updateYearLabel()
+        
+        if let beer = editBeer {
+            self.nameTextField.text = beer.name
+            self.descriptionTextView.text = beer.beerDescription
+            self.originalGravityTextField.text = beer.originalGravity
+            self.alcoholByVolumeTextField.text = beer.alcoholByVolume
+            self.internationalBitteringUnitTextField.text = beer.internationalBitteringUnit
+            self.servingTemperatureTextField.text = beer.servingTemperature
+            self.foodPairingsTextView.text = beer.foodPairings
+            self.isRetiredSwitch.isOn = beer.isRetiredRealm.value ?? false
+            self.isOrganicSwitch.isOn = beer.isOrganicRealm.value ?? false
+            self.yearPicker.selectRow(years.firstIndex(of: beer.year ?? 2018) ?? 0, inComponent: 0, animated: false)
+            self.currentPickedImage = DocumentsDirectoryController.singleton.getImage(fileName: beer.id)
+            nameChanged()
+            updateLabelPickerCell()
+            updateYearLabel()
+        }
+        
+        self.navigationItem.title = editBeer == nil ? "Add new beer" : "Edit beer"
         
     }
     
@@ -208,7 +229,6 @@ class AddNewBeerTableViewController: UITableViewController, UIPickerViewDelegate
         let year = years[yearPicker.selectedRow(inComponent: 0)]
         let image = currentPickedImage
 
-        
         let beer = Beer()
         beer.name = name
         beer.beerDescription = description
@@ -221,27 +241,47 @@ class AddNewBeerTableViewController: UITableViewController, UIPickerViewDelegate
         beer.isOrganicRealm.value = isOrganic
         beer.year = year
         
-        beer.generateRandomId()
-        beer.isSelfMade = true
-        
-        RealmController.singleton.addBeer(beer: beer, shouldUpdateTable: true) {
-            error in
-            if let error = error {
-                Toaster.makeErrorToast(view: self.navigationController?.view, text: "Couldn't add new beer: \(error.localizedDescription)")
-            } else {
-                if let image = image {
-                    beer.saveCustomImage(image: image)
+        if let editBeer = editBeer {
+            RealmController.singleton.updateBeer(realmBeer: editBeer, dataBeer: beer, shouldUpdateTable: true) {
+                error in
+                if let error = error {
+                    Toaster.makeErrorToast(view: self.navigationController?.view, text: "Couldn't edit beer: \(error.localizedDescription)")
+                } else {
+                    if let image = image {
+                        beer.saveCustomImage(image: image)
+                    }
+                    Toaster.makeSuccesToast(view: self.navigationController?.view, text: "Succesfully edited beer '\(name)'")
+                    self.performSegue(withIdentifier: "unwindToBeerDetails", sender: self)
                 }
-                Toaster.makeSuccesToast(view: self.navigationController?.view, text: "Succesfully added beer '\(name)'")
-                self.performSegue(withIdentifier: "unwindToMyBeers", sender: self)
+            }
+        } else {
+            beer.generateRandomId()
+            beer.isSelfMade = true
+            RealmController.singleton.addBeer(beer: beer, shouldUpdateTable: true) {
+                error in
+                if let error = error {
+                    Toaster.makeErrorToast(view: self.navigationController?.view, text: "Couldn't add new beer: \(error.localizedDescription)")
+                } else {
+                    if let image = image {
+                        beer.saveCustomImage(image: image)
+                    }
+                    Toaster.makeSuccesToast(view: self.navigationController?.view, text: "Succesfully added beer '\(name)'")
+                    self.performSegue(withIdentifier: "unwindToMyBeers", sender: self)
+                }
             }
         }
-        
-        
+ 
     }
     
     @objc func nameChanged() {
         saveButton.isEnabled = (nameTextField.text?.count ?? 0) > 0
 
+    }
+    @IBAction func cancelTapped(_ sender: Any) {
+        if editBeer == nil {
+            self.performSegue(withIdentifier: "unwindToMyBeers", sender: self)
+        } else {
+            self.performSegue(withIdentifier: "unwindToBeerDetails", sender: self)
+        }
     }
 }

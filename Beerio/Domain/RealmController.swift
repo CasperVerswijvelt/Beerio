@@ -48,8 +48,35 @@ class RealmController {
             return
         }
         completion(nil)
-        
-        
+    }
+    
+    func updateBeer(realmBeer : Beer, dataBeer : Beer,shouldUpdateTable : Bool,completion: @escaping (Error?) -> Void) {
+        do {
+            let realm = try Realm()
+            try realm.write {
+                let id = realmBeer.id
+                
+                
+                realmBeer.id = dataBeer.id
+                realmBeer.name = dataBeer.name
+                realmBeer.beerDescription = dataBeer.beerDescription
+                realmBeer.alcoholByVolume = dataBeer.alcoholByVolume
+                realmBeer.internationalBitteringUnit = dataBeer.internationalBitteringUnit
+                realmBeer.originalGravity = dataBeer.originalGravity
+                realmBeer.foodPairings = dataBeer.foodPairings
+                realmBeer.isRetiredRealm.value = dataBeer.isRetiredRealm.value
+                realmBeer.isOrganicRealm.value = dataBeer.isOrganicRealm.value
+                realmBeer.year = dataBeer.year
+                
+                DocumentsDirectoryController.singleton.removeImage(fileName: id)
+            }
+            updateResultsList()
+            self.updateRealmUpdatables(shouldUpdateTable: shouldUpdateTable)
+        } catch let error as NSError {
+            completion(error)
+            return
+        }
+        completion(nil)
     }
     
     func addNoteToBeer(beer:Beer,text:String,completion: @escaping (Error?) -> Void) {
