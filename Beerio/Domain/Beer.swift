@@ -84,54 +84,7 @@ class Beer : Object, Codable {
     }
     
     
-    //To transform to data that a table can easily read
-    var tableLayout : [BeerSectionInfo] {
-        get {
-            var sections : [BeerSectionInfo] = []
-            
-            //Section with basic info (name and description)
-            var basicInfo = BeerSectionInfo(header: "Basic info")
-            basicInfo.cells.append(BeerCellInfo(key: "Name", value: name, cellType: .LARGE))
-            basicInfo.cells.appendCellIfValueIsPresent(key: "Description", value: beerDescription, cellType : .LARGE)
-            
-            //Section with numbers and stuff
-            var numbers = BeerSectionInfo(header: "Numbers and stuff")
-            numbers.cells.appendCellIfValueIsPresent(key: "Original Gravity", value: originalGravity, cellType: .SIMPLE)
-            numbers.cells.appendCellIfValueIsPresent(key: "Alcohol By Volume", value: alcoholByVolume, cellType: .SIMPLE)
-            numbers.cells.appendCellIfValueIsPresent(key: "International Bittering Unit", value: internationalBitteringUnit, cellType: .SIMPLE)
-            numbers.cells.appendCellIfValueIsPresent(key: "Serving Temperature", value: servingTemperature, cellType: .LARGE)
-            
-            //Section about other random stuff
-            var random = BeerSectionInfo(header: "Other")
-            random.cells.appendCellIfValueIsPresent(key: "Food Pairings", value: foodPairings, cellType: CellType.LARGE)
-            random.cells.appendCellIfValueIsPresent(key: "Is retired", value: isRetiredRealm.value, cellType: CellType.SIMPLE)
-            random.cells.appendCellIfValueIsPresent(key: "Is organic", value: isOrganicRealm.value, cellType: CellType.SIMPLE)
-            random.cells.appendCellIfValueIsPresent(key: "Year", value: yearRealm.value, cellType: CellType.SIMPLE)
-            random.cells.appendCellIfValueIsPresent(key: "Bottle Label", value: (DocumentsDirectoryController.singleton.getImage(fileName: id) != nil || labels?.large != nil) ? true : nil  , cellType: CellType.IMAGE)
-            
-            var dateAdded = BeerSectionInfo(header: "Added to local library")
-            let df = DateFormatter()
-            df.dateStyle = .medium
-            dateAdded.cells.appendCellIfValueIsPresent(key: "Date", value: df.string(for: self.dateAdded), cellType: .SIMPLE)
-            
-            var notes = BeerSectionInfo(header: "Personal notes")
-            self.notes.forEach { note in
-                notes.cells.append(BeerCellInfo(key: df.string(from: note.date), value: note.text, cellType: .LARGE))
-            }
-            notes.isNotes = true
-            
-            
-            sections.appendSectionIfHasCells(basicInfo)
-            sections.appendSectionIfHasCells(numbers)
-            sections.appendSectionIfHasCells(random)
-            sections.appendSectionIfHasCells(dateAdded)
-            sections.appendSectionIfHasCells(notes)
-            
-            
-            return sections
-        }
-        set {}
-    }
+    
     
     //Codable
     private enum CodingKeys : String, CodingKey {
@@ -269,5 +222,57 @@ extension Array where Iterator.Element == BeerCellInfo  {
             self.append(beerCellInfo)
             
         }
+    }
+}
+//Extension on class beer, I moved it onto an extension so the beer class itself isn'nt blaoted
+//To transform to data that a table can easily read
+extension Beer {
+    //Get only variable
+    var tableLayout : [BeerSectionInfo] {
+        get {
+            var sections : [BeerSectionInfo] = []
+            
+            //Section with basic info (name and description)
+            var basicInfo = BeerSectionInfo(header: "Basic info")
+            basicInfo.cells.append(BeerCellInfo(key: "Name", value: name, cellType: .LARGE))
+            basicInfo.cells.appendCellIfValueIsPresent(key: "Description", value: beerDescription, cellType : .LARGE)
+            
+            //Section with numbers and stuff
+            var numbers = BeerSectionInfo(header: "Numbers and stuff")
+            numbers.cells.appendCellIfValueIsPresent(key: "Original Gravity", value: originalGravity, cellType: .SIMPLE)
+            numbers.cells.appendCellIfValueIsPresent(key: "Alcohol By Volume", value: alcoholByVolume, cellType: .SIMPLE)
+            numbers.cells.appendCellIfValueIsPresent(key: "International Bittering Unit", value: internationalBitteringUnit, cellType: .SIMPLE)
+            numbers.cells.appendCellIfValueIsPresent(key: "Serving Temperature", value: servingTemperature, cellType: .LARGE)
+            
+            //Section about other random stuff
+            var random = BeerSectionInfo(header: "Other")
+            random.cells.appendCellIfValueIsPresent(key: "Food Pairings", value: foodPairings, cellType: CellType.LARGE)
+            random.cells.appendCellIfValueIsPresent(key: "Is retired", value: isRetiredRealm.value, cellType: CellType.SIMPLE)
+            random.cells.appendCellIfValueIsPresent(key: "Is organic", value: isOrganicRealm.value, cellType: CellType.SIMPLE)
+            random.cells.appendCellIfValueIsPresent(key: "Year", value: yearRealm.value, cellType: CellType.SIMPLE)
+            random.cells.appendCellIfValueIsPresent(key: "Bottle Label", value: (DocumentsDirectoryController.singleton.getImage(fileName: id) != nil || labels?.large != nil) ? true : nil  , cellType: CellType.IMAGE)
+            
+            var dateAdded = BeerSectionInfo(header: "Added to local library")
+            let df = DateFormatter()
+            df.dateStyle = .medium
+            dateAdded.cells.appendCellIfValueIsPresent(key: "Date", value: df.string(for: self.dateAdded), cellType: .SIMPLE)
+            
+            var notes = BeerSectionInfo(header: "Personal notes")
+            self.notes.forEach { note in
+                notes.cells.append(BeerCellInfo(key: df.string(from: note.date), value: note.text, cellType: .LARGE))
+            }
+            notes.isNotes = true
+            
+            
+            sections.appendSectionIfHasCells(basicInfo)
+            sections.appendSectionIfHasCells(numbers)
+            sections.appendSectionIfHasCells(random)
+            sections.appendSectionIfHasCells(dateAdded)
+            sections.appendSectionIfHasCells(notes)
+            
+            
+            return sections
+        }
+        set {}
     }
 }
