@@ -12,13 +12,15 @@ import UIKit
 class NetworkController {
     static let singleton : NetworkController = NetworkController()
     
+    //Our API url
     let baseUrl : URL = URL(string: "https://api.brewerydb.com/v2/")!
     
+    //To fetch all beer categories
     func fetchCategories(completion: @escaping (_ categories : [Category]?) -> Void) {
+        //If there is no API Key present in settings bundle, return and do completion(nil)
         guard let API_KEY = SettingsBundleHelper().API_KEY else {
-            
+            completion(nil)
             return}
-        
         
         let stylesUrl = baseUrl.appendingPathComponent("categories")
         var components = URLComponents(url: stylesUrl, resolvingAgainstBaseURL: false)
@@ -45,10 +47,10 @@ class NetworkController {
     //Unfortunately with this api we can't get all styles based on a category
     //  Instead we get all styles, cache these and filter
     func fetchStyles(for categoryId: Int, completion: @escaping ([Style]?) -> Void) {
+        //If there is no API Key present in settings bundle, return and do completion(nil)
         guard let API_KEY = SettingsBundleHelper().API_KEY else {
             completion(nil)
             return}
-        
         
         let beersUrl = baseUrl.appendingPathComponent("styles")
         var components = URLComponents(url: beersUrl, resolvingAgainstBaseURL: false)
@@ -73,7 +75,9 @@ class NetworkController {
 
     }
     
+    //To fetch all beers for a style
     func fetchBeers(for styleId: Int, completion: @escaping ([Beer]?) -> Void) {
+        //If there is no API Key present in settings bundle, return and do completion(nil)
         guard let API_KEY = SettingsBundleHelper().API_KEY else {
             completion(nil)
             return}
@@ -102,12 +106,12 @@ class NetworkController {
     }
     
     
-    //To fetch a specific beer by id
+    //To fetch a specific beer by id, currently not really used since we already fetch the beer objects with the previous function
     func fetchBeer( beerId: Int, completion: @escaping (Beer?) -> Void) {
+        //If there is no API Key present in settings bundle, return and do completion(nil)
         guard let API_KEY = SettingsBundleHelper().API_KEY else {
             completion(nil)
             return}
-        
         
         let beerUrl = baseUrl.appendingPathComponent("styles")
         var components = URLComponents(url: beerUrl, resolvingAgainstBaseURL: false)
@@ -130,28 +134,13 @@ class NetworkController {
         }
     }
     
-    //Fetching label image via url
-    func fetchImage(with url : URL, completion: @escaping (UIImage?) -> Void) {
-        let task = URLSession.shared.dataTask(with: url) { (data,
-            response, error) in
-            if let data = data {
-                
-            URLCache.shared.storeCachedResponse(CachedURLResponse(response: response!, data: data), for: URLRequest(url: url))
-                
-                let image = UIImage(data: data)
-                completion(image)
-            } else {
-                completion(nil)
-            }
-        }
-        
-        task.resume()
-    }
-    
+    //To check wether our API key is valid or not
     func isAPIKeyValid(completion: @escaping (Bool) -> Void) {
+        //If there is no API Key present in settings bundle, return and do completion(nil)
         guard let API_KEY = SettingsBundleHelper().API_KEY else {
             completion(false)
             return}
+        
         var components = URLComponents.init(url: baseUrl.appendingPathComponent("beers"), resolvingAgainstBaseURL: false)
         components?.queryItems = [URLQueryItem(name: "key", value: API_KEY), URLQueryItem(name: "name", value: "easterEgg:)")]
         let task = URLSession.shared.dataTask(with: components!.url!) { (data,
@@ -165,6 +154,25 @@ class NetworkController {
                 return
             }
         }
+        task.resume()
+    }
+    
+    //Fetching label image via url
+    func fetchImage(with url : URL, completion: @escaping (UIImage?) -> Void) {
+        let task = URLSession.shared.dataTask(with: url) { (data,
+            response, error) in
+            if let data = data {
+                
+                //Manually cache response
+                URLCache.shared.storeCachedResponse(CachedURLResponse(response: response!, data: data), for: URLRequest(url: url))
+                
+                let image = UIImage(data: data)
+                completion(image)
+            } else {
+                completion(nil)
+            }
+        }
+        
         task.resume()
     }
     

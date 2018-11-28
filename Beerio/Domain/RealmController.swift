@@ -56,7 +56,6 @@ class RealmController {
             try realm.write {
                 let id = realmBeer.id
                 
-                
                 realmBeer.id = dataBeer.id
                 realmBeer.name = dataBeer.name
                 realmBeer.beerDescription = dataBeer.beerDescription
@@ -64,9 +63,9 @@ class RealmController {
                 realmBeer.internationalBitteringUnit = dataBeer.internationalBitteringUnit
                 realmBeer.originalGravity = dataBeer.originalGravity
                 realmBeer.foodPairings = dataBeer.foodPairings
-                realmBeer.isRetiredRealm.value = dataBeer.isRetiredRealm.value
-                realmBeer.isOrganicRealm.value = dataBeer.isOrganicRealm.value
-                realmBeer.year = dataBeer.year
+                realmBeer.isRetired.value = dataBeer.isRetired.value
+                realmBeer.isOrganic.value = dataBeer.isOrganic.value
+                realmBeer.year.value = dataBeer.year.value
                 
                 DocumentsDirectoryController.singleton.removeImage(fileName: id)
             }

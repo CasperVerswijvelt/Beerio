@@ -24,7 +24,6 @@
 		AF7CBE7521AB28E60004B112 /* Toaster.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF7CBE7421AB28E60004B112 /* Toaster.swift */; };
 		AF7CBE7921AB6A330004B112 /* EditBeerTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF7CBE7821AB6A330004B112 /* EditBeerTableViewController.swift */; };
 		AFD077E721A6E52800D49D4A /* LoaderTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFD077E621A6E52800D49D4A /* LoaderTableViewController.swift */; };
-		AFD077E921A75A9B00D49D4A /* Glass.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFD077E821A75A9B00D49D4A /* Glass.swift */; };
 		AFD077EB21A75B9600D49D4A /* Labels.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFD077EA21A75B9600D49D4A /* Labels.swift */; };
 		AFD077ED21A75F4D00D49D4A /* BeersTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFD077EC21A75F4D00D49D4A /* BeersTableViewController.swift */; };
 		AFD5820C21A80B6E00296746 /* BeerSectionInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFD5820B21A80B6E00296746 /* BeerSectionInfo.swift */; };
@@ -65,7 +64,6 @@
 		AF7CBE7421AB28E60004B112 /* Toaster.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Toaster.swift; sourceTree = "<group>"; };
 		AF7CBE7821AB6A330004B112 /* EditBeerTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditBeerTableViewController.swift; sourceTree = "<group>"; };
 		AFD077E621A6E52800D49D4A /* LoaderTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoaderTableViewController.swift; sourceTree = "<group>"; };
-		AFD077E821A75A9B00D49D4A /* Glass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Glass.swift; sourceTree = "<group>"; };
 		AFD077EA21A75B9600D49D4A /* Labels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Labels.swift; sourceTree = "<group>"; };
 		AFD077EC21A75F4D00D49D4A /* BeersTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeersTableViewController.swift; sourceTree = "<group>"; };
 		AFD5820B21A80B6E00296746 /* BeerSectionInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeerSectionInfo.swift; sourceTree = "<group>"; };
@@ -182,7 +180,6 @@
 				AFF0786321A5E64E00A23B06 /* Category.swift */,
 				AFF0786721A60B2B00A23B06 /* Beer.swift */,
 				AFF0786921A60D5D00A23B06 /* Style.swift */,
-				AFD077E821A75A9B00D49D4A /* Glass.swift */,
 				AFD077EA21A75B9600D49D4A /* Labels.swift */,
 				AFD5820B21A80B6E00296746 /* BeerSectionInfo.swift */,
 				AFD5820D21A80D3900296746 /* BeerCellInfo.swift */,
@@ -339,7 +336,6 @@
 				AFD5821921A89B7C00296746 /* RealmController.swift in Sources */,
 				AF7CBE7521AB28E60004B112 /* Toaster.swift in Sources */,
 				AF097E1B21AD5E0D003B948C /* BrowsOnlineViewController.swift in Sources */,
-				AFD077E921A75A9B00D49D4A /* Glass.swift in Sources */,
 				AFD5821421A8462900296746 /* ImageViewController.swift in Sources */,
 				AFF0786821A60B2B00A23B06 /* Beer.swift in Sources */,
 				AF63E08121A5BB2600860A90 /* CategoriesTableViewController.swift in Sources */,

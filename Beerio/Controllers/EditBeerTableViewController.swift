@@ -60,9 +60,9 @@ class EditBeerTableViewController: UITableViewController, UIPickerViewDelegate, 
             self.internationalBitteringUnitTextField.text = beer.internationalBitteringUnit
             self.servingTemperatureTextField.text = beer.servingTemperature
             self.foodPairingsTextView.text = beer.foodPairings
-            self.isRetiredSwitch.isOn = beer.isRetiredRealm.value ?? false
-            self.isOrganicSwitch.isOn = beer.isOrganicRealm.value ?? false
-            self.yearPicker.selectRow(years.firstIndex(of: beer.year ?? 2018) ?? 0, inComponent: 0, animated: false)
+            self.isRetiredSwitch.isOn = beer.isRetired.value ?? false
+            self.isOrganicSwitch.isOn = beer.isOrganic.value ?? false
+            self.yearPicker.selectRow(years.firstIndex(of: beer.year.value ?? 2018) ?? 0, inComponent: 0, animated: false)
             self.currentPickedImage = DocumentsDirectoryController.singleton.getImage(fileName: beer.id)
             nameChanged()
             updateLabelPickerCell()
@@ -237,9 +237,9 @@ class EditBeerTableViewController: UITableViewController, UIPickerViewDelegate, 
         beer.internationalBitteringUnit = internationalBitteringUnit
         beer.servingTemperature = servingTemperature
         beer.foodPairings = foodPairings
-        beer.isRetiredRealm.value = isRetired
-        beer.isOrganicRealm.value = isOrganic
-        beer.year = year
+        beer.isRetired.value = isRetired
+        beer.isOrganic.value = isOrganic
+        beer.year.value = year
         
         if let editBeer = editBeer {
             RealmController.singleton.updateBeer(realmBeer: editBeer, dataBeer: beer, shouldUpdateTable: true) {
