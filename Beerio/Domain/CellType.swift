@@ -8,6 +8,7 @@
 
 import Foundation
 
+//Enum for type of different cells that can be displayed in a BeerDetailTableView
 enum CellType: String {
     case SIMPLE = "beerCellSimple"
     case LARGE = "beerCellLarge"

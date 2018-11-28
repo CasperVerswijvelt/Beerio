@@ -8,6 +8,7 @@
 
 import Foundation
 
+//This class contains all info that should be displayed in a single cell in a BeerDetailTableView
 struct BeerCellInfo {
     var key : String
     var value : String?

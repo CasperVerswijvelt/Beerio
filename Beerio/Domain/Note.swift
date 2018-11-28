@@ -10,7 +10,9 @@ import Foundation
 import RealmSwift
 import Realm
 
+//A note that can be added to a beer object
 class Note : Object {
+    //Variables
     @objc dynamic var date : Date = Date()
     @objc dynamic var text : String = ""
     

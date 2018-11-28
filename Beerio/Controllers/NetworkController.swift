@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 
+//This class contains all communication with the internet
 class NetworkController {
     static let singleton : NetworkController = NetworkController()
     

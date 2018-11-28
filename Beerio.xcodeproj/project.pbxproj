@@ -141,10 +141,11 @@
 		AF63E06721A5AB5A00860A90 /* Beerio */ = {
 			isa = PBXGroup;
 			children = (
+				AFD9C1C721AED7A9002303A4 /* Controllers */,
 				AF097E1721ACA354003B948C /* Protocols */,
 				AFD077E521A6DFA800D49D4A /* Views */,
 				AF63E08221A5BB9700860A90 /* Domain */,
-				AF63E07D21A5B2DD00860A90 /* Controllers */,
+				AF63E07D21A5B2DD00860A90 /* ViewControllers */,
 				AF63E06821A5AB5A00860A90 /* AppDelegate.swift */,
 				AF63E06F21A5AB5C00860A90 /* Assets.xcassets */,
 				AF7CBE7121AABF3A0004B112 /* Main.storyboard */,
@@ -156,7 +157,7 @@
 			path = Beerio;
 			sourceTree = "<group>";
 		};
-		AF63E07D21A5B2DD00860A90 /* Controllers */ = {
+		AF63E07D21A5B2DD00860A90 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
 				AFD077E621A6E52800D49D4A /* LoaderTableViewController.swift */,
@@ -170,13 +171,12 @@
 				AF097E1821AD5851003B948C /* ApiKeyInvalidPopUpViewController.swift */,
 				AF097E1A21AD5E0D003B948C /* BrowsOnlineViewController.swift */,
 			);
-			path = Controllers;
+			path = ViewControllers;
 			sourceTree = "<group>";
 		};
 		AF63E08221A5BB9700860A90 /* Domain */ = {
 			isa = PBXGroup;
 			children = (
-				AF63E08321A5BC8000860A90 /* NetworkController.swift */,
 				AFF0786321A5E64E00A23B06 /* Category.swift */,
 				AFF0786721A60B2B00A23B06 /* Beer.swift */,
 				AFF0786921A60D5D00A23B06 /* Style.swift */,
@@ -184,10 +184,7 @@
 				AFD5820B21A80B6E00296746 /* BeerSectionInfo.swift */,
 				AFD5820D21A80D3900296746 /* BeerCellInfo.swift */,
 				AFD5820F21A80DEF00296746 /* CellType.swift */,
-				AFD5821821A89B7C00296746 /* RealmController.swift */,
 				AF7CBE6B21A9BCEE0004B112 /* Note.swift */,
-				AF7CBE7421AB28E60004B112 /* Toaster.swift */,
-				AF097E1321AC22B9003B948C /* DocumentsDirectoryController.swift */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -199,6 +196,17 @@
 				AF7CBE6F21AAAD720004B112 /* BeerTableViewCell.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		AFD9C1C721AED7A9002303A4 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				AF63E08321A5BC8000860A90 /* NetworkController.swift */,
+				AFD5821821A89B7C00296746 /* RealmController.swift */,
+				AF097E1321AC22B9003B948C /* DocumentsDirectoryController.swift */,
+				AF7CBE7421AB28E60004B112 /* Toaster.swift */,
+			);
+			path = Controllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
