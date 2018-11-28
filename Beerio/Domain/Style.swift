@@ -8,12 +8,14 @@
 
 import Foundation
 
-class Style : Codable {
+class Style : Decodable {
+    //Variables
     var id : Int
     var name : String
     var description : String
     var categoryId : Int
     
+    //Decodable Initializer
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         
@@ -24,6 +26,7 @@ class Style : Codable {
         
     }
     
+    //CodingKeys for Decodable
     private enum CodingKeys : String, CodingKey {
         case id
         case name
@@ -32,9 +35,11 @@ class Style : Codable {
     }
 }
 
-class Styles : Codable {
+//Styles, multiple of style, to decode to from json
+class Styles : Decodable {
     var styles: [Style]
     
+    //CodingKeys for Decodable
     private enum CodingKeys : String, CodingKey {
         case styles = "data"
     }
